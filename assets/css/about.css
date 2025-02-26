@@ -1,0 +1,185 @@
+/* STYLE UNTUK HALAMAN ABOUT */
+:root {
+    --primary-color: #2b2b2b;
+    --secondary-color: #faf9f6;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+/* STYLE HEADER */
+header {
+    background-image: url(../img/milling-machine.jpg);
+    background-size: cover;
+    background-color: rgba(0, 0, 0, 0.481);
+    background-blend-mode: darken;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position-y: -40vh;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    color: #ffffff;
+}
+
+header h1 {
+    font-size: 80px;
+    line-height: 85px;
+    font-family: "Oswald", serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    letter-spacing: 5px;
+}
+
+header hr {
+    margin: 5px auto 30px auto;
+    width: 30%;
+}
+
+header a {
+    margin: 0 10px;
+    padding: 15px 30px;
+    font-size: 0.9rem;
+    color: white;
+}
+
+/* STYLE HEADER END */
+
+/* MAIN STYLE */
+main {
+    line-height: 30px;
+}
+
+.pengertian {
+    padding: 50px 150px;
+    text-align: center;
+}
+
+.pengertian p {
+    margin-bottom: 40px;
+}
+
+/* CARD */
+.sejarah {
+    text-align: center;
+}
+
+.sejarah hr {
+    border: 1px solid black;
+    width: 10%;
+    margin: 15px auto;
+}
+
+.sejarah h1 {
+    font-family: 'Oswald';
+    font-size: 35px;
+}
+
+.sejarah-card {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    padding-bottom: 8rem;
+}
+
+.card-a {
+    width: 400px;
+}
+
+.card-a .fas,
+.card-b .fas {
+    font-size: 30px;
+    color: white;
+    background-color: var(--primary-color);
+    border-radius: 40px;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px auto;
+}
+
+.card-b {
+    width: 600px;
+}
+
+/* CARD END */
+
+/* OWNER PROFIL */
+.owner {
+    background-image: url(../img/owner-2.jpg);
+    background-position: center;
+    height: 80vh;
+    color: white;
+}
+
+.profile {
+    margin-left: 10vh;
+    width: 700px;
+}
+
+.profile h1 {
+    font-size: 30px;
+    line-height: 40px;
+}
+
+.profile hr {
+    width: 55%;
+    margin: 10px 0;
+}
+
+.owner-gradient {
+    width: 80vw;
+    height: 80vh;
+    z-index: 3;
+    background-image: linear-gradient(to right, rgb(0, 0, 0), rgba(0, 0, 0, 0));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+cite {
+    display: block;
+    line-height: 25px;
+}
+
+/* OWNER PROFIL END */
+/* MAIN STYLE END */
+
+@media only screen and (max-width: 768px) {
+    header {
+        background-position: -500px;
+    }
+
+    header h1 {
+        font-size: 60px;
+        line-height: 75px;
+    }
+
+    .pengertian {
+        padding: 50px 20px;
+    }
+
+    .sejarah {
+        margin: 10px;
+    }
+
+    .owner {
+        width: 100%;
+        background-position: 73%;
+        background-size: cover;
+    }
+
+    .profile {
+        margin: 30px;
+        font-size: 14px;
+        line-height: 25px;
+        width: 70%;
+    }
+}

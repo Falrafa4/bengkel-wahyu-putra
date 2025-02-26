@@ -1,0 +1,159 @@
+/* STYLE UNTUK HALAMAN ABOUT */
+:root {
+    --primary-color: #2b2b2b;
+    --secondary-color: #faf9f6;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+/* STYLE HEADER */
+header {
+    background-image: url(../img/machinev-2.jpg);
+    background-size: cover;
+    background-color: rgba(0, 0, 0, 0.481);
+    background-blend-mode: darken;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position-y: -40vh;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    color: #ffffff;
+}
+
+header h1 {
+    font-size: 80px;
+    line-height: 85px;
+    font-family: "Oswald", serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    letter-spacing: 5px;
+}
+
+header hr {
+    margin: 5px auto 30px auto;
+    width: 30%;
+}
+
+header a {
+    margin: 0 10px;
+    padding: 15px 30px;
+    font-size: 0.9rem;
+    color: white;
+}
+
+/* STYLE HEADER END */
+
+/* MAIN STYLE */
+.contact-page {
+    display: flex;
+    padding: 5vw;
+    gap: 70px;
+}
+
+.contact-page h2 {
+    font-weight: normal;
+    font-size: 30px;
+}
+
+/* contact form */
+.contact-form {
+    width: 50%;
+}
+
+form p {
+    margin: 10px auto 20px auto;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea {
+    width: 100%;
+    height: 40px;
+    padding-left: 10px;
+    font-size: 15px;
+    border: 1px solid #b6b6b6;
+    border-radius: 5px;
+}
+
+textarea {
+    height: 80px;
+    padding-top: 7px;
+    resize: vertical;
+}
+
+input[type="submit"] {
+    margin-top: 10px;
+    padding: 7px 13px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+    color: #ffffff;
+    transition: .3s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+input[type="submit"]:hover {
+    cursor: pointer;
+    background-color: #3d3d3d;
+}
+
+/* contact info */
+.contact-info-desc {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    padding: 25px 40px;
+    margin-top: 20px;
+}
+
+.alamat,
+.jam,
+.telepon,
+.email {
+    display: flex;
+    margin: 10px auto;
+    /* align-items: center; */
+}
+
+@media only screen and (max-width: 768px) {
+    header {
+        background-position: -500px;
+    }
+
+    header h1 {
+        font-size: 60px;
+        line-height: 75px;
+    }
+
+    header p {
+        font-size: 14px;
+        margin: 0 10px;
+    }
+
+    .contact-page {
+        display: block;
+    }
+
+    .contact-form {
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    .contact-info {
+        margin-top: 40px;
+    }
+
+    .contact-info-desc {
+        font-size: 14px;
+    }
+
+    iframe {
+        width: 100%;
+    }
+
+}

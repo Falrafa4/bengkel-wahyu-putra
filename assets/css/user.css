@@ -1,0 +1,31 @@
+:root {
+    --primary-color: #2b2b2b;
+    --secondary-color: #faf9f6;
+}
+
+main {
+    width: 70%;
+    margin: 50px auto;
+    border: 1px solid #bbbbbb;
+    padding: 20px 50px 50px 50px;
+}
+
+main h1 {
+    font-size: 40px;
+    font-weight: 400;
+}
+
+main h3 {
+    font-weight: 400;
+    margin: 15px auto;
+}
+
+.nav-dash a {
+    color: var(--primary-color);
+    display: inline-block;
+    margin: 10px auto;
+}
+
+.nav-dash a:hover {
+    text-decoration: underline;
+}

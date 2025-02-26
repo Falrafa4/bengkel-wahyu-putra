@@ -1,0 +1,265 @@
+/* STYLE UNTUK HALAMAN HOME */
+:root {
+    --primary-color: #2b2b2b;
+    --secondary-color: #faf9f6;
+}
+
+body {
+    overflow-x: hidden;
+    background-color: var(--primary-color);
+}
+
+/* SLIDESHOW IMAGE*/
+.slideshow {
+    position: absolute;
+    z-index: -99;
+    overflow: hidden;
+}
+
+.wrapper {
+    width: 100%;
+    display: flex;
+}
+
+.wrapper img {
+    z-index: -99;
+    width: 100%;
+    object-fit: cover;
+    animation: slide 20s infinite;
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-100%);
+    }
+
+    45% {
+        transform: translateX(-100%);
+    }
+
+    50% {
+        transform: translateX(-200%);
+    }
+
+    70% {
+        transform: translateX(-200%);
+    }
+
+    75% {
+        transform: translateX(-300%);
+    }
+
+    95% {
+        transform: translateX(-300%);
+    }
+}
+
+/* SLIDESHOW IMAGE END */
+
+/* STYLE HEADER */
+header {
+    background-color: rgba(0, 0, 0, 0.129);
+    background-blend-mode: darken;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    color: white;
+}
+
+header h1 {
+    margin-top: 20vh;
+    font-size: 85px;
+    line-height: 85px;
+    font-family: "Oswald", serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    letter-spacing: 6px;
+}
+
+header p {
+    font-size: 20px;
+}
+
+header hr {
+    margin: 40px auto;
+    width: 45%;
+}
+
+.header-nav {
+    margin-top: 50px;
+}
+
+.nav-hubungi,
+.nav-layanan {
+    transition: all .7s;
+}
+
+.nav-layanan {
+    background-color: white;
+    border: 1px solid white;
+    border-radius: 100px;
+    color: black;
+}
+
+.nav-layanan:hover {
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+    /* color: #515151; */
+}
+
+.nav-hubungi {
+    background-color: #ffffff10;
+    border: 1px solid white;
+    border-radius: 100px;
+}
+
+.nav-hubungi:hover {
+    background-color: white;
+    color: black
+}
+
+header a {
+    margin: 0 10px;
+    padding: 15px 30px;
+    font-size: 0.9rem;
+    color: white;
+}
+
+/* STYLE HEADER END */
+
+/* HAMBURGER NAV STYLE */
+#toggleSideBar {
+    display: none;
+}
+
+.ham-bar {
+    display: none;
+    position: fixed;
+    top: 7%;
+    z-index: -1;
+    background-color: var(--primary-color);
+    width: 100%;
+    left: 0;
+}
+
+.ham-bar a {
+    display: block;
+    color: white;
+    font-size: 24px;
+    text-align: center;
+    line-height: 50px;
+}
+
+/* KEUNGGULAN STYLE */
+main h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-family: "Oswald";
+    font-size: 40px;
+}
+
+.unggul {
+    padding: 15vh 0;
+}
+
+.unggul h3 {
+    font-size: 20px;
+}
+
+.unggul-card {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.card {
+    width: 400px;
+    padding: 50px 30px;
+    background-color: #fffbf6;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+    cursor: default;
+    border-radius: 6px;
+    transition: .4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.card:hover {
+    transform: scale(1.1);
+}
+
+/* KEUNGGULAN STYLE END */
+
+/* QUOTE STYLE */
+.quote {
+    background-color: var(--primary-color);
+    background-blend-mode: multiply;
+    background-image: url(img/milling-machine.jpg);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #ffffff;
+    height: 55vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+}
+
+.quote-fill {
+    width: 700px;
+    text-align: center;
+}
+
+/* RESPONSIVE STYLE
+    SECARA KESELURUHAN MASIH BELUM
+*/
+@media only screen and (max-width: 768px) {
+    .wrapper {
+        width: 100%;
+        height: 100vh;
+    }
+
+    .wrapper img {
+        z-index: -99;
+        width: 100%;
+        height: 100%;
+    }
+
+    header h1 {
+        font-size: 70px;
+        line-height: 75px;
+    }
+
+    header p {
+        margin: 5px 20px;
+    }
+
+    .card {
+        width: 90%;
+    }
+
+    .quote {
+        font-size: 18px;
+    }
+
+    .quote p {
+        margin: 5px;
+    }
+
+    .quote-fill {
+        width: 100%;
+    }
+}
