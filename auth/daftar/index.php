@@ -3,12 +3,9 @@
     
     $pesan = "";
     if(isset($_POST['daftar'])) {
-        $username = $_POST['username'];
         $password = md5($_POST['pass']);
         $nama_pelanggan = $conn -> real_escape_string($_POST['nama']);
         $no_telp = $_POST['telp'];
-        $jenis_kelamin = $_POST['jkel'];
-        $tgl_lahir = $_POST['tgl_lahir'];
         $jenis_akun = $_POST['jenis_akun'];
 
         $queryCheck = "SELECT username FROM pelanggan WHERE username = '$username'";
@@ -55,15 +52,6 @@
             <input type="text" name="nama" id="nama" placeholder="Nama Lengkap" required autocomplete="off"><br>
             <input type="email" name="email" id="email" placeholder="Alamat Email" autocomplete="off">
             
-            <label for="jkel" class="label">Jenis Kelamin: </label>
-            <select name="jkel" id="jkel">
-                <option value="laki-laki">Laki-laki</option>
-                <option value="perempuan">Perempuan</option>
-            </select>
-            
-            <label for="date" class="label">Tanggal Lahir: </label>
-            <input type="date" name="tgl_lahir" id="tgl_lahir" placeholder="Tanggal Lahir" required><br>
-            
             <input type="tel" name="telp" id="telp" placeholder="Nomor Telepon" required autocomplete="off">
             
             <label for="jenis_akun" class="label">Jenis Akun: </label>
@@ -72,10 +60,7 @@
                 <option value="Perusahaan">Perusahaan</option>
             </select>
 
-            <input type="text" name="username" id="username" placeholder="Buat Username" required autocomplete="off">
-            <br>
-
-            <input type="password" name="pass" id="pass" placeholder="Buat Password" required><br>
+            <input type="password" minlength="8" name="pass" id="pass" placeholder="Buat Password" required><br>
             <input type="password" name="ulangi_pass" id="ulangi_pass" placeholder="Ulangi Password" required><br>
             <p class="msgPass" style="font-size: 14px; margin: 0px 0px 10px 0px; font-style: italic;"></p>
 
@@ -85,9 +70,7 @@
         </form>
     </main>
 
-    <!-- FOOTER -->
-    <?php include "../../includes/footer.php"; ?>
-    <!-- FOOTER END -->
+
     <script src="https://kit.fontawesome.com/ed13b1bb03.js" crossorigin="anonymous"></script>
     <script src="../assets/js/main.js"></script>
 

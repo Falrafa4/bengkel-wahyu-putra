@@ -3,19 +3,11 @@
     session_start();
     include "../../config/koneksi.php";
 
-    //mengecek apakah ada session user yang aktif, jika tidak maka diarahkan ke login.php
-    if(!isset($_SESSION['data']['role']) || $_SESSION['data']['role'] !== 'Admin'){
-        header("location: ../login/"); // arahkan ke login.php
-        exit();
-    }
-
     //untuk menampilkan data yang akan diedit
-    $username = '';
-    $password = '';
+    $id_pelanggan = '';
     $nama_pelanggan = '';
+    $email = '';
     $no_telp = '';
-    $jenis_kelamin = '';
-    $tgl_lahir = '';
     $jenis_akun = '';
     $role = '';
 
@@ -29,14 +21,16 @@
 
         //data di bawah akan diletakkan pada tiap input-an
         $id_pelanggan = $result['id_pelanggan'];
-        $username = $result['username'];
-        $password = $result['password'];
+        $email = $result['email'];
         $nama_pelanggan = $result['nama_pelanggan'];
         $no_telp = $result['no_telp'];
-        $jenis_kelamin = $result['jenis_kelamin'];
-        $tgl_lahir = $result['tgl_lahir'];
         $jenis_akun = $result['jenis_akun'];
         $role = $result['role'];
+    }
+
+    if(!isset($_SESSION['data']['role']) || $_SESSION['data']['role'] !== 'Admin'){
+        //header("location: ../../auth/login/"); // arahkan ke login.php
+        exit("You don't have permission to access this!");
     }
 ?>
 
@@ -56,40 +50,30 @@
     <?php include "../../includes/nav.php"; ?>
 
     <main>
-        <form action="../proses.php" method="POST">
+        <form action="../../auth/proses.php" method="POST">
             <h1>
                 <?php if(isset($_GET['ubah'])) {echo "Edit Data";} else {echo "Tambah Data";}?>
             </h1><hr>
+
             <input type="hidden" value="<?= $id_pelanggan ?>" name="id_pelanggan">
-            <div class="input-box">
-                <label for="username">Username </label>
-                <input type="text" name="username" id="username" placeholder="Ex: fal123" value="<?= $username ?>" required>
-            </div>
-            <?php if(!isset($_GET['ubah'])){ ?>
-                <div class="input-box">
-                    <label for="password">New Password </label>
-                    <span><i class="fas fa-eye-slash" id="eye" onclick="openPass()"></i></span>
-                    <input type="password" name="pass_pelanggan" id="password" value="<?= $password ?>">
-                </div>
-            <?php } ?>
             <div class="input-box">
                 <label for="nama">Nama Pelanggan </label>
                 <input type="text" name="nama_pelanggan" id="nama" placeholder="Ex: Rafa Asad" value="<?= $nama_pelanggan ?>" required>
             </div>
             <div class="input-box">
+                <label for="email">Email </label>
+                <input type="email" name="email" id="email" placeholder="Ex: user@gmail.com" value="<?= $email ?>" required>
+            </div>
+            <?php if(!isset($_GET['ubah'])){ ?>
+            <div class="input-box">
+                <label for="password">New Password </label>
+                <span><i class="fas fa-eye-slash" id="eye" onclick="openPass()"></i></span>
+                <input type="password" name="pass_pelanggan" id="password">
+            </div>
+            <?php } ?>
+            <div class="input-box">
                 <label for="notelp">No. Telepon </label>
                 <input type="text" name="no_telp" id="notelp" placeholder="Ex: 081122334455" value="<?= $no_telp ?>" required>
-            </div>
-            <div class="input-box">
-                <label for="jkel">Jenis Kelamin </label>
-                <select name="jenis_kelamin" id="jkel" required>
-                    <option value="Laki-laki" <?php if($jenis_kelamin == 'Laki-laki') {echo "selected";} ?>>Laki-laki</option>
-                    <option value="Perempuan" <?php if($jenis_kelamin == 'Perempuan') {echo "selected";} ?> >Perempuan</option>
-                </select>
-            </div>
-            <div class="input-box">
-                <label for="tgl_lahir">Tanggal Lahir </label>
-                <input type="date" name="tgl_lahir" id="tgl_lahir" value="<?= $tgl_lahir ?>" required>
             </div>
             <div class="input-box">
                 <label for="jenis_akun">Jenis Akun </label>
@@ -124,8 +108,6 @@
         </form>
     </main>
 
-    <!-- FOOTER -->
-    <?php include "../../includes/footer.php"; ?>
     <script src="https://kit.fontawesome.com/ed13b1bb03.js" crossorigin="anonymous"></script>
     <script src="../../assets/js/main.js"></script>
 </body>

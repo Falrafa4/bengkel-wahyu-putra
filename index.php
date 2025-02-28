@@ -37,10 +37,9 @@ session_start();
             <?php } else {?>
             <li>
                 <i class="fas fa-user-circle"></i>
-                <span><?= $_SESSION['data']['username']; ?></span>
                 <div class="dropdown">
                     <ul>
-                        <li><a href="auth/dashboard/<?= ($_SESSION['data']['role'] == 'Admin' ? 'admin.php' : 'user.php') ?>">Dashboard</a></li>
+                        <li><a href="dashboard/<?= ($_SESSION['data']['role'] == 'Admin' ? 'admin/admin.php' : 'pages/dashboard.php') ?>">Dashboard</a></li>
                         <li><a href="auth/logout.php">Logout</a></li>
                     </ul>
                 </div>

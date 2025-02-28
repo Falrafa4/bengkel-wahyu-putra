@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../assets/css/global.css">
     <link rel="stylesheet" href="../../assets/css/login.css">
@@ -21,12 +21,12 @@
     <?php
         $pesan = '';
         if(isset($_POST['masuk'])){ //jika ada aksi method POST dengan name=masuk
-            $username = $_POST['username']; //simpan username
+            $email = $_POST['email']; //simpan email
             $password = md5($_POST['pass_user']); //simpan password
 
             // Gunakan Prepared Statement
-            $stmt = $conn->prepare("SELECT * FROM pelanggan WHERE username = ? AND password = ?");
-            $stmt->bind_param("ss", $username, $password);
+            $stmt = $conn->prepare("SELECT * FROM pelanggan WHERE email = ? AND password = ?");
+            $stmt->bind_param("ss", $email, $password);
             $stmt->execute();
             $result = $stmt->get_result();
             $data = mysqli_fetch_assoc($result);
@@ -36,14 +36,14 @@
         
                 // Redirect berdasarkan role
                 if ($data['role'] === 'Admin') {
-                    echo '<script>alert("Selamat Datang, min! '.$data['nama_pelanggan'].'"); location.href="../dashboard/admin.php";</script>'; // Arahkan ke halaman admin
+                    echo '<script>alert("Selamat Datang, min! '.$data['nama_pelanggan'].'"); location.href="../../dashboard/admin/admin.php";</script>'; // Arahkan ke halaman admin
                 } else {
-                    echo '<script>alert("Selamat Datang! '.$data['nama_pelanggan'].'"); location.href="../dashboard/user.php";</script>'; // Arahkan ke halaman user
+                    echo '<script>alert("Selamat Datang! '.$data['nama_pelanggan'].'"); location.href="../../dashboard/pages/dashboard.php";</script>'; // Arahkan ke halaman user
                 }
                 exit(); // Hentikan eksekusi setelah redirect
             }
             else {
-                $pesan = 'Username/Password yang dimasukkan tidak sesuai.';
+                $pesan = 'Email/Password yang dimasukkan tidak sesuai.';
             }
         }
     ?>
@@ -54,8 +54,8 @@
             <em><?= $pesan ?></em>
 
             <div class="input-box">
-                <span><i class="fas fa-user"></i></span>
-                <input type="text" name="username" id="username" placeholder="Username" required><br>
+                <span><i class="fas fa-envelope"></i></span>
+                <input type="email" name="email" id="email" placeholder="Email" required autocomplete="off"><br>
             </div>
             <div class="input-box">
                 <span><i class="fas fa-eye-slash" id="eye" onclick="openPass()"></i></span>
@@ -68,9 +68,6 @@
         </form>
     </main>
 
-    <!-- FOOTER -->
-    <?php include "../../includes/footer.php"; ?>
-    <!-- FOOTER END -->
     <script src="https://kit.fontawesome.com/ed13b1bb03.js" crossorigin="anonymous"></script>
     <script src="../../assets/js/main.js"></script>
 </body>
