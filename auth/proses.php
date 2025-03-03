@@ -26,18 +26,16 @@
         // UPDATE DATA
         if($_POST['aksi'] == 'edit') {
             $id_pelanggan = $_POST['id_pelanggan'];
-            $username = $_POST['username'];
-            $password = md5($_POST['pass_pelanggan']);
+            //$password = md5($_POST['pass_pelanggan']);
             $nama_pelanggan = $_POST['nama_pelanggan'];
+            $email = $_POST['email'];
             $no_telp = $_POST['no_telp'];
-            $jenis_kelamin = $_POST['jenis_kelamin'];
-            $tgl_lahir = $_POST['tgl_lahir'];
             $jenis_akun = $_POST['jenis_akun'];
             $role = $_POST['role'];
 
             
             
-            $query = "UPDATE pelanggan SET username = '$username', nama_pelanggan = '$nama_pelanggan', no_telp = '$no_telp', jenis_kelamin = '$jenis_kelamin', tgl_lahir = '$tgl_lahir', jenis_akun = '$jenis_akun', role = '$role' WHERE id_pelanggan = $id_pelanggan;";
+            $query = "UPDATE pelanggan SET nama_pelanggan = '$nama_pelanggan', email = '$email', no_telp = '$no_telp', jenis_akun = '$jenis_akun', role = '$role' WHERE id_pelanggan = $id_pelanggan;";
             $sql = mysqli_query($conn, $query);
 
             if($sql) {

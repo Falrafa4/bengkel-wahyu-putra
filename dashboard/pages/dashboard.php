@@ -30,7 +30,7 @@
         <aside>
             <h1>Bengkel Wahyu Putra</h1>
             <div class="nav-dash">
-                <a href=""><i class="fas fa-house"></i>Dashboard</a>
+                <a href=""><i class="fas fa-house active"></i>Dashboard</a>
                 <a href=""><i class="fas fa-bag-shopping"></i>Buat Pesanan</a>
                 <a href=""><i class="fas fa-list"></i>Daftar Pesanan</a>
                 <a href=""><i class="fas fa-bell"></i>Notifikasi</a>
@@ -69,7 +69,7 @@
                     <td class="button"><a href=""><i class="fas fa-pen-to-square"></i> Edit Profil</a></td>
                 </tr>
             </table>
-        </section>       
+        </section>
     </main>
 
     <script src="https://kit.fontawesome.com/ed13b1bb03.js" crossorigin="anonymous"></script>

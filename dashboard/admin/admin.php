@@ -66,7 +66,17 @@
 
                 <div class="action-btn">
                     <a href="kelola.php?ubah=<?= $result['id_pelanggan']; ?>" class="btn edit"><i class="fas fa-pen-to-square"></i> Edit</a>
-                    <a href="../../auth/proses.php?hapus=<?= $result['id_pelanggan']; ?>" class="btn hapus" onclick="return confirm('Apakah Anda yakin untuk menghapus data tersebut?')"><i class="fas fa-trash"></i> Hapus</a>
+                    <a  
+                    href="<?php if($result['role'] == 'Admin') {echo '#';}
+                    else {echo '../../auth/proses.php?hapus=' . $result['id_pelanggan'];} ?>" 
+                    
+                    class="btn hapus"
+                    
+                    onclick="<?php if($result['role'] == 'Admin') {
+                        echo "return alert('Can\'t delete this account (Administrator Account). Please contact your developer')";} 
+                    else {
+                        echo "return confirm('Apakah Anda yakin untuk menghapus data tersebut?')";} ?>">
+                        <i class="fas fa-trash"></i> Hapus</a>
                 </div>
             </div>
             <?php } ?>

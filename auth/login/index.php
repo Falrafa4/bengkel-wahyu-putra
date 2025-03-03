@@ -59,7 +59,7 @@
             </div>
             <div class="input-box">
                 <span><i class="fas fa-eye-slash" id="eye" onclick="openPass()"></i></span>
-                <input type="password" name="pass_user" id="password" placeholder="Password" required><br>
+                <input type="password" name="pass_user" id="pass_user" placeholder="Password" required><br>
             </div>
 
             <a href="../daftar/" class="forgot-pass">Lupa Password?</a>
