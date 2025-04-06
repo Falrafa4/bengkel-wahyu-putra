@@ -2,8 +2,6 @@
     session_start();
     require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
     require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/session_user.php";
-
-    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +36,7 @@
                         <th>Alamat</th>
                         <th>Aksi</th>
                     </tr>
-                    <?php while($data = $result->fetch_assoc()) { ?>
+                    <?php foreach($_SESSION['pesanan'] as $data) { ?>
                     <tr>
                         <td><?= $data['nomor_pesanan'] ?></td>
                         <td><?= $data['waktu_pemesanan'] ?></td>
@@ -48,14 +46,11 @@
                         <td><?= $data['material'] == NULL ? '-' : $data['material'] ?></td>
                         <td><?= $data['alamat_lengkap'] ?></td>
                         <td>
-                            <a href="">Detail</a>
+                            <a href="detail/?detail=<?= $data['no_pesanan'] ?>">Detail</a>
                         </td>
                     </tr>
                     <?php } ?>
                 </table>
-            </div>
-            <div class="detail-content">
-                <h1>Detail Pesanan</h1>
             </div>
         </section>
     </main>

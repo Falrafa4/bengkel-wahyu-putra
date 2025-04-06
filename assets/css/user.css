@@ -66,7 +66,7 @@ main {
     padding: 25px 30px;
     border-radius: 10px;
     width: 50%;
-    height: 50vh;
+    height: 320px;
 }
 
 .riwayat-notif {
@@ -75,8 +75,37 @@ main {
     gap: 40px;
 }
 
-.riwayat-notif hr {
-    margin-top: 10px;
+.riwayat-box {
+    color: black;
+    display: block;
+    position: relative;
+}
+
+.riwayat-box .fas {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+}
+
+.riwayat-box:hover {
+    background-color: #e8e8e8;
+}
+
+.riwayat-box hr {
+    margin: 7px 0px;
+    border: none;
+    border-top: 0.5px solid #898989;
+}
+
+.riwayat-box p:first-of-type {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.riwayat-box p:nth-of-type(2) {
+    font-size: 14px;
+    width: 80%;
 }
 
 .no-order, .msg-notif {
@@ -105,7 +134,7 @@ table .button {
     padding-top: 10px;
 }
 
-table a, .riwayat a {
+table a, .no-order a {
     background-color: var(--primary-color);
     color: white;
     padding: 10px 15px;
@@ -240,7 +269,7 @@ input:focus {
     margin-top: 10px;
 }
 
-.form-pesanan button:hover, table a:hover, .riwayat a:hover, table button:hover {
+.form-pesanan button:hover, table a:hover, .no-order a:hover, table button:hover {
     background-color: transparent;
     color: #2b2b2b;
     border: 1px solid #2b2b2b;

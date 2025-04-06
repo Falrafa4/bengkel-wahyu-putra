@@ -4,7 +4,7 @@
     require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
     require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/session_user.php";
 
-    $query = "SELECT CONCAT('WP', LPAD(p.no_pesanan, 5, '0')) AS nomor_pesanan, p.waktu_pemesanan, CONCAT(p.nama_jalan,', ',p.kecamatan,', ',p.kabupaten_kota) AS alamat_lengkap, s.nama_service, p.status_pesanan, pi.nama_item, pi.material, pi.jumlah_item
+    $query = "SELECT p.no_pesanan, CONCAT('WP', LPAD(p.no_pesanan, 5, '0')) AS nomor_pesanan, p.waktu_pemesanan, CONCAT(p.nama_jalan,', ',p.kecamatan,', ',p.kabupaten_kota) AS alamat_lengkap, s.nama_service, p.status_pesanan, pi.nama_item, pi.material, pi.jumlah_item
     FROM pemesanan p
     JOIN service s
     ON p.id_service = s.id_service
@@ -79,11 +79,28 @@
             </table>
             <div class="riwayat-notif">
                 <div class="riwayat">
-                    <h2>Daftar & Riwayat Pesanan</h2><hr>
+                    <h2>Daftar & Riwayat Pesanan</h2>
+                    <hr style="margin: 10px 0px; border: none; border-top: 0.5px solid black;">
                     <div class="msg-riwayat">
                         <?php foreach ($_SESSION['pesanan'] as $pesanan) { ?>
-                        <p><?= $pesanan['nama_item'] ?></p>
-                        <?php } 
+                        <a href="pages/my-order/detail/index.php?detail=<?= $pesanan['no_pesanan'] ?>" class="riwayat-box">
+                            <p>
+                                <?php
+                                if($pesanan['status_pesanan'] == "Menunggu Penawaran") {
+                                    echo "Pesanan " . $pesanan['status_pesanan'];
+                                } else if($pesanan['status_pesanan'] == "Dalam Proses") {
+                                    echo "Pesanan Sedang " . $pesanan['status_pesanan'];
+                                } else {
+                                    echo "Pesanan Telah " . $pesanan['status_pesanan'];
+                                }
+                                ?>
+                            </p>
+                            <p>Cek rincian pesanan <?= $pesanan['nomor_pesanan'] . " - " . $pesanan['nama_item'] ?> dengan jenis layanan <?= $pesanan['nama_service'] ?> di sini</p>
+                            <i class="fas fa-chevron-right"></i>
+                            <hr>
+                        </a>
+                        <?php } ?>
+                        <?php 
                         if($_SESSION['pesanan'] == []) { 
                         ?>
                         <div class="no-order">
