@@ -44,7 +44,7 @@ main a,
 input,
 label,
 select,
-option, em, strong {
+option, em, strong, button {
     animation: coolTransition 0.9s;
 }
 
@@ -140,15 +140,18 @@ ul li a {
 .right-bar ul {
     list-style: none;
 }
-
 /* STYLE NAVBAR END */
 
 /* DROPDOWN NAVBAR */
 .dropdown {
-    display: none;
+    opacity: 0;
+    visibility: none;
+    transform: translateY(-5px);
+    transition: .3s ease-in-out;
+    pointer-events: none;
     position: absolute;
     top: 100%;
-    left: -10px;
+    left: -40px;
     background-color: var(--primary-color);
     box-shadow: 3px -4px 6px rgba(0,0,0,0.2);
     border-radius: 5px;
@@ -167,12 +170,60 @@ ul li a {
     border-radius: 5px;
 }
 
-.right-bar:hover .dropdown {
-    display: block;
+.profil:hover .dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: all;
 }
 
 .dropdown ul {
     display: block;
+}
+
+/* NAVBAR DASHBOARD (ADMIN / USER) */
+aside {
+    display: block;
+    position: sticky;
+    top: 10vh;
+    left: 0;
+    background-color: #434343;
+    width: 300px;
+    height: 90vh;
+    align-self: start;
+}
+
+aside h1 {
+    color: white;
+    font-size: 32px;
+    font-family: Oswald;
+    font-weight: 700;
+    line-height: 45px;
+    padding: 35px 73px 8px 50px;
+}
+
+.nav-dash {
+    margin-top: 20px;
+}
+
+.nav-dash i {
+    width: 35px;
+    font-size: 20px;
+}
+
+.nav-dash a {
+    color: white;
+    display: block;
+    padding: 17px 0px 17px 42px;
+    transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.nav-dash .active {
+    background-color: #2b2b2b;
+}
+
+.nav-dash a:hover {
+    background-color: var(--primary-color);
 }
 
 /* HAMBURGER MENU STYLE */

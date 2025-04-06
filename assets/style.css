@@ -170,7 +170,7 @@ main h1 {
 }
 
 .unggul {
-    padding: 15vh 0;
+    padding: 65px 0;
 }
 
 .unggul h3 {
@@ -188,7 +188,7 @@ main h1 {
 .card {
     width: 400px;
     padding: 50px 30px;
-    background-color: #fffbf6;
+    background-color: #ffffff;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
     cursor: default;
     border-radius: 6px;

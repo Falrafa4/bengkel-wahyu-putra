@@ -2,16 +2,16 @@
 <footer>
     <section class="footer-top">
         <div class="footer-logo">
-            <img src="../../assets/img/logo-wp-circle.png" alt="logo-bengkel-wp">
+            <img src="/bengkel-wahyu-putra/assets/img/logo-wp-circle.png" alt="logo-bengkel-wp">
             <p>Bengkel Wahyu Putra</p>
             <p>Jl. Tropodo I Surya Citra Residence Blok J No.3 Waru - Sidoarjo 61256</p>
         </div>
         <div class="footer-nav">
             <p>Lihat Juga</p>
-            <a href="../services/">Layanan Kami</a>
-            <a href="../about/">Tentang Kami</a>
-            <a href="../gallery">Galeri Kerja</a>
-            <a href="../../wip.php">Informasi Lowongan</a>
+            <a href="/bengkel-wahyu-putra/pages/services/">Layanan Kami</a>
+            <a href="/bengkel-wahyu-putra/pages/about/">Tentang Kami</a>
+            <a href="/bengkel-wahyu-putra/pages/gallery">Galeri Kerja</a>
+            <a href="/bengkel-wahyu-putra/wip.php">Informasi Lowongan</a>
         </div>
     </section>
     <section class="footer-bottom">

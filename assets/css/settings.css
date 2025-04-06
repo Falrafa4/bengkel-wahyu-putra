@@ -7,39 +7,8 @@
 main {
     background-color: white;
     height: 100%;
-}
-
-aside {
-    display: block;
-    position: absolute;
-    top: 10vh;
-    background-color: #434343;
-    width: 300px;
-    height: 100%;
-}
-
-aside h1 {
-    color: white;
-    font-size: 32px;
-    font-family: Oswald;
-    font-weight: 700;
-    line-height: 45px;
-    padding: 35px 73px 8px 50px;
-}
-
-.nav-dash i {
-    width: 35px;
-    font-size: 20px;
-}
-
-.nav-dash a {
-    color: white;
-    display: block;
-    padding: 17px 0px 17px 42px;
-}
-
-.nav-dash a:hover {
-    background-color: var(--primary-color);
+    display: grid;
+    grid-template-columns: auto 1fr;
 }
 
 .utama {
@@ -71,17 +40,23 @@ aside h1 {
 }
 
 .utama table .info {
-    width: 250px;
+    width: 20vw;
 }
 
 .utama table .data {
     padding-left: 25px;
+    width: 700px;
 }
 
 .utama table tr {
     display: block;
     padding: 10px 0px;
+}
 
+.utama table input, .utama table select {
+    width: 100%;
+    height: 40px;
+    padding: 0px 10px;
 }
 
 /* button */
@@ -93,9 +68,47 @@ table .button {
     padding-top: 20px;
 }
 
-table a {
+table button {
     background-color: var(--primary-color);
     color: white;
     padding: 10px 15px;
+    border: none;
     border-radius: 5px;
+    cursor: pointer;
+}
+
+/* INPUT BOX */
+input, select {
+    width: 100%;
+    height: 40px;
+    padding: 10px 40px 10px 15px; 
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+}
+
+select {
+    cursor: pointer;
+}
+
+.input-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-box i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9;
+    font-size: 18px;
+    right: 0px;
+}
+
+input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(43, 43, 43, 0.5); 
+    outline: none;
 }

@@ -1,6 +1,7 @@
 <?php 
     session_start();
-    include('../../config/koneksi.php');
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functions.php";
 ?>
 
 <!DOCTYPE html>
@@ -15,33 +16,63 @@
 </head>
 <body>
     <!-- NAVBAR -->
-    <?php include "../../includes/nav.php"; ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/nav.php"; ?>
     <!-- NAVBAR END -->
 
     <?php
         $pesan = '';
-        if(isset($_POST['masuk'])){ //jika ada aksi method POST dengan name=masuk
-            $email = $_POST['email']; //simpan email
-            $password = md5($_POST['pass_user']); //simpan password
+        if(isset($_POST['masuk'])){
+            $email = $_POST['email'];
+            $password = $_POST['pass_user'];
+            $storedPassword = getPassword($conn, $email);
 
-            // Gunakan Prepared Statement
-            $stmt = $conn->prepare("SELECT * FROM pelanggan WHERE email = ? AND password = ?");
-            $stmt->bind_param("ss", $email, $password);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $data = mysqli_fetch_assoc($result);
-
-            if ($data && $password === $data['password']) {
+            if (password_verify($password, $storedPassword)) {
+                $stmt = $conn->prepare("SELECT * FROM pelanggan WHERE email = ? AND password = ?");
+                $stmt->bind_param("ss", $email, $storedPassword);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $data = $result->fetch_assoc();
                 $_SESSION['data'] = $data;
-        
-                // Redirect berdasarkan role
-                if ($data['role'] === 'Admin') {
-                    echo '<script>alert("Selamat Datang, min! '.$data['nama_pelanggan'].'"); location.href="../../dashboard/admin/admin.php";</script>'; // Arahkan ke halaman admin
+
+                if ($data) {
+                    if ($data['role'] === 'Admin') {
+                        echo '<script>alert("Selamat Datang, min! '.$data['nama_pelanggan'].'"); location.href="../../dashboard/admin/";</script>'; // Arahkan ke halaman admin
+                    } else {
+                        echo '<script>alert("Selamat Datang! '.$data['nama_pelanggan'].'"); location.href="../../dashboard/";</script>'; // Arahkan ke halaman user
+                    }
+                    exit();
                 } else {
-                    echo '<script>alert("Selamat Datang! '.$data['nama_pelanggan'].'"); location.href="../../dashboard/pages/dashboard.php";</script>'; // Arahkan ke halaman user
+                    $pesan = 'Email/Password yang dimasukkan tidak sesuai.';
                 }
-                exit(); // Hentikan eksekusi setelah redirect
             }
+            // else if(md5($password) === $storedPassword) {
+            //     $newHash = password_hash($password, PASSWORD_DEFAULT);
+            //     updatePassword($conn, $email, $newHash);
+
+            //     $storedPassword = getPassword($conn, $email);
+
+            //     if (password_verify($password, $storedPassword)) {
+            //         $stmt = $conn->prepare("SELECT * FROM pelanggan WHERE email = ? AND password = ?");
+            //         $stmt->bind_param("ss", $email, $storedPassword);
+            //         $stmt->execute();
+            //         $result = $stmt->get_result();
+            //         $data = $result->fetch_assoc();
+            //         $_SESSION['data'] = $data;
+    
+            //         if ($data) {
+            //             if ($data['role'] === 'Admin') {
+            //                 echo '<script>alert("Selamat Datang, min! '.$data['nama_pelanggan'].'"); location.href="../../dashboard/admin/";</script>'; // Arahkan ke halaman admin
+            //             } else {
+            //                 echo '<script>alert("Selamat Datang! '.$data['nama_pelanggan'].'"); location.href="../../dashboard/";</script>'; // Arahkan ke halaman user
+            //             }
+            //             exit();
+            //         } else {
+            //             $pesan = 'Email/Password yang dimasukkan tidak sesuai.';
+            //         }
+            //     } else {
+            //         $pesan = 'Email/Password yang dimasukkan tidak sesuai.';
+            //     }
+            // }
             else {
                 $pesan = 'Email/Password yang dimasukkan tidak sesuai.';
             }
@@ -50,7 +81,7 @@
     <main>
         <form action="index.php" method="post">
             <h2>Selamat Datang!</h2>
-            <p style="margin: 20px 0px 10px 0px">Masuk ke akun Bengkel Wahyu Putra Anda.</p>
+            <p style="margin: 20px 0px 10px 0px">Masuk ke akun Anda untuk melanjutkan pemesanan.</p>
             <em><?= $pesan ?></em>
 
             <div class="input-box">

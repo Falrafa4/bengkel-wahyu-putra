@@ -1,27 +1,30 @@
 <?php 
-    include "../../config/koneksi.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functions.php";
     
     $pesan = "";
     if(isset($_POST['daftar'])) {
-        $password = md5($_POST['pass']);
+        $password = $_POST['pass'];
         $nama_pelanggan = $conn -> real_escape_string($_POST['nama']);
+        $email = $_POST['email'];
         $no_telp = $_POST['telp'];
         $jenis_akun = $_POST['jenis_akun'];
+        $role = "User";
 
-        $queryCheck = "SELECT username FROM pelanggan WHERE username = '$username'";
-        $sqlCheck = mysqli_query($conn, $queryCheck);
+        $queryCheck = "SELECT email FROM pelanggan WHERE email = ?";
+        $stmt = $conn->prepare($queryCheck);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-        if(mysqli_num_rows($sqlCheck) < 1) {
-            $queryAdd = "INSERT INTO pelanggan (username, password, nama_pelanggan, no_telp, jenis_kelamin, tgl_lahir, jenis_akun) VALUES ('$username', '$password', '$nama_pelanggan', '$no_telp', '$jenis_kelamin', '$tgl_lahir', '$jenis_akun');";
-            $sqlAdd = mysqli_query($conn, $queryAdd);
-    
-            if($sqlAdd) {
+        if($result->num_rows < 1) {
+            if(insertPelanggan($conn, $password, $nama_pelanggan, $email, $no_telp, $jenis_akun, $role)) {
                 $pesan = "<em class='sukses'>Sukses membuat akun! Silahkan <a href='../login/'>login.</a></em>";
             } else {
-                $pesan = "<em class='error'>Terjadi Kesalahan! Kode: " . $sqlAdd . "</em>";
+                $pesan = "<em class='error'>Terjadi Kesalahan! Silahkan Coba Kembali Nanti.</em>";
             }
-        } else if (mysqli_num_rows($sqlCheck) > 1 ) {
-            $pesan = "<em class='error'>Username sudah dipakai. Harap memilih yang lain.</em>";
+        } else {
+            $pesan = "<em class='error'>Email sudah didaftarkan. Harap login atau memilih email yang lain.</em>";
         }
         
     }
@@ -39,7 +42,7 @@
 </head>
 <body>
     <!-- NAVBAR -->
-    <?php include "../../includes/nav.php"; ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/nav.php"; ?>
     <!-- NAVBAR END -->
 
     <main>
@@ -110,6 +113,7 @@
                 event.preventDefault();
             }
         })
+        
         ulangi_pass.addEventListener("input", function(){
             if(ulangi_pass.value === "") {
                 msgPass.innerHTML = "";

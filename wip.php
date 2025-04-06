@@ -47,7 +47,7 @@
         }
         /* STYLE HEADER END */
         main {
-            background-color: var(--primary-color);
+            background-color: var(--secondary-color);
             height: 30vh;
             display: flex;
             flex-direction: column;
@@ -110,7 +110,7 @@
 
     <main>
         <p>Thanks for your coming. We will go back soon.</p>
-        <a href="index.php">Go Back to Main Page</a>
+        <a href="/bengkel-wahyu-putra">Go Back to Main Page</a>
     </main>
 
     <!-- FOOTER -->

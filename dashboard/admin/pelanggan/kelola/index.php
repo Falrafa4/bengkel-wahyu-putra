@@ -1,15 +1,19 @@
 <?php 
-    //inisialisasi session
     session_start();
-    include "../../config/koneksi.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/session_admin.php";
+    
+    if(isset($_POST['aksi']) || isset($_GET['ubah'])) {
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functions.php";
+    }
 
-    //untuk menampilkan data yang akan diedit
     $id_pelanggan = '';
     $nama_pelanggan = '';
     $email = '';
     $no_telp = '';
     $jenis_akun = '';
     $role = '';
+    $pesan = '';
 
     if(isset($_GET['ubah'])){
         $id_pelanggan = $_GET['ubah'];
@@ -28,9 +32,53 @@
         $role = $result['role'];
     }
 
-    if(!isset($_SESSION['data']['role']) || $_SESSION['data']['role'] !== 'Admin'){
-        //header("location: ../../auth/login/"); // arahkan ke login.php
-        exit("You don't have permission to access this!");
+    if(isset($_POST['aksi'])) {
+        // CREATE DATA
+        if($_POST['aksi'] == 'add'){
+            $password = $_POST['pass_pelanggan'];
+            $nama_pelanggan =$_POST['nama_pelanggan'];
+            $email = $_POST['email'];
+            $no_telp = $_POST['no_telp'];
+            $jenis_akun = $_POST['jenis_akun'];
+            $role = $_POST['role'];
+
+            if(empty($password) || empty($nama_pelanggan) || empty($email) || empty($no_telp)) {
+                $pesan = "Data ada yang kosong! Harap diisi!";
+            }
+
+            if(empty($pesan)) {
+                if(insertPelanggan($conn, $password, $nama_pelanggan, $email, $no_telp, $jenis_akun, $role)) {
+                    $_SESSION['eksekusi'] = "Data Berhasil Ditambahkan!";
+                    header("location: ../");
+                } else {
+                    echo $stmt->execute();
+                }
+            }
+        }
+
+        // UPDATE DATA
+        if($_POST['aksi'] == 'edit') {
+            $id_pelanggan = $_POST['id_pelanggan'];
+            $nama_pelanggan = $_POST['nama_pelanggan'];
+            $email = $_POST['email'];
+            $no_telp = $_POST['no_telp'];
+            $jenis_akun = $_POST['jenis_akun'];
+            $role = $_POST['role'];
+
+            if(isset($_POST['pass_pelanggan'])) {
+                $password = $_POST['pass_pelanggan'];
+                if(!updatePassword($conn, $id_pelanggan, $password)) {
+                    error_log('Terdapat kesalahan. Coba lagi nanti!');
+                }
+            }
+
+            if(updatePelanggan($conn, $nama_pelanggan, $email, $no_telp, $jenis_akun, $role, $id_pelanggan)) {
+                $_SESSION['eksekusi'] = "Data Berhasil Diubah!";
+                header("location: ../");
+            } else {
+                echo $sql;
+            }
+        }
     }
 ?>
 
@@ -39,21 +87,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../assets/css/global.css">
-    <link rel="stylesheet" href="../../assets/css/kelola.css">
-    <link rel="shortcut icon" href="../../assets/img/logo-wp-circle.png">
+    <link rel="stylesheet" href="../../../../assets/css/global.css">
+    <link rel="stylesheet" href="../../../../assets/css/kelola.css">
+    <link rel="shortcut icon" href="../../../../assets/img/logo-wp-circle.png">
     <title>Kelola - Bengkel Wahyu Putra</title>
 </head>
 
 <body>
     <!-- NAVBAR -->
-    <?php include "../../includes/nav.php"; ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/nav.php"; ?>
 
     <main>
-        <form action="../../auth/proses.php" method="POST">
+        <form action="index.php" method="POST">
             <h1>
-                <?php if(isset($_GET['ubah'])) {echo "Edit Data";} else {echo "Tambah Data";}?>
+                <?= isset($_GET['ubah']) ? "Edit Data" : "Tambah Data" ?>
             </h1><hr>
+            <span style="color: red; font-style:italic;"><?= $pesan ?></span>
 
             <input type="hidden" value="<?= $id_pelanggan ?>" name="id_pelanggan">
             <div class="input-box">
@@ -64,13 +113,11 @@
                 <label for="email">Email </label>
                 <input type="email" name="email" id="email" placeholder="Ex: user@gmail.com" value="<?= $email ?>" required>
             </div>
-            <?php if(!isset($_GET['ubah'])){ ?>
             <div class="input-box">
-                <label for="password">New Password </label>
+                <label for="password"><?= isset($_GET['ubah']) ? "Change Password (Optional)" : "New Password" ?></label>
                 <span><i class="fas fa-eye-slash" id="eye" onclick="openPass()"></i></span>
-                <input type="password" name="pass_pelanggan" id="password">
+                <input type="password" name="pass_pelanggan" id="pass_user" <?php if(!isset($_GET['ubah'])) {echo "required";} ?>>
             </div>
-            <?php } ?>
             <div class="input-box">
                 <label for="notelp">No. Telepon </label>
                 <input type="text" name="no_telp" id="notelp" placeholder="Ex: 081122334455" value="<?= $no_telp ?>" required>
@@ -101,7 +148,7 @@
                     Tambahkan
                 </button>
             <?php } ?>
-            <a href="admin.php" class="btn-kelola back">
+            <a href="../" class="btn-kelola back">
                 <i class="fas fa-reply"></i>
                 Batal
             </a>
@@ -109,6 +156,6 @@
     </main>
 
     <script src="https://kit.fontawesome.com/ed13b1bb03.js" crossorigin="anonymous"></script>
-    <script src="../../assets/js/main.js"></script>
+    <script src="/bengkel-wahyu-putra/assets/js/main.js"></script>
 </body>
 </html>

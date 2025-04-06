@@ -4,43 +4,109 @@
     --secondary-color: #faf9f6;
 }
 
+body {
+    background-color: var(--secondary-color);
+}
+
 main {
-    width: 90%;
-    margin: 50px auto;
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+
+.utama {
+    margin: 30px 20px;
+}
+
+.utama table {
+    width: 100%;
+}
+
+.utama table h1 {
+    font-size: 28px;
+    font-weight: 400;
+}
+
+.utama table .info {
+    width: 20vw;
+}
+
+.utama table .data {
+    padding-left: 25px;
+}
+
+.informasi table tr {
+    display: block;
+    padding: 10px 0px;
+}
+
+.welcome, .informasi {
+    width: 95%;
+    margin: 0px auto 30px auto;
     border-radius: 10px;
     padding: 20px 50px 50px 50px;
     background-color: #f4f4f4;
-    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-main h1 {
+.welcome h1 {
     font-size: 40px;
     font-weight: 400;
 }
 
-main h3 {
+.welcome h3 {
     font-weight: 400;
     margin: 15px auto;
 }
 
-/* NAV DI DASHBOARD */
+.nav-dash {
+    margin-top: 20px;
+}
+
+.nav-dash i {
+    width: 35px;
+    font-size: 20px;
+}
+
 .nav-dash a {
-    color: var(--primary-color);
-    display: inline-block;
-    margin: 10px auto;
+    color: white;
+    display: block;
+    padding: 17px 0px 17px 42px;
+    transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.active {
+    background-color: #2b2b2b;
 }
 
 .nav-dash a:hover {
-    text-decoration: underline;
+    background-color: var(--primary-color);
 }
 
-/* (ADMINISTRATOR) MODEL CRUD */
+table .fas {
+    font-size: 14px;
+}
+
+table .button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+table a {
+    color: white;
+    font-size: 14px;
+}
+
+/* CRUD PELANGGAN */
 .daftar-user {
-    width: 90%;
+    width: 95%;
     margin: auto auto 50px;
     padding: 20px;
     border-radius: 20px;
-    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
     background-color: #f4f4f4;
     cursor: default;
 }
@@ -57,8 +123,6 @@ main h3 {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    height: 530px;
-    overflow-y: scroll;
 }
 
 .card {
@@ -210,4 +274,166 @@ p .fa-envelope {
 
 .hapus:hover {
     background-color: #ab0000;
+}
+
+/* TABLE CRUD REGULAR */
+table.table-crud {
+    width: 100%;
+    margin-top: 20px;
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+table.table-crud th {
+    padding: 10px;
+    border: 1px solid #c4c4c4;
+    background-color: #2b2b2b;
+    color: white;
+}
+
+table.table-crud td {
+    padding: 10px;
+    border: 1px solid #c4c4c4;
+}
+
+table.table-crud tr:hover {
+    background-color: #e8e8e8;
+}
+
+table.table-crud .btn {
+    display: inline;
+}
+
+table.table-crud .action {
+    white-space: nowrap;
+}
+
+/* CRUD PEMESANAN */
+div.container-crud {
+    margin: 30px 20px;
+}
+
+.daftar-crud {
+    width: 95%;
+    margin: auto auto 50px;
+    padding: 20px 20px 40px 20px;
+    border-radius: 20px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    background-color: #f4f4f4;
+    cursor: default;
+}
+
+.daftar-crud h1 {
+    font-size: 30px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.utama table {
+    width: 100%;
+}
+
+/* SETTINGS PAGE */
+.settings {
+    background-color: white;
+    height: 100%;
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+
+.settings .utama {
+    margin: 50px 50px 0px 50px;
+}
+
+.settings .utama > h1 {
+    font-size: 48px;
+    font-weight: 300;
+}
+
+.settings h3 {
+    font-weight: 400;
+    margin: 15px auto;
+}
+
+.settings table {
+    background-color: #F9F9F9;
+    box-shadow: 2px 4px 15px rgba(0, 0, 0, 0.25);
+    margin-top: 35px;
+    padding: 35px 40px;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.settings table h1 {
+    font-size: 28px;
+    font-weight: 400;
+}
+
+.settings table .info {
+    width: 20vw;
+}
+
+.settings table .data {
+    padding-left: 25px;
+    width: 700px;
+}
+
+.settings table tr {
+    display: block;
+    padding: 10px 0px;
+}
+
+.settings table input, .settings table select {
+    width: 100%;
+    height: 40px;
+    padding: 0px 10px;
+}
+
+/* button */
+.settings table .fas {
+    font-size: 16px;
+}
+
+.settings table button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* INPUT BOX */
+.settings input, .settings select {
+    width: 100%;
+    height: 40px;
+    padding: 10px 40px 10px 15px; 
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+}
+
+.settings select {
+    cursor: pointer;
+}
+
+.settings .input-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.settings .input-box i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9;
+    font-size: 18px;
+    right: 0px;
+}
+
+.settings input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(43, 43, 43, 0.5); 
+    outline: none;
 }

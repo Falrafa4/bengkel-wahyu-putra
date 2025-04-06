@@ -13,7 +13,7 @@ session_start();
     <title>Gallery - Bengkel Wahyu Putra</title>
 </head>
 <body>
-    <?php include "../../includes/nav.php"; ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/nav.php"; ?>
 
     <!-- HEADER & BG FOTO -->
     <header>
@@ -44,7 +44,7 @@ session_start();
         </div>
     </main>
 
-    <?php include "../../includes/footer.php"; ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/footer.php"; ?>
     <script src="https://kit.fontawesome.com/ed13b1bb03.js" crossorigin="anonymous"></script>
     <script src="../../assets/js/main.js"></script>
 

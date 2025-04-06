@@ -10,7 +10,7 @@ function toggleClick() {
 
 //SHOW HIDE PASSWORD
 function openPass() {
-  const inputPass = document.getElementById('password');
+  const inputPass = document.getElementById('pass_user');
   const iconEye = document.getElementById('eye');
   if (inputPass.getAttribute('type') === 'password') {
       inputPass.setAttribute('type', 'text');

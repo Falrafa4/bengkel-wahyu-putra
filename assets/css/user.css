@@ -1,0 +1,289 @@
+/* ADMIN PAGE */
+:root {
+    --primary-color: #2b2b2b;
+    --secondary-color: #faf9f6;
+}
+
+main {
+    background-color: white;
+    height: 100%;
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+
+.utama {
+    margin: 30px 50px;
+}
+
+.home .utama h1 {
+    font-size: 36px;
+    font-weight: 300;
+}
+
+.utama h2 {
+    font-size: 24px;
+    font-weight: 300;
+}
+
+.utama h3 {
+    font-weight: 400;
+    margin: 15px auto;
+}
+
+.home .utama table,
+.settings .utama table {
+    background-color: #F9F9F9;
+    box-shadow: 2px 4px 15px rgba(0, 0, 0, 0.25);
+    margin-top: 35px;
+    padding: 35px 40px;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.utama table h1 {
+    font-size: 28px;
+    font-weight: 400;
+}
+
+.utama table .info {
+    width: 20vw;
+}
+
+.utama table .data {
+    padding-left: 25px;
+    width: 700px;
+}
+
+.utama table tr {
+    display: block;
+    padding: 10px 0px;
+}
+
+.riwayat, .notif {
+    background-color: #F9F9F9;
+    box-shadow: 2px 4px 15px rgba(0, 0, 0, 0.25);
+    margin-top: 50px;
+    padding: 25px 30px;
+    border-radius: 10px;
+    width: 50%;
+    height: 50vh;
+}
+
+.riwayat-notif {
+    display: flex;
+    flex: 1;
+    gap: 40px;
+}
+
+.riwayat-notif hr {
+    margin-top: 10px;
+}
+
+.no-order, .msg-notif {
+    text-align: center;
+    margin: 20% auto;
+}
+
+.msg-riwayat em, .msg-notif em {
+    display: block;
+    font-size: 13px;
+    color: #adadad;
+    margin-bottom: 10px;
+}
+
+/* button */
+table .fas {
+    font-size: 16px;
+}
+
+.riwayat .fas {
+    font-size: 16px;
+    margin-right: 5px;
+}
+
+table .button {
+    padding-top: 10px;
+}
+
+table a, .riwayat a {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 1px solid #2b2b2b;
+    display: inline-block;
+    transition: .3s ease-in-out;
+    font-size: 14px;
+}
+
+table button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+/* STYLE FOR SETTINGS PAGE (USER) */
+.settings .utama > h1 {
+    font-size: 48px;
+    font-weight: 300;
+}
+/* INPUT BOX */
+input, select {
+    width: 100%;
+    height: 40px;
+    padding: 10px 40px 10px 15px; 
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+}
+
+select {
+    cursor: pointer;
+}
+
+.input-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-box i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9;
+    font-size: 18px;
+    right: 0px;
+}
+
+input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(43, 43, 43, 0.5); 
+    outline: none;
+}
+
+/* STYLE FOR BUAT PESANAN PAGE */
+.progress-bar {
+    width: 50%;
+    height: 10px;
+    background-color: #2b2b2b;
+    position: relative;
+    top: 0;
+    border-radius: 10px 5px 5px 0px;
+    transition: .5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.buatPesanan .utama h1 {
+    font-size: 40px;
+    font-weight: 300;
+}
+
+.buatPesanan form {
+    background-color: #F9F9F9;
+    box-shadow: 2px 4px 15px rgba(0, 0, 0, 0.25);
+    margin-top: 15px;
+    border-radius: 10px;
+}
+
+.buatPesanan input::placeholder {
+    font-style: italic;
+}
+
+.form-pesanan {
+    padding: 25px 40px;
+    width: 100%;
+    height: 480px;
+    overflow: hidden;
+}
+
+.buatPesanan .step-form {
+    width: 100%;
+    margin: auto;
+}
+
+.step-form h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.step-form em {
+    font-size: 14px;
+}
+
+#form2 {
+    display: none;
+}
+
+.buatPesanan .input-box {
+    margin: 15px 0px;
+}
+
+.buatPesanan label {
+    width: 300px;
+}
+
+.form-pesanan button {
+    background-color: #2b2b2b;
+    border: 1px solid #2b2b2b;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 15px;
+    transition: .3s ease-in-out;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.form-pesanan button:hover, table a:hover, .riwayat a:hover, table button:hover {
+    background-color: transparent;
+    color: #2b2b2b;
+    border: 1px solid #2b2b2b;
+}
+
+.form-pesanan button .fas {
+    font-size: 14px;
+}
+
+.form-pesanan span {
+    color: red;
+}
+
+/* STYLE FOR DAFTAR PESANAN PAGE */
+.daftarPesanan .utama h1 {
+    font-size: 40px;
+    font-weight: 300;
+}
+
+.daftarPesanan table tr {
+    display: table-row;
+    text-align: center;
+}
+
+.daftarPesanan table {
+    width: 100%;
+    margin-top: 20px;
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+.daftarPesanan table th {
+    padding: 10px;
+    border: 1px solid #c4c4c4;
+    background-color: #2b2b2b;
+    color: white;
+}
+
+.daftarPesanan table td {
+    padding: 40px 20px;
+    border: 1px solid #c4c4c4;
+}
+
+.daftarPesanan table tr:hover {
+    background-color: #e8e8e8;
+}

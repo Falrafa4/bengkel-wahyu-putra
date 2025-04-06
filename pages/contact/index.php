@@ -14,7 +14,7 @@ session_start();
 </head>
 <body>
     <!-- NAVBAR -->
-    <?php include "../../includes/nav.php"; ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/nav.php"; ?>
     <!-- NAVBAR END -->
 
     <!-- HEADER & BG FOTO -->
@@ -68,7 +68,7 @@ session_start();
     </main>
 
     <!-- FOOTER -->
-    <?php include "../../includes/footer.php"; ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/footer.php"; ?>
     <!-- FOOTER END -->
     <script src="https://kit.fontawesome.com/ed13b1bb03.js" crossorigin="anonymous"></script>
     <script src="../../assets/js/main.js"></script>
