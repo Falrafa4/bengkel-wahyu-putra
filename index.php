@@ -62,6 +62,58 @@ session_start();
             </div>
         </section>
 
+        <section class="layanan">
+            <h1>Layanan Kami</h1>
+            <div class="roll">
+                <div class="wrapper-roll">
+                    <div class="image-roll bubut">
+                        <img src="assets/img/machineh-2.jpg" alt="Bubut">
+                        <div class="roll-desc">
+                            <h3>Jasa Bubut</h3>
+                            <p>Layanan Bubut kami mencakup...... <a href="pages/services/index.php#bubut">Lihat Selengkapnya</a></p>
+                        </div>
+                    </div>
+                    <div class="image-roll milling">
+                        <img src="assets/img/machineh-1.jpg" alt="Bubut">
+                        <div class="roll-desc">
+                            <h3>Jasa Milling</h3>
+                            <p>Layanan Milling kami mencakup...... <a href="pages/services/index.php#bubut">Lihat Selengkapnya</a></p>
+                        </div>
+                    </div>
+                    <div class="image-roll edm">
+                        <img src="assets/img/bengkel-2.jpg" alt="Bubut">
+                        <div class="roll-desc">
+                            <h3>Jasa EDM</h3>
+                            <p>Layanan EDM kami mencakup...... <a href="pages/services/index.php#bubut">Lihat Selengkapnya</a></p>
+                        </div>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-left"></i>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </section>
+
+        <section class="alur">
+            <h1>Alur Pemesanan</h1>
+            <div class="alur-card">
+                <section class="card">
+                    <i class="fas fa-user-plus"></i>
+                    <h2>Daftar dan Login</h2>
+                    <p>Buat akun baru atau login ke akun Bengkel Wahyu Putra Anda. Anda akan memiliki akses ke akun Anda.</p>
+                </section>
+                <section class="card">
+                    <i class="fas fa-file-lines"></i>
+                    <h2>Buat Pesanan</h2>
+                    <p>Setelah masuk ke akun Bengkel Wahyu Putra Anda, silahkan buat pesanan sesuai dengan kebutuhan.</p>
+                </section>
+                <section class="card">
+                    <i class="fas fa-gear"></i>
+                    <h2>Pesanan Dikerjakan</h2>
+                    <p>Anda akan menerima surat penawaran di bagian Penawaran. Jika setuju, maka pesanan Anda segera dikerjakan.</p>
+                </section>
+            </div>
+        </section>
+
         <section class="quote">
             <div class="quote-fill">
                 <p>"Bekerjalah seakan-akan kalian hidup terus. Dan jangan lupa ibadah seakan-akan esuk tiada..."</p><br>
@@ -76,5 +128,57 @@ session_start();
     <!-- FOOTER END -->
     <script src="https://kit.fontawesome.com/ed13b1bb03.js" crossorigin="anonymous"></script>
     <script src="assets/js/main.js"></script>
+    <script>
+        const right = document.querySelector('.fa-chevron-right');
+        const left = document.querySelector('.fa-chevron-left');
+
+        const bubut = document.querySelector('.bubut');
+        const milling = document.querySelector('.milling');
+        const edm = document.querySelector('.edm');
+
+        
+
+        right.addEventListener("click", function(){
+            const zIndexBubut = window.getComputedStyle(bubut).zIndex;
+            const zIndexMilling = window.getComputedStyle(milling).zIndex;
+            const zIndexEdm = window.getComputedStyle(edm).zIndex;
+            if(zIndexBubut === "1") {
+                bubut.style.zIndex = '-2';
+                milling.style.zIndex = '1';
+                edm.style.zIndex = '-1';
+            } 
+            else if(zIndexMilling === "1") {
+                bubut.style.zIndex = '-1';
+                milling.style.zIndex = '-2';
+                edm.style.zIndex = '1';
+            }
+            else if(zIndexEdm === "1") {
+                bubut.style.zIndex = '1';
+                milling.style.zIndex = '-1';
+                edm.style.zIndex = '-2';
+            }
+        })
+
+        left.addEventListener("click", function(){
+            const zIndexBubut = window.getComputedStyle(bubut).zIndex;
+            const zIndexMilling = window.getComputedStyle(milling).zIndex;
+            const zIndexEdm = window.getComputedStyle(edm).zIndex;
+            if(zIndexBubut === "1") {
+                bubut.style.zIndex = '-2';
+                milling.style.zIndex = '-1';
+                edm.style.zIndex = '1';
+            } 
+            else if(zIndexMilling === "1") {
+                bubut.style.zIndex = '1';
+                milling.style.zIndex = '-2';
+                edm.style.zIndex = '-1';
+            }
+            else if(zIndexEdm === "1") {
+                bubut.style.zIndex = '-1';
+                milling.style.zIndex = '1';
+                edm.style.zIndex = '-2';
+            }
+        })
+    </script>
 </body>
 </html>

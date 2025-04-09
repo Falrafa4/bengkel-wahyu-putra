@@ -161,20 +161,26 @@ header a {
     line-height: 50px;
 }
 
-/* KEUNGGULAN STYLE */
-main h1 {
+/* KEUNGGULAN, ALUR, dan LAYANAN STYLE */
+.unggul h1, .alur h1 {
     text-align: center;
     margin-bottom: 30px;
-    font-family: "Oswald";
+    font-family: "Oswald", serif;
     font-size: 40px;
 }
 
-.unggul {
+.unggul, .alur {
     padding: 65px 0;
 }
 
 .unggul h3 {
     font-size: 20px;
+    margin-bottom: 7px;
+}
+
+.alur h2 {
+    font-family: 'Oswald';
+    margin: 14px 0px;
 }
 
 .unggul-card {
@@ -183,6 +189,23 @@ main h1 {
     justify-content: center;
     gap: 30px;
     flex-wrap: wrap;
+}
+
+.alur-card {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.alur-card .fas {
+    font-size: 32px;
+}
+
+.alur-card p {
+    text-align: left;
+    line-height: 25px;
 }
 
 .card {
@@ -199,7 +222,109 @@ main h1 {
     transform: scale(1.1);
 }
 
-/* KEUNGGULAN STYLE END */
+.layanan {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 60px 90px;
+}
+
+.layanan h1 {
+    font-family: 'Oswald', serif;
+    font-size: 40px;
+    margin-bottom: 18px;
+}
+
+.layanan h3 {
+    font-family: 'Oswald', serif;
+    font-size: 24px;
+}
+
+.layanan p {
+    font-family: 'Roboto';
+    font-size: 16px;
+    a {
+        color: white;
+        font-weight: bold;
+    }
+}
+
+.image-roll {
+    transition: all .5s;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.image-roll:nth-child(2) {
+    z-index: -1;
+}
+
+.image-roll:nth-child(3) {
+    z-index: -2;
+}
+
+.wrapper-roll {
+    width: 100%;
+    display: flex;
+}
+
+.roll {
+    height: 328px;
+    margin: auto;
+    position: relative;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.roll-gradient {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0));
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 2;
+}
+
+.roll-desc {
+    position: absolute;
+    bottom: 25px;
+    left: 25px;
+    z-index: 4;
+}
+
+.roll .fas {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 4;
+}
+
+.roll .fas:hover {
+    cursor: pointer;
+}
+
+.roll .fa-chevron-left {
+    left: 17px;
+}
+
+.roll .fa-chevron-right {
+    right: 17px;
+}
+
+.roll img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-position: center;
+    border-radius: inherit;
+    transition: 1s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* .roll:hover img {
+    transform: scale(1.1);
+} */
+
+/* KEUNGGULAN, ALUR, dan LAYANAN STYLE END */
 
 /* QUOTE STYLE */
 .quote {

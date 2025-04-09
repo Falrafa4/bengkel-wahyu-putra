@@ -27,8 +27,9 @@ session_start();
     <main>
         <!-- DAFTAR LAYANAN -->
         <h1>Daftar Layanan Kami</h1><hr>
+        <div id="bubut"></div>
+        <div id="milling"></div>
         <p class="main-desc">Berikut adalah daftar layanan yang kami sediakan untuk Anda.</p>
-
         <div class="container-layanan">
             <section class="bubut">
                 <div class="layanan-header">
