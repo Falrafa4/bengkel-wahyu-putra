@@ -292,25 +292,38 @@ input:focus {
 .daftarPesanan table tr {
     display: table-row;
     text-align: center;
+    border-bottom: 1px solid #cacaca;
 }
 
 .daftarPesanan table {
     width: 100%;
     margin-top: 20px;
-    border-spacing: 0px;
-    border-collapse: collapse;
+    border-spacing: 0;
+    border-collapse: separate;
+    border-radius: 2px;
+    box-shadow: 2px 2px 25px -3px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+}
+
+.daftarPesanan table th,
+.daftarPesanan table tr:not(:last-child) td {
+    border-bottom: 1px solid #cacaca;
 }
 
 .daftarPesanan table th {
     padding: 10px;
-    border: 1px solid #c4c4c4;
-    background-color: #2b2b2b;
     color: white;
+    background-color: #2b2b2b;
+    box-shadow: 2px 2px 25px -3px rgba(0, 0, 0, 0.25);
+}
+
+.daftarPesanan table th:not(:last-child),
+.daftarPesanan table td:not(:last-child) {
+    border-right: 1px solid #cacaca;
 }
 
 .daftarPesanan table td {
     padding: 40px 20px;
-    border: 1px solid #c4c4c4;
 }
 
 .daftarPesanan table tr:hover {

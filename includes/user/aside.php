@@ -9,6 +9,6 @@
         <a href="/bengkel-wahyu-putra/dashboard/pages/my-order" class="<?= ($namaFolder == "my-order") ? 'active' : '' ?>"><i class="fas fa-list"></i>Daftar Pesanan</a>
         <a href="/bengkel-wahyu-putra/dashboard/pages/notification" class="<?= ($namaFolder == "notification") ? 'active' : '' ?>"><i class="fas fa-bell"></i>Notifikasi</a>
         <a href="/bengkel-wahyu-putra/dashboard/pages/help" class="<?= ($namaFolder == "help") ? 'active' : '' ?>"><i class="fas fa-comment"></i>Bantuan</a>
-        <a href="/bengkel-wahyu-putra/dashboard/pages/settings" class="<?= ($namaFolder == "settings") ? 'active' : '' ?>"><i class="fas fa-user"></i>Pengaturan</a>
+        <a href="/bengkel-wahyu-putra/dashboard/pages/settings" class="<?= ($namaFolder == "settings") ? 'active' : '' ?>"><i class="fas fa-gear"></i>Pengaturan</a>
     </div>
 </aside>

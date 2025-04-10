@@ -104,7 +104,7 @@
                         if($_SESSION['pesanan'] == []) { 
                         ?>
                         <div class="no-order">
-                            <em>Anda belum memiliki pesanan sama sekali.</em>
+                            <em>Anda belum membuat pesanan sama sekali.</em>
                             <a href="pages/new-order/">
                                 <i class="fas fa-circle-plus"></i>
                                 Buat Pesanan Baru

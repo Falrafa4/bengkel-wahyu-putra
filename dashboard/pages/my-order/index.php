@@ -26,16 +26,19 @@
             <div class="main-content">
                 <h1>Daftar Pesanan</h1>
                 <table>
-                    <tr>
-                        <th>No Pesanan</th>
-                        <th style="width: 150px;">Waktu</th>
-                        <th style="width: 150px;">Status</th>
-                        <th>Nama Item</th>
-                        <th style="width: 100px;">Jumlah</th>
-                        <th>Material</th>
-                        <th>Alamat</th>
-                        <th>Aksi</th>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>No Pesanan</th>
+                            <th style="width: 150px;">Waktu</th>
+                            <th style="width: 150px;">Status</th>
+                            <th style="width: 135px;">Nama Item</th>
+                            <th style="width: 110px;">Jumlah</th>
+                            <th style="width: 110px;">Material</th>
+                            <th>Alamat</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                     <?php foreach($_SESSION['pesanan'] as $data) { ?>
                     <tr>
                         <td><?= $data['nomor_pesanan'] ?></td>
@@ -49,7 +52,14 @@
                             <a href="detail/?detail=<?= $data['no_pesanan'] ?>">Detail</a>
                         </td>
                     </tr>
+                    <?php } 
+                    if($_SESSION['pesanan'] == []) {
+                    ?>               
+                    <tr>
+                        <td colspan="8" style="font-style:italic; color:#adadad; font-size:14px;">Anda Belum Membuat Pesanan</td>
+                    </tr>
                     <?php } ?>
+                    </tbody>
                 </table>
             </div>
         </section>
