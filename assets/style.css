@@ -320,9 +320,9 @@ header a {
     transition: 1s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-/* .roll:hover img {
-    transform: scale(1.1);
-} */
+.roll:hover img {
+    transform: scale(1.05);
+}
 
 /* KEUNGGULAN, ALUR, dan LAYANAN STYLE END */
 
