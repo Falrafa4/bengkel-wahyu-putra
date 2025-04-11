@@ -88,13 +88,13 @@ main hr {
     color: #ffffff;
 }
 
-.container-layanan {
+.card-row {
     display: flex;
     gap: 50px;
     justify-content: center;
 }
 
-.bubut, .milling {
+.card {
     width: 600px;
     /* border: 1px solid red; */
     text-align: center;
@@ -106,7 +106,7 @@ main hr {
     border-radius: 9px;
 }
 
-.layanan-description {
+.layanan-desc {
     padding: 40px 50px;
 }
 
@@ -128,7 +128,7 @@ main hr {
     transform: scale(1.1);
 }
 
-.edm {
+.card-full {
     display: flex;
     height: 350px;
     background-color: var(--primary-color);
@@ -139,25 +139,25 @@ main hr {
     margin: 0px auto;
 }
 
-.edm-header {
+.card-full-header {
     overflow: hidden;
     /* width: 512px; */
     height: 100%;
     border-radius: 9px 0px 0px 9px;
 }
 
-.edm img {
+.card-full img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: all .3s;
 }
 
-.edm img:hover {
+.card-full img:hover {
     transform: scale(1.1);
 }
 
-.edm-description {
+.card-full-desc {
     width: 80%;
     padding: 50px 30px;
     line-height: 25px;
