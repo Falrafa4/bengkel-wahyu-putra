@@ -46,12 +46,16 @@
                     <tr>
                         <th>ID Service</th>
                         <th>Nama Service</th>
+                        <th>Deskripsi</th>
+                        <th>Nama Foto</th>
                         <th>Aksi</th>
                     </tr>
                     <?php while($result = mysqli_fetch_assoc($sql)){?>
                     <tr>
                         <td><?= $result['id_service'] ?></td>
                         <td><?= $result['nama_service'] ?></td>
+                        <td style="width: 500px"><?= $result['deskripsi'] ?></td>
+                        <td><?= $result['nama_gambar'] ?></td>
                         <td class="action">
                             <a href="" class="btn edit"><i class="fas fa-pen-to-square"></i></a>
                             <a href="" class="btn hapus"><i class="fas fa-trash"></i></a>
