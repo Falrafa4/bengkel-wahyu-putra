@@ -98,61 +98,65 @@
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/nav.php"; ?>
 
     <main>
-        <form action="index.php" method="POST">
-            <h1>
-                <?= isset($_GET['ubah']) ? "Edit Data" : "Tambah Data" ?>
-            </h1><hr>
-            <span style="color: red; font-style:italic;"><?= $pesan ?></span>
+        <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/admin/aside.php"; ?>
 
-            <input type="hidden" value="<?= $id_pelanggan ?>" name="id_pelanggan">
-            <div class="input-box">
-                <label for="nama">Nama Pelanggan </label>
-                <input type="text" name="nama_pelanggan" id="nama" placeholder="Ex: Rafa Asad" value="<?= $nama_pelanggan ?>" required>
-            </div>
-            <div class="input-box">
-                <label for="email">Email </label>
-                <input type="email" name="email" id="email" placeholder="Ex: user@gmail.com" value="<?= $email ?>" required>
-            </div>
-            <div class="input-box">
-                <label for="password"><?= isset($_GET['ubah']) ? "Change Password (Optional)" : "New Password" ?></label>
-                <span><i class="fas fa-eye-slash" id="eye" onclick="openPass()"></i></span>
-                <input type="password" name="pass_pelanggan" id="pass_user" <?php if(!isset($_GET['ubah'])) {echo "required";} ?>>
-            </div>
-            <div class="input-box">
-                <label for="notelp">No. Telepon </label>
-                <input type="text" name="no_telp" id="notelp" placeholder="Ex: 081122334455" value="<?= $no_telp ?>" required>
-            </div>
-            <div class="input-box">
-                <label for="jenis_akun">Jenis Akun </label>
-                <select name="jenis_akun" id="jenis_akun" required>
-                    <option value="Pribadi" <?php if($jenis_akun == 'Pribadi') {echo "selected";}?>>Pribadi</option>
-                    <option value="Perusahaan" <?php if($jenis_akun == 'Perusahaan') {echo "selected";}?>>Perusahaan</option>
-                </select>
-            </div>
-            <div class="input-box">
-                <label for="role">Role </label>
-                <select name="role" id="role" required>
-                    <option value="User" <?php if($role == 'User') {echo "selected";}?>>User</option>
-                    <option value="Admin" <?php if($role == 'Admin') {echo "selected";}?>>Admin</option>
-                </select>
-            </div>
-            <?php 
-            if(isset($_GET['ubah'])){ ?>
-                <button type="submit" name="aksi" value="edit" class="btn-kelola update">
-                    <i class="fa-solid fa-floppy-disk"></i>
-                    Simpan Perubahan
-                </button>
-            <?php } else {?>
-                <button type="submit" name="aksi" value="add" class="btn-kelola update">
-                    <i class="fa-solid fa-floppy-disk"></i>
-                    Tambahkan
-                </button>
-            <?php } ?>
-            <a href="../" class="btn-kelola back">
-                <i class="fas fa-reply"></i>
-                Batal
-            </a>
-        </form>
+        <section class="content">
+            <form action="index.php" method="POST">
+                <h1>
+                    <?= isset($_GET['ubah']) ? "Edit Data Pelanggan" : "Tambah Data Pelanggan" ?>
+                </h1><hr>
+                <span style="color: red; font-style:italic;"><?= $pesan ?></span>
+    
+                <input type="hidden" value="<?= $id_pelanggan ?>" name="id_pelanggan">
+                <div class="input-box">
+                    <label for="nama">Nama Pelanggan </label>
+                    <input type="text" name="nama_pelanggan" id="nama" placeholder="Ex: Rafa Asad" value="<?= $nama_pelanggan ?>" required>
+                </div>
+                <div class="input-box">
+                    <label for="email">Email </label>
+                    <input type="email" name="email" id="email" placeholder="Ex: user@gmail.com" value="<?= $email ?>" required>
+                </div>
+                <div class="input-box">
+                    <label for="pass_user"><?= isset($_GET['ubah']) ? "Change Password (Optional)" : "New Password" ?></label>
+                    <span><i class="fas fa-eye-slash" id="eye" onclick="openPass()"></i></span>
+                    <input type="password" name="pass_pelanggan" id="pass_user" <?php if(!isset($_GET['ubah'])) {echo "required";} ?>>
+                </div>
+                <div class="input-box">
+                    <label for="notelp">No. Telepon </label>
+                    <input type="text" name="no_telp" id="notelp" placeholder="Ex: 081122334455" value="<?= $no_telp ?>" required>
+                </div>
+                <div class="input-box">
+                    <label for="jenis_akun">Jenis Akun </label>
+                    <select name="jenis_akun" id="jenis_akun" required>
+                        <option value="Pribadi" <?php if($jenis_akun == 'Pribadi') {echo "selected";}?>>Pribadi</option>
+                        <option value="Perusahaan" <?php if($jenis_akun == 'Perusahaan') {echo "selected";}?>>Perusahaan</option>
+                    </select>
+                </div>
+                <div class="input-box">
+                    <label for="role">Role </label>
+                    <select name="role" id="role" required>
+                        <option value="User" <?php if($role == 'User') {echo "selected";}?>>User</option>
+                        <option value="Admin" <?php if($role == 'Admin') {echo "selected";}?>>Admin</option>
+                    </select>
+                </div>
+                <?php 
+                if(isset($_GET['ubah'])){ ?>
+                    <button type="submit" name="aksi" value="edit" class="btn-kelola update">
+                        <i class="fa-solid fa-floppy-disk"></i>
+                        Simpan Perubahan
+                    </button>
+                <?php } else {?>
+                    <button type="submit" name="aksi" value="add" class="btn-kelola update">
+                        <i class="fa-solid fa-floppy-disk"></i>
+                        Tambahkan
+                    </button>
+                <?php } ?>
+                <a href="../" class="btn-kelola back">
+                    <i class="fas fa-reply"></i>
+                    Batal
+                </a>
+            </form>
+        </section>
     </main>
 
     <script src="https://kit.fontawesome.com/ed13b1bb03.js" crossorigin="anonymous"></script>

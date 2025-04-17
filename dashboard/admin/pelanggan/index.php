@@ -69,7 +69,12 @@
                             
                             class="btn edit"
                             onclick="<?php if($result['role'] == 'Admin') {
-                                echo "return alert('Can\'t edit this account (Administrator Account). Please contact your developer')";}?>">
+                                echo "return Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        text: 'Can\'t edit this account (Administrator Account). Please contact your developer.',
+                                    });";
+                            }?>">
                             <i class="fas fa-pen-to-square"></i> Edit
                             </a>
                             <a  
@@ -77,11 +82,10 @@
                                         else {echo './?hapus=' . $result['id_pelanggan'];} ?>" 
                             
                             class="btn hapus"
+                            data-role="<?= $result['role'] ?>"
+                            data-id="<?= $result['id_pelanggan'] ?>"
                             
-                            onclick="<?php if($result['role'] == 'Admin') {
-                                echo "return alert('Can\'t delete this account (Administrator Account). Please contact your developer')";} 
-                            else {
-                                echo "return confirm('Apakah Anda yakin untuk menghapus data tersebut?')";} ?>">
+                            >
                             <i class="fas fa-trash"></i> Hapus</a>
                         </div>
                     </div>
@@ -93,5 +97,45 @@
 
     <script src="https://kit.fontawesome.com/ed13b1bb03.js" crossorigin="anonymous"></script>
     <script src="/bengkel-wahyu-putra/assets/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        document.querySelectorAll('.btn.hapus').forEach(button => {
+            button.addEventListener('click', function(e){
+            const role = this.dataset.role;
+            const id = this.dataset.id;
+            const href = this.getAttribute('href');
+
+            e.preventDefault();
+
+            if(role === 'Admin') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Can\'t delete this account (Administrator Account). Please contact your developer.',
+                });
+            } else {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: 'You won\'t be able to revert this!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                        title: 'Deleted!',
+                        text: 'Your file has been deleted.',
+                        icon: 'success'
+                        });
+                        window.location.href = href;
+                    }
+                });
+            }
+        })
+    })
+    </script>
 </body>
 </html>

@@ -55,16 +55,16 @@
                     </tr>
                     <?php while($result = mysqli_fetch_assoc($sql)){?>
                     <tr>
-                        <td><?= $result['no_pesanan'] ?></td>
-                        <td><?= $result['id_pelanggan'] ?></td>
-                        <td><?= $result['waktu_pemesanan'] ?></td>
+                        <td style="text-align: center;"><?= $result['no_pesanan'] ?></td>
+                        <td style="text-align: center;"><?= $result['id_pelanggan'] ?></td>
+                        <td style="text-align: center;"><?= $result['waktu_pemesanan'] ?></td>
                         <td><?= $result['alamat_lengkap'] ?></td>
                         <td><?php if($result['detail'] == NULL) echo "-"; else echo $result['detail']; ?></td>
-                        <td><?= $result['id_service'] ?></td>
+                        <td style="text-align: center;"><?= $result['id_service'] ?></td>
                         <td><?= $result['status_pesanan'] ?></td>
                         <td class="action">
-                            <a href="" class="btn edit"><i class="fas fa-pen-to-square"></i></a>
-                            <a href="" class="btn hapus"><i class="fas fa-trash"></i></a>
+                            <a href="./kelola/?ubah=<?= $result['id_pelanggan']?>" class="btn edit"><i class="fas fa-pen-to-square"></i></a>
+                            <a href="./?hapus=<?= $result['id_pelanggan']?>" data-id="" class="btn hapus"><i class="fas fa-trash"></i></a>
                         </td>
                     </tr>
                     <?php } ?>

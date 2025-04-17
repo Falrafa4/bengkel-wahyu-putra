@@ -49,7 +49,10 @@
                         <td><?= $data['material'] == NULL ? '-' : $data['material'] ?></td>
                         <td><?= $data['alamat_lengkap'] ?></td>
                         <td>
-                            <a href="detail/?detail=<?= $data['no_pesanan'] ?>">Detail</a>
+                            <a href="detail/?detail=<?= $data['no_pesanan'] ?>">
+                                Detail
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
                         </td>
                     </tr>
                     <?php } 
@@ -61,6 +64,7 @@
                     <?php } ?>
                     </tbody>
                 </table>
+                <!-- <iframe src="../../../uploads/desain/test.pdf" width="600" height="400"></iframe> -->
             </div>
         </section>
     </main>
