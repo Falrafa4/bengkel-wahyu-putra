@@ -2,6 +2,7 @@
     //inisialisasi session
     session_start();
     require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/session_user.php";
 
     $query = "SELECT p.no_pesanan, CONCAT('WP', LPAD(p.no_pesanan, 5, '0')) AS nomor_pesanan, p.waktu_pemesanan, CONCAT(p.nama_jalan,', ',p.kecamatan,', ',p.kabupaten_kota) AS alamat_lengkap, s.nama_service, p.status_pesanan, pi.nama_item, pi.material, pi.jumlah_item
     FROM pemesanan p
@@ -34,6 +35,10 @@
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/user.css">
     <link rel="shortcut icon" href="../assets/img/logo-wp-circle.png">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../assets/fontawesome/css/all.css">
+
     <title>Dashboard - Bengkel Wahyu Putra</title>
 </head>
 
@@ -122,6 +127,5 @@
         </section>
     </main>
 
-    <script src="https://kit.fontawesome.com/ed13b1bb03.js" crossorigin="anonymous"></script>
 </body>
 </html>

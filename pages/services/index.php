@@ -11,6 +11,10 @@ session_start();
     <link rel="stylesheet" href="../../assets/css/global.css">
     <link rel="stylesheet" href="../../assets/css/services.css">
     <link rel="shortcut icon" href="../../assets/img/logo-wp-circle.png">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../../assets/fontawesome/css/all.css">
+
     <title>Services - Bengkel Wahyu Putra</title>
 </head>
 
@@ -46,6 +50,7 @@ session_start();
         $total = count($layanan);
 
         for ($i = 0; $i < $total; $i++) {
+            // Kita cek apakah i sudah merupakan elemen terakhir DAN jumlah i nya itu ganjil
             if ($i == $total - 1 && $total % 2 == 1) { ?>
                 <section class="card-full">
                     <div class="card-full-header">
@@ -58,7 +63,10 @@ session_start();
                         <a href="../../dashboard/" class="white-btn btn">Pesan Sekarang</a>
                     </div>
                 </section>
+            
+            <!-- Kalo ndak berarti ini bukan elemen terakhir dan adalah elemen genap! lanjutt -->
             <?php   } else {
+                // Hmm, kalo gitu cek apakah ini elemen baris baru genap (0,2,4,6)
                 if ($i % 2 == 0) echo '<div class="card-row">';
             ?>
                 <section class="card">
@@ -81,7 +89,6 @@ session_start();
     <!-- FOOTER -->
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/footer.php" ?>
     <!-- FOOTER END -->
-    <script src="https://kit.fontawesome.com/ed13b1bb03.js" crossorigin="anonymous"></script>
     <script src="../../assets/js/main.js"></script>
 </body>
 

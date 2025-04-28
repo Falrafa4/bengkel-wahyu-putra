@@ -12,6 +12,10 @@ session_start();
     <link rel="stylesheet" href="assets/style.css">
     <link rel="stylesheet" href="assets/css/global.css">
     <link rel="shortcut icon" href="assets/img/logo-wp-circle.png">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="assets/fontawesome/css/all.css">
+
     <title>Bengkel Wahyu Putra</title>
 </head>
 <body>
@@ -126,7 +130,7 @@ session_start();
     <!-- FOOTER -->
     <?php require_once "includes/global/footer.php"; ?>
     <!-- FOOTER END -->
-    <script src="https://kit.fontawesome.com/ed13b1bb03.js" crossorigin="anonymous"></script>
+    <!-- <script src="https://kit.fontawesome.com/ed13b1bb03.js" crossorigin="anonymous"></script> -->
     <script src="assets/js/main.js"></script>
     <script>
         const right = document.querySelector('.fa-chevron-right');

@@ -10,7 +10,7 @@ if (isset($_POST['aksi']) || isset($_GET['ubah'])) {
 $no_pesanan = '';
 $id_pelanggan = '';
 $waktu_pemesanan = '';
-$jalan = '';
+$nama_jalan = '';
 $kecamatan = '';
 $kabupaten_kota = '';
 $provinsi = '';
@@ -21,10 +21,10 @@ $status = '';
 $pesan = '';
 
 if (isset($_GET['ubah'])) {
-    $id_pelanggan = $_GET['ubah'];
+    $no_pesanan = $_GET['ubah'];
 
     //query SELECT untuk memasukkan data ke dalam form => untuk diedit
-    $query = "SELECT * FROM pemesanan WHERE id_pelanggan = '$id_pelanggan';";
+    $query = "SELECT * FROM pemesanan WHERE no_pesanan = '$no_pesanan';";
     $sql = $conn->query($query);
     $result = $sql->fetch_assoc();
 
@@ -32,7 +32,7 @@ if (isset($_GET['ubah'])) {
     $no_pesanan = $result['no_pesanan'];
     $id_pelanggan = $result['id_pelanggan'];
     $waktu_pemesanan = $result['waktu_pemesanan'];
-    $jalan = $result['nama_jalan'];
+    $nama_jalan = $result['nama_jalan'];
     $kecamatan = $result['kecamatan'];
     $kabupaten_kota = $result['kabupaten_kota'];
     $provinsi = $result['provinsi'];
@@ -43,21 +43,23 @@ if (isset($_GET['ubah'])) {
 }
 
 if (isset($_POST['aksi'])) {
+    $id_pelanggan = $_POST['id_pelanggan'];
+    $nama_jalan = $_POST['nama_jalan'];
+    $kecamatan = $_POST['kecamatan'];
+    $kabupaten_kota = $_POST['kabupaten_kota'];
+    $provinsi = $_POST['provinsi'];
+    $kode_pos = $_POST['kode_pos'];
+    $detail = $_POST['detail'];
+    $id_service = $_POST['id_service'];
+
     // CREATE DATA
     if ($_POST['aksi'] == 'add') {
-        $password = $_POST['pass_pelanggan'];
-        $nama_pelanggan = $_POST['nama_pelanggan'];
-        $email = $_POST['email'];
-        $no_telp = $_POST['no_telp'];
-        $jenis_akun = $_POST['jenis_akun'];
-        $role = $_POST['role'];
-
-        if (empty($password) || empty($nama_pelanggan) || empty($email) || empty($no_telp)) {
+        if (empty($id_pelanggan) || empty($nama_jalan) || empty($kecamatan) || empty($kabupaten_kota) || empty($provinsi) || empty($kode_pos) || empty($detail) || empty($id_service)) {
             $pesan = "Data ada yang kosong! Harap diisi!";
-        }
+        } // LANJUTKAN TAMBAH DATA DAN UPDATE DATA
 
         if (empty($pesan)) {
-            if (insertPelanggan($conn, $password, $nama_pelanggan, $email, $no_telp, $jenis_akun, $role)) {
+            if (insertPemesanan($conn, $id_pelanggan, $nama_jalan, $kecamatan, $kabupaten_kota, $provinsi, $kode_pos, $detail, $id_service)) {
                 $_SESSION['eksekusi'] = "Data Berhasil Ditambahkan!";
                 header("location: ../");
             } else {
@@ -68,30 +70,16 @@ if (isset($_POST['aksi'])) {
 
     // UPDATE DATA
     if ($_POST['aksi'] == 'edit') {
-        $id_pelanggan = $_POST['id_pelanggan'];
-        $nama_pelanggan = $_POST['nama_pelanggan'];
-        $email = $_POST['email'];
-        $no_telp = $_POST['no_telp'];
-        $jenis_akun = $_POST['jenis_akun'];
-        $role = $_POST['role'];
-
-        if (isset($_POST['pass_pelanggan'])) {
-            $password = $_POST['pass_pelanggan'];
-            if (!updatePassword($conn, $id_pelanggan, $password)) {
-                error_log('Terdapat kesalahan. Coba lagi nanti!');
-            }
-        }
-
-        if (updatePelanggan($conn, $nama_pelanggan, $email, $no_telp, $jenis_akun, $role, $id_pelanggan)) {
+        $no_pesanan = $_POST['no_pesanan'];
+        if (updatePemesanan($conn, $no_pesanan, $nama_jalan, $kecamatan, $kabupaten_kota, $provinsi, $kode_pos, $detail, $id_service, $id_pelanggan)) {
             $_SESSION['eksekusi'] = "Data Berhasil Diubah!";
             header("location: ../");
         } else {
-            echo $sql;
+            echo $stmt->execute();
         }
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -101,6 +89,10 @@ if (isset($_POST['aksi'])) {
     <link rel="stylesheet" href="../../../../assets/css/global.css">
     <link rel="stylesheet" href="../../../../assets/css/kelola.css">
     <link rel="shortcut icon" href="../../../../assets/img/logo-wp-circle.png">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/bengkel-wahyu-putra/assets/fontawesome/css/all.css">
+
     <title>Kelola - Bengkel Wahyu Putra</title>
 </head>
 
@@ -112,31 +104,27 @@ if (isset($_POST['aksi'])) {
         <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/admin/aside.php"; ?>
 
         <section class="content">
-            <form action="index.php" method="POST">
+            <form action="./" method="POST">
                 <h1>
                     <?= isset($_GET['ubah']) ? "Edit Data" : "Tambah Data" ?>
                 </h1>
                 <hr>
                 <span style="color: red; font-style:italic;"><?= $pesan ?></span>
 
-                <input type="hidden" value="<?= $id_pelanggan ?>" name="id_pelanggan">
-                <!-- <div class="input-box">
-                    <label for="no">No Pesanan</label>
-                    <input type="text" id="no" name="no" value="<?= $no_pesanan ?>">
-                </div> -->
+                <input type="hidden" name="no_pesanan" value="<?= $no_pesanan ?>" id="no_pesanan">
                 <div class="input-box">
                     <label for="nama">Nama Pelanggan </label>
-                    <select name="" id="">
+                    <select name="id_pelanggan" id="id_pelanggan">
                         <?php $result = $conn->query("SELECT * FROM pelanggan");
                         while ($row = $result->fetch_assoc()) {
                         ?>
-                            <option value="<?= $row['id_pelanggan'] ?>"><?= $row['nama_pelanggan'] ?></option>
+                            <option value="<?= $row['id_pelanggan'] ?>" <?php if($id_pelanggan == $row['id_pelanggan']) echo 'selected'; ?>><?= $row['nama_pelanggan'] ?></option>
                         <?php } ?>
                     </select>
                 </div>
                 <div class="input-box">
                     <label for="jalan">Nama Jalan </label>
-                    <input type="text" name="nama_jalan" id="jalan" placeholder="Ex: Jl. Kolonel Sugiono No. 13" value="<?= $jalan ?>" required>
+                    <input type="text" name="nama_jalan" id="jalan" placeholder="Ex: Jl. Kolonel Sugiono No. 13" value="<?= $nama_jalan ?>" required>
                 </div>
                 <div class="input-box">
                     <label for="kecamatan">Kecamatan </label>
@@ -156,15 +144,15 @@ if (isset($_POST['aksi'])) {
                 </div>
                 <div class="input-box">
                     <label for="detail">Detail </label>
-                    <input type="text" name="detail" id="detail" placeholder="Ex: 61256" value="<?= $detail ?>" required>
+                    <input type="text" name="detail" id="detail" placeholder="Ex: Rumah Tingkat, sebelah toko" value="<?= $detail ?>" required>
                 </div>
                 <div class="input-box">
                     <label for="detail">Service </label>
-                    <select name="" id="">
+                    <select name="id_service" id="id_service">
                         <?php $result = $conn->query("SELECT * FROM service");
                         while ($row = $result->fetch_assoc()) {
                         ?>
-                            <option value="<?= $row['id_service'] ?>"><?= $row['nama_service'] ?></option>
+                            <option value="<?= $row['id_service'] ?>" <?php if($row['id_service'] == $id_service) echo 'Selected' ?>><?= $row['nama_service'] ?></option>
                         <?php } ?>
                     </select>
                 </div>
@@ -188,7 +176,6 @@ if (isset($_POST['aksi'])) {
         </section>
     </main>
 
-    <script src="https://kit.fontawesome.com/ed13b1bb03.js" crossorigin="anonymous"></script>
     <script src="/bengkel-wahyu-putra/assets/js/main.js"></script>
 </body>
 

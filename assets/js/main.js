@@ -1,10 +1,16 @@
 // HAMBURGER NAV
 function toggleClick() {
-    const toggleSideBar = document.querySelector('.ham-bar')
+    const toggleSideBar = document.querySelector('.ham-bar');
+    const toggleIcon = document.getElementById('toggleIcon');
+    
     if (toggleSideBar.style.display === "block") {
         toggleSideBar.style.display = "none";
+        toggleIcon.classList.remove('fa-close');
+        toggleIcon.classList.add('fa-bars');  
       } else {
         toggleSideBar.style.display = "block";
+        toggleIcon.classList.remove('fa-bars');
+        toggleIcon.classList.add('fa-close');  
       }
 }
 
@@ -12,7 +18,7 @@ function toggleClick() {
 function openPass() {
   const inputPass = document.getElementById('pass_user');
   const iconEye = document.getElementById('eye');
-  if (inputPass.getAttribute('type') === 'password') {
+  if (inputPass.getAttribute('type') == 'password') {
       inputPass.setAttribute('type', 'text');
       iconEye.classList.replace('fa-eye-slash', 'fa-eye');
   } else {

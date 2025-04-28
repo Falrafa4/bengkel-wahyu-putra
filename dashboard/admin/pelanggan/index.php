@@ -16,7 +16,6 @@
         }
     }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,6 +24,10 @@
     <link rel="stylesheet" href="/bengkel-wahyu-putra/assets/css/global.css">
     <link rel="stylesheet" href="/bengkel-wahyu-putra/assets/css/admin.css">
     <link rel="shortcut icon" href="/bengkel-wahyu-putra/assets/img/logo-wp-circle.png">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/bengkel-wahyu-putra/assets/fontawesome/css/all.css">
+
     <title>Pelanggan - Bengkel Wahyu Putra</title>
 </head>
 

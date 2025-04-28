@@ -2,6 +2,14 @@
     session_start();
     require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
     require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functions.php";
+
+    if(isset($_SESSION['data'])) {
+        if($_SESSION['data']['role'] === 'User') {
+            header('location: ../../dashboard/');
+        } else {
+            header('location: ../../dashboard/admin/');
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -12,6 +20,14 @@
     <link rel="stylesheet" href="../../assets/css/global.css">
     <link rel="stylesheet" href="../../assets/css/login.css">
     <link rel="shortcut icon" href="../../assets/img/logo-wp-circle.png">
+        
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../../assets/fontawesome/css/all.css">
+
+    <!-- Sweetalert2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.19.1/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.19.1/dist/sweetalert2.all.min.js"></script>
+
     <title>Login - Bengkel Wahyu Putra</title>
 </head>
 <body>
@@ -36,9 +52,25 @@
 
                 if ($data) {
                     if ($data['role'] === 'Admin') {
-                        echo '<script>alert("Selamat Datang, min! '.$data['nama_pelanggan'].'"); location.href="../../dashboard/admin/";</script>'; // Arahkan ke halaman admin
+                        echo '<script>
+                        Swal.fire({
+                            title: "Login Sukses!",
+                            text: "Selamat datang, ' . $data['nama_pelanggan'] .'!",
+                            icon: "success"
+                        }).then(() => {
+                            window.location.href="../../dashboard";
+                        });
+                        </script>'; // Arahkan ke halaman admin
                     } else {
-                        echo '<script>alert("Selamat Datang! '.$data['nama_pelanggan'].'"); location.href="../../dashboard/";</script>'; // Arahkan ke halaman user
+                        echo '<script>
+                        Swal.fire({
+                            title: "Login Sukses!",
+                            text: "Selamat datang, ' . $data['nama_pelanggan'] .'!",
+                            icon: "success"
+                        }).then(() => {
+                            window.location.href="../../dashboard/admin/";
+                        });
+                        </script>'; // Arahkan ke halaman user
                     }
                     exit();
                 } else {
@@ -93,13 +125,12 @@
                 <input type="password" name="pass_user" id="pass_user" placeholder="Password" required><br>
             </div>
 
-            <a href="../daftar/" class="forgot-pass">Lupa Password?</a>
+            <a href="../forgot_password/" class="forgot-pass">Lupa Password?</a>
             <button type="submit" name="masuk">Masuk</button>
             <p style="font-size: 14px; text-align: center; margin: 20px 0px 0px 0px">Belum punya akun? <a href="../daftar/">Daftar di sini!</a></p>
         </form>
     </main>
-
-    <script src="https://kit.fontawesome.com/ed13b1bb03.js" crossorigin="anonymous"></script>
+    
     <script src="../../assets/js/main.js"></script>
 </body>
 </html>

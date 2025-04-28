@@ -1,5 +1,7 @@
 <?php
 // ADMIN OR USER CAN USE IT
+
+// PELANGGAN
 function insertPelanggan($conn, $password, $nama_pelanggan, $email, $no_telp, $jenis_akun, $role) {
     $hash = password_hash($password, PASSWORD_DEFAULT);
     
@@ -29,16 +31,27 @@ function deletePelanggan($conn, $id_pelanggan) {
     $stmt->close();
 }
 
-function insertPemesanan($conn, $id_pelanggan, $nama_jalan, $kecamatan, $kabupaten_kota, $provinsi, $kode_pos, $detail, $layanan) {
+// PEMESANAN
+function insertPemesanan($conn, $id_pelanggan, $nama_jalan, $kecamatan, $kabupaten_kota, $provinsi, $kode_pos, $detail, $id_service) {
     $query = 'INSERT INTO pemesanan (id_pelanggan, nama_jalan, kecamatan, kabupaten_kota, provinsi, kode_pos, detail, id_service)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
     $stmt = $conn->prepare($query);
-    $stmt->bind_param('issssssi', $id_pelanggan, $nama_jalan, $kecamatan, $kabupaten_kota, $provinsi, $kode_pos, $detail, $layanan);
+    $stmt->bind_param('issssssi', $id_pelanggan, $nama_jalan, $kecamatan, $kabupaten_kota, $provinsi, $kode_pos, $detail, $id_service);
 
     return $stmt->execute();
     $stmt->close();
 }
 
+function updatePemesanan($conn, $no_pesanan, $nama_jalan, $kecamatan, $kabupaten_kota, $provinsi, $kode_pos, $detail, $id_service, $id_pelanggan) {
+    $query = 'UPDATE pemesanan SET id_pelanggan = ?, nama_jalan = ?, kecamatan = ?, kabupaten_kota = ?, provinsi = ?, kode_pos = ?, detail = ?, id_service = ? WHERE no_pesanan = ?';
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('issssssii', $id_pelanggan, $nama_jalan, $kecamatan, $kabupaten_kota, $provinsi, $kode_pos, $detail, $id_service, $no_pesanan);
+
+    return $stmt->execute();
+    $stmt->close();
+}
+
+// PEMESANAN ITEM
 function insertPemesananItem($conn, $no_pesanan, $nama_item, $desain_gambar, $material, $jumlah_item) {
     $query = 'INSERT INTO pemesanan_item (no_pesanan, nama_item, desain_gambar, material, jumlah_item)
     VALUES (?, ?, ?, ?, ?)';

@@ -68,6 +68,10 @@
     <link rel="stylesheet" href="../../../assets/css/global.css">
     <link rel="stylesheet" href="../../../assets/css/user.css">
     <link rel="shortcut icon" href="../../../assets/img/logo-wp-circle.png">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../../../assets/fontawesome/css/all.css">
+
     <title>Dashboard - Bengkel Wahyu Putra</title>
 </head>
 
@@ -168,7 +172,6 @@
         </section>
     </main>
 
-    <script src="https://kit.fontawesome.com/ed13b1bb03.js" crossorigin="anonymous"></script>
     <script>
         const form1 = document.getElementById('form1');
         const form2 = document.getElementById('form2');

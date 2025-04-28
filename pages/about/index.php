@@ -1,7 +1,6 @@
-<?php 
+<?php
 session_start();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +9,10 @@ session_start();
     <link rel="stylesheet" href="../../assets/css/global.css">
     <link rel="stylesheet" href="../../assets/css/about.css">
     <link rel="shortcut icon" href="../../assets/img/logo-wp-circle.png">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../../assets/fontawesome/css/all.css">
+
     <title>About Us - Bengkel Wahyu Putra</title>
 </head>
 <body>
@@ -19,7 +22,8 @@ session_start();
 
     <!-- HEADER & BG FOTO -->
     <header>
-        <h1>ABOUT US</h1><hr>
+        <h1>ABOUT US</h1>
+        <hr>
         <p>Kami berkomitmen dalam mengerjakan setiap pesanan yang hadir.</p>
     </header>
     <!-- HEADER & BG FOTO END -->
@@ -30,7 +34,8 @@ session_start();
         </section>
 
         <section class="sejarah">
-            <h1>Timeline Kami</h1><hr>
+            <h1>Timeline Kami</h1>
+            <hr>
             <p>Sejak tahun 2018, Bengkel Wahyu Putra melayani kebutuhan Anda.</p>
 
             <div class="sejarah-card">
@@ -50,7 +55,8 @@ session_start();
         <section class="owner">
             <div class="owner-gradient">
                 <div class="profile">
-                    <h1>Profil Pemilik<br>Bengkel Wahyu Putra</h1><hr>
+                    <h1>Profil Pemilik<br>Bengkel Wahyu Putra</h1>
+                    <hr>
                     <p>"Perkenalkan, nama saya Mu'anam, pemilik Bengkel Wahyu Putra yang telah berdiri sejak akhir tahun 2018. Kami bergerak di bidang jasa pembuatan matras/moulding untuk plastik, karet, plat/plong, serta pembuatan sparepart mesin, logo emboss dan berbagai kebutuhan lainnya."</p>
                     <cite>- Mu'anam</cite>
                     <cite>Owner Bengkel Wahyu Putra</cite>
@@ -62,7 +68,6 @@ session_start();
     <!-- FOOTER -->
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/footer.php"; ?>
     <!-- FOOTER END -->
-    <script src="https://kit.fontawesome.com/ed13b1bb03.js" crossorigin="anonymous"></script>
     <script src="../../assets/js/main.js"></script>
 </body>
 </html>

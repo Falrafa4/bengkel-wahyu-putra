@@ -3,7 +3,6 @@
     require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
     require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/session_admin.php";
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +11,10 @@
     <link rel="stylesheet" href="/bengkel-wahyu-putra/assets/css/global.css">
     <link rel="stylesheet" href="/bengkel-wahyu-putra/assets/css/admin.css">
     <link rel="shortcut icon" href="/bengkel-wahyu-putra/assets/img/logo-wp-circle.png">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/bengkel-wahyu-putra/assets/fontawesome/css/all.css">
+
     <title>Pemesanan - Bengkel Wahyu Putra</title>
 </head>
 
@@ -63,8 +66,8 @@
                         <td style="text-align: center;"><?= $result['id_service'] ?></td>
                         <td><?= $result['status_pesanan'] ?></td>
                         <td class="action">
-                            <a href="./kelola/?ubah=<?= $result['id_pelanggan']?>" class="btn edit"><i class="fas fa-pen-to-square"></i></a>
-                            <a href="./?hapus=<?= $result['id_pelanggan']?>" data-id="" class="btn hapus"><i class="fas fa-trash"></i></a>
+                            <a href="./kelola/?ubah=<?= $result['no_pesanan']?>" class="btn edit"><i class="fas fa-pen-to-square"></i></a>
+                            <a href="./?hapus=<?= $result['no_pesanan']?>" data-id="" class="btn hapus"><i class="fas fa-trash"></i></a>
                         </td>
                     </tr>
                     <?php } ?>
@@ -73,7 +76,6 @@
         </div>
     </main>
 
-    <script src="https://kit.fontawesome.com/ed13b1bb03.js" crossorigin="anonymous"></script>
     <script src="/bengkel-wahyu-putra/assets/js/main.js"></script>
 </body>
 </html>

@@ -10,6 +10,10 @@ session_start();
     <link rel="stylesheet" href="../../assets/css/global.css">
     <link rel="stylesheet" href="../../assets/css/gallery.css">
     <link rel="shortcut icon" href="../../assets/img/logo-wp-circle.png">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../../assets/fontawesome/css/all.css">
+
     <title>Gallery - Bengkel Wahyu Putra</title>
 </head>
 <body>
@@ -45,7 +49,6 @@ session_start();
     </main>
 
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/footer.php"; ?>
-    <script src="https://kit.fontawesome.com/ed13b1bb03.js" crossorigin="anonymous"></script>
     <script src="../../assets/js/main.js"></script>
 
     <script>

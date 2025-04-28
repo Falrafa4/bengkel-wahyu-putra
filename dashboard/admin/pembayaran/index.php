@@ -3,7 +3,6 @@
     require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
     require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/session_admin.php";
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +11,10 @@
     <link rel="stylesheet" href="/bengkel-wahyu-putra/assets/css/global.css">
     <link rel="stylesheet" href="/bengkel-wahyu-putra/assets/css/admin.css">
     <link rel="shortcut icon" href="/bengkel-wahyu-putra/assets/img/logo-wp-circle.png">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/bengkel-wahyu-putra/assets/fontawesome/css/all.css">
+
     <title>Pembayaran - Bengkel Wahyu Putra</title>
 </head>
 
@@ -77,7 +80,6 @@
         </div>
     </main>
 
-    <script src="https://kit.fontawesome.com/ed13b1bb03.js" crossorigin="anonymous"></script>
     <script src="/bengkel-wahyu-putra/assets/js/main.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-/* ADMIN PAGE */
+/* ALL USER PAGE */
 :root {
     --primary-color: #2b2b2b;
     --secondary-color: #faf9f6;
@@ -6,7 +6,6 @@
 
 main {
     background-color: white;
-    height: 100%;
     display: grid;
     grid-template-columns: auto 1fr;
 }
@@ -31,7 +30,8 @@ main {
 }
 
 .home .utama table,
-.settings .utama table {
+.settings .utama table,
+.settings .password {
     background-color: #F9F9F9;
     box-shadow: 2px 4px 15px rgba(0, 0, 0, 0.25);
     margin-top: 35px;
@@ -59,14 +59,15 @@ main {
     padding: 10px 0px;
 }
 
-.riwayat, .notif {
+.riwayat,
+.notif {
     background-color: #F9F9F9;
     box-shadow: 2px 4px 15px rgba(0, 0, 0, 0.25);
     margin-top: 50px;
     padding: 25px 30px;
     border-radius: 10px;
     width: 50%;
-    height: 320px;
+    height: auto;
 }
 
 .riwayat-notif {
@@ -108,12 +109,14 @@ main {
     width: 80%;
 }
 
-.no-order, .msg-notif {
+.no-order,
+.msg-notif {
     text-align: center;
     margin: 20% auto;
 }
 
-.msg-riwayat em, .msg-notif em {
+.msg-riwayat em,
+.msg-notif em {
     display: block;
     font-size: 13px;
     color: #adadad;
@@ -121,7 +124,7 @@ main {
 }
 
 /* button */
-table .fas {
+.button .fas {
     font-size: 16px;
 }
 
@@ -134,18 +137,21 @@ table .button {
     padding-top: 10px;
 }
 
-table a, .no-order a {
+table a,
+.no-order a,
+.detailPesanan .utama a {
     background-color: var(--primary-color);
     color: white;
     padding: 10px 15px;
     border-radius: 5px;
-    border: 1px solid #2b2b2b;
+    border: 1px solid var(--primary-color);
     display: inline-block;
     transition: .3s ease-in-out;
     font-size: 14px;
 }
 
-table button {
+table button,
+form button {
     background-color: var(--primary-color);
     color: white;
     padding: 10px 15px;
@@ -157,15 +163,36 @@ table button {
 }
 
 /* STYLE FOR SETTINGS PAGE (USER) */
-.settings .utama > h1 {
+.settings .profile>h1 {
     font-size: 48px;
     font-weight: 300;
 }
+
+.settings .password form label {
+    width: 500px;
+    min-width: 100px;
+}
+
+.settings .password .input-box {
+    margin-bottom: 20px;
+}
+
+.settings .password h1 {
+    font-size: 28px;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.settings .password {
+    margin-bottom: 40px;
+}
+
 /* INPUT BOX */
-input, select {
+input,
+select {
     width: 100%;
     height: 40px;
-    padding: 10px 40px 10px 15px; 
+    padding: 10px 40px 10px 15px;
     border: none;
     border-radius: 5px;
     font-size: 14px;
@@ -193,7 +220,7 @@ select {
 
 input:focus {
     border-color: var(--primary-color);
-    box-shadow: 0 0 5px rgba(43, 43, 43, 0.5); 
+    box-shadow: 0 0 5px rgba(43, 43, 43, 0.5);
     outline: none;
 }
 
@@ -269,7 +296,12 @@ input:focus {
     margin-top: 10px;
 }
 
-.form-pesanan button:hover, table a:hover, .no-order a:hover, table button:hover {
+.form-pesanan button:hover,
+table a:hover,
+.no-order a:hover,
+table button:hover,
+form button:hover,
+.detailPesanan .utama a:hover {
     background-color: transparent;
     color: #2b2b2b;
     border: 1px solid #2b2b2b;
@@ -284,7 +316,8 @@ input:focus {
 }
 
 /* STYLE FOR DAFTAR PESANAN PAGE */
-.daftarPesanan .utama h1 {
+.daftarPesanan .utama h1,
+.detailPesanan .utama h1 {
     font-size: 40px;
     font-weight: 300;
 }
@@ -328,4 +361,95 @@ input:focus {
 
 .daftarPesanan table tr:hover {
     background-color: #e8e8e8;
+}
+
+.daftarPesanan table .fa-arrow-right {
+    font-size: 14px;
+}
+
+/* STYLE DETAIL PESANAN */
+.detailPesanan .informasi-flex {
+    display: flex;
+    gap: 20px;
+}
+
+.detailPesanan .utama a {
+    margin: 10px 0px;
+}
+
+.detailPesanan .fas {
+    font-size: 16px;
+}
+
+.detailPesanan img {
+    width: 260px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.detailPesanan table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.detailPesanan table th {
+    min-width: 50px;
+    width: 200px;
+}
+
+.detailPesanan table td {
+    min-width: 100px;
+}
+
+.detailPesanan table tr {
+    display: table-row;
+}
+
+.detailPesanan table th,
+.detailPesanan table td {
+    text-align: left;
+    border-bottom: 1px solid #cacaca;
+}
+
+.detailPesanan .img-jasa {
+    position: relative;
+}
+
+.detailPesanan .img-jasa h1 {
+    font-family: 'Oswald', serif;
+    font-size: 28px;
+    font-weight: 400;
+    position: absolute;
+    z-index: 2;
+    bottom: 0;
+    color: white;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: none;
+    animation: none;
+    margin-bottom: 8px;
+}
+
+/* desain & alamat */
+.detailPesanan .desain-alamat {
+    width: 100%;
+    /* display: flex; */
+    gap: 20px;
+}
+
+.desain-alamat .desain {
+    position: relative;
+    width: 400px;
+}
+
+.desain-alamat iframe {
+    width: 100%;
+    height: 400px;
+}
+
+
+.desain-alamat .alamat table th {
+    padding: 10px 0px;
+    width: 200px;
 }

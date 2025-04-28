@@ -35,7 +35,7 @@
 
 
     <!-- sidebar -->
-    <a id="toggleSideBar" onclick="toggleClick()"><i class="fas fa-bars"></i></a>
+    <a id="toggleSideBar" onclick="toggleClick()"><i class="fas fa-bars" id="toggleIcon"></i></a>
     <div class="ham-bar">
         <a href="/bengkel-wahyu-putra/">Home</a>
         <a href="/bengkel-wahyu-putra/pages/services/" class="<?= ($namaFolder == "services") ? 'active' : '' ?>">Services</a>

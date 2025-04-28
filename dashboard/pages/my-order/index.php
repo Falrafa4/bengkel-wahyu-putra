@@ -11,7 +11,11 @@
     <link rel="stylesheet" href="../../../assets/css/global.css">
     <link rel="stylesheet" href="../../../assets/css/user.css">
     <link rel="shortcut icon" href="../../../assets/img/logo-wp-circle.png">
-    <title>Dashboard - Bengkel Wahyu Putra</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../../../assets/fontawesome/css/all.css">
+
+    <title>Daftar Pesanan - Bengkel Wahyu Putra</title>
 </head>
 
 <body>
@@ -35,7 +39,7 @@
                             <th style="width: 110px;">Jumlah</th>
                             <th style="width: 110px;">Material</th>
                             <th>Alamat</th>
-                            <th>Aksi</th>
+                            <th style="width: 130px;">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -68,7 +72,5 @@
             </div>
         </section>
     </main>
-
-    <script src="https://kit.fontawesome.com/ed13b1bb03.js" crossorigin="anonymous"></script>
 </body>
 </html>

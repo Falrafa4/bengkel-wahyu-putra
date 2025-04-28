@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="../../assets/css/global.css">
     <link rel="stylesheet" href="../../assets/css/admin.css">
     <link rel="shortcut icon" href="../../assets/img/logo-wp-circle.png">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../../assets/fontawesome/css/all.css">
+
     <title>Admin - Bengkel Wahyu Putra</title>
 </head>
 
@@ -63,8 +67,7 @@
             </section>
         </div>
     </main>
-
-    <script src="https://kit.fontawesome.com/ed13b1bb03.js" crossorigin="anonymous"></script>
+    
     <script src="../../assets/js/main.js"></script>
 </body>
 </html>

@@ -81,7 +81,6 @@
         }
     }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -90,6 +89,10 @@
     <link rel="stylesheet" href="../../../../assets/css/global.css">
     <link rel="stylesheet" href="../../../../assets/css/kelola.css">
     <link rel="shortcut icon" href="../../../../assets/img/logo-wp-circle.png">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/bengkel-wahyu-putra/assets/fontawesome/css/all.css">
+
     <title>Kelola - Bengkel Wahyu Putra</title>
 </head>
 
@@ -159,7 +162,6 @@
         </section>
     </main>
 
-    <script src="https://kit.fontawesome.com/ed13b1bb03.js" crossorigin="anonymous"></script>
     <script src="/bengkel-wahyu-putra/assets/js/main.js"></script>
 </body>
 </html>
