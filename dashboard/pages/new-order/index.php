@@ -46,7 +46,7 @@
 
             if($no_pesanan) {
                 if(insertPemesananItem($conn, $no_pesanan, $nama_item, $desain_gambar, $material, $jumlah_item)) {
-                    echo "<script>alert('Pesanan berhasil dibuat! Pesanan sedang menunggu penawaran. Terima kasih.); location.href='../ ';</script>";
+                    echo "<script>alert('Pesanan berhasil dibuat! Pesanan sedang menunggu penawaran. Terima kasih.'); location.href='../ ';</script>";
                 } else {
                     echo "<script> alert('Terjadi kesalahan saat menambahkan item pesanan. :\(') </script>";
                 }

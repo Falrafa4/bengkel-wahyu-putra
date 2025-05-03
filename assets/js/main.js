@@ -15,15 +15,16 @@ function toggleClick() {
 }
 
 //SHOW HIDE PASSWORD
-function openPass() {
-  const inputPass = document.getElementById('pass_user');
-  const iconEye = document.getElementById('eye');
-  if (inputPass.getAttribute('type') == 'password') {
+function openPass(icon) {
+  const inputPass = icon.parentElement.nextElementSibling;
+  console.log(inputPass);
+  // const iconEye = document.getElementById('eye');
+  if (inputPass.getAttribute('type') === 'password') {
       inputPass.setAttribute('type', 'text');
-      iconEye.classList.replace('fa-eye-slash', 'fa-eye');
+      icon.classList.replace('fa-eye-slash', 'fa-eye');
   } else {
       inputPass.setAttribute('type', 'password');
-      iconEye.classList.replace('fa-eye', 'fa-eye-slash');
+      icon.classList.replace('fa-eye', 'fa-eye-slash');
   }
 }
 

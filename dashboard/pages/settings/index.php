@@ -35,8 +35,7 @@ if (isset($_SESSION['data'])) {
     <link rel="stylesheet" href="../../../assets/fontawesome/css/all.css">
 
     <!-- Sweetalert2 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.19.1/dist/sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.19.1/dist/sweetalert2.all.min.js"></script>
+    <script src="../../../assets/sweetalert2/sweetalert2.all.min.js"></script>
 
     <title>Profil - Bengkel Wahyu Putra</title>
 </head>
@@ -52,7 +51,7 @@ if (isset($_SESSION['data'])) {
                 title: "Berhasil!",
                 text: "Data berhasil ubah!"
             }).then(() => {
-                location.href = "../";
+                location.href = "../../";
             });
             </script>';
         } else {
@@ -112,13 +111,13 @@ if (isset($_SESSION['data'])) {
         <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/user/aside.php"; ?>
 
         <div class="utama">
+            <h1 class="profile-head">Pengaturan</h1>
             <section class="profile">
-                <h1 class="profile-head">Pengaturan</h1>
                 <form action="index.php" method="post">
                     <table>
                         <tr>
                             <td>
-                                <h1>Edit Profil</h1>
+                                <h2>Edit Profil</h2>
                             </td>
                             <input type="hidden" name="id_pelanggan" value="<?= $id_pelanggan ?>">
                         </tr>
@@ -154,28 +153,37 @@ if (isset($_SESSION['data'])) {
                 </form>
             </section>
             <section class="password" id="password_section">
-                <h1>Ubah Password</h1>
+                <h2>Ubah Password</h2>
                 <form action="index.php" method="post" id="updatePwForm">
                     <div class="input-box">
                         <label for="pw-old">Password Lama</label>
-                        <input type="name" name="pw_old" id="pw-old">
+                        <span><i class="fas fa-eye-slash" onclick="openPass(this)"></i></span>
+                        <input type="password" name="pw_old" class="pass_user">
                     </div>
                     <div class="input-box">
                         <label for="pw-new">Password Baru</label>
-                        <input type="name" name="pw_new" id="pw-new">
+                        <span><i class="fas fa-eye-slash" onclick="openPass(this)"></i></span>
+                        <input type="password" name="pw_new" class="pass_user">
                     </div>
                     <div class="input-box">
                         <label for="repeat-pw">Ulangi Password Baru</label>
-                        <input type="name" name="repeat_pw" id="repeat-pw">
+                        <span><i class="fas fa-eye-slash" onclick="openPass(this)"></i></span>
+                        <input type="password" name="repeat_pw" class="pass_user">
                     </div>
                     <div class="button">
                         <button type="submit" name="update_pw"><i class="fas fa-pen-to-square"></i> Update Password</button>
                     </div>
                 </form>
             </section>
+            <section class="hapus-akun" id="hapus">
+                <h2>Hapus Akun</h2>
+                <em>Tindakan ini dapat beresiko. Semua data dan pemesanan yang telah disimpan akan dihapus seluruhnya secara permanen dan tidak dapat dikembalikan.</em>
+                <a href="#hapus" id="btn-hapus"><i class="fas fa-trash" style="font-size: 14px;"></i> Hapus Akun</a>
+            </section>
         </div>
     </main>
 
+    <script src="../../../assets/js/main.js"></script>
     <script>
         const pw_old = document.getElementById('pw-old');
         const pw_new = document.getElementById('pw-new');
@@ -183,7 +191,6 @@ if (isset($_SESSION['data'])) {
         const form_pw = document.getElementById('updatePwForm');
 
         form_pw.addEventListener('submit', function(e) {
-
             // Cek kalau ada yang kosong
             if (pw_old.value === '' || pw_new.value === '' || repeat_pw.value === '') {
                 e.preventDefault(); // tahan form
@@ -203,10 +210,39 @@ if (isset($_SESSION['data'])) {
                     text: "Password baru dan konfirmasi tidak sama.",
                 });
             }
-
-            // // Semua valid → kirim form
-            // this.submit();
         });
+
+        const btnHapus = document.getElementById('btn-hapus');
+        btnHapus.addEventListener('click', function(e) {
+            e.preventDefault;
+
+            Swal.fire({
+                title: 'Hapus Akun Ini?',
+                text: 'Tindakan ini dapat beresiko dan tidak dapat dikembalikan!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus Akun',
+                cancelButtonText: 'Batal'
+            }).then(async (result) => {
+                if(result.isConfirmed) {
+                    const {value: email} = await Swal.fire({
+                        icon: 'info',
+                        title: "Masukkan Email Anda",
+                        input: "email",
+                        inputLabel: "Email yang Anda daftarkan ke akun ini",
+                        inputPlaceholder: "Email",
+                        confirmButtonText: 'Lanjut'
+                    });
+                    if (email === "<?= $_SESSION['data']['email']; ?>") {
+                        window.location.href = '../../../auth/hapus_akun.php';
+                    } else {
+                        Swal.fire("Gagal", "Email tidak cocok!", "error");
+                    }
+                }
+            });
+        })
     </script>
 
 </body>

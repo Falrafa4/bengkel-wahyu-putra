@@ -28,7 +28,8 @@
         
         <section class="utama">
             <div class="main-content">
-                <h1>Daftar Pesanan</h1>
+                <h1>Daftar Pesanan</h1><hr class="hr-standar" style="width: 10dvw">
+                <p>Berisi daftar pesanan yang telah Anda buat sebelumnya.</p>
                 <table>
                     <thead>
                         <tr>

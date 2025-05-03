@@ -3,6 +3,15 @@
     --secondary-color: #faf9f6;
 }
 
+body {
+    overflow-y: scroll;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+    display: none;
+}
+
 main {
     background-color: #ffffff;
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.30) 0%, rgba(0, 0, 0, 0.30) 100%), url(../img/bengkel-5.jpg) lightgray 50% / cover no-repeat;
@@ -52,6 +61,31 @@ form p {
 .label {
     display: block;
     margin-top: 10px;
+}
+
+.input-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-box i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9;
+    font-size: 18px;
+    right: 0px;
+}
+
+.input-box .fa-eye-slash {
+    right: 7px;
+    cursor: pointer;
+}
+
+.input-box .fa-eye {
+    right: 8px;
+    cursor: pointer;
 }
 
 input, select {

@@ -25,8 +25,7 @@
     <link rel="stylesheet" href="../../assets/fontawesome/css/all.css">
 
     <!-- Sweetalert2 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.19.1/dist/sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.19.1/dist/sweetalert2.all.min.js"></script>
+    <script src="../../assets/sweetalert2/sweetalert2.all.min.js"></script>
 
     <title>Login - Bengkel Wahyu Putra</title>
 </head>
@@ -52,13 +51,13 @@
 
                 if ($data) {
                     if ($data['role'] === 'Admin') {
-                        echo '<script>
+                        echo '<script type="text/javascript">
                         Swal.fire({
                             title: "Login Sukses!",
                             text: "Selamat datang, ' . $data['nama_pelanggan'] .'!",
                             icon: "success"
                         }).then(() => {
-                            window.location.href="../../dashboard";
+                            window.location.href="../../dashboard/admin/";
                         });
                         </script>'; // Arahkan ke halaman admin
                     } else {
@@ -68,7 +67,7 @@
                             text: "Selamat datang, ' . $data['nama_pelanggan'] .'!",
                             icon: "success"
                         }).then(() => {
-                            window.location.href="../../dashboard/admin/";
+                            window.location.href="../../dashboard/";
                         });
                         </script>'; // Arahkan ke halaman user
                     }
@@ -121,7 +120,7 @@
                 <input type="email" name="email" id="email" placeholder="Email" required autocomplete="off"><br>
             </div>
             <div class="input-box">
-                <span><i class="fas fa-eye-slash" id="eye" onclick="openPass()"></i></span>
+                <span><i class="fas fa-eye-slash" id="eye" onclick="openPass(this)"></i></span>
                 <input type="password" name="pass_user" id="pass_user" placeholder="Password" required><br>
             </div>
 

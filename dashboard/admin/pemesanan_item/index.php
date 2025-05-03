@@ -15,7 +15,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="/bengkel-wahyu-putra/assets/fontawesome/css/all.css">
 
-    <title>Item - Bengkel Wahyu Putra</title>
+    <title>Pemesanan Item - Bengkel Wahyu Putra</title>
 </head>
 
 <body>

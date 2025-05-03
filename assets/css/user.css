@@ -10,6 +10,12 @@ main {
     grid-template-columns: auto 1fr;
 }
 
+.hr-standar {
+    margin: 10px 0;
+    border: none;
+    border-top: 1px solid black;
+}
+
 .utama {
     margin: 30px 50px;
 }
@@ -30,8 +36,7 @@ main {
 }
 
 .home .utama table,
-.settings .utama table,
-.settings .password {
+.settings section {
     background-color: #F9F9F9;
     box-shadow: 2px 4px 15px rgba(0, 0, 0, 0.25);
     margin-top: 35px;
@@ -67,7 +72,20 @@ main {
     padding: 25px 30px;
     border-radius: 10px;
     width: 50%;
-    height: auto;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.notif-text {
+    background-color: #fff5d8;
+    border: 1px solid #ffeeba;
+    margin: 10px 0px;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+.notif-text:hover {
+    cursor: pointer;
 }
 
 .riwayat-notif {
@@ -163,7 +181,22 @@ form button {
 }
 
 /* STYLE FOR SETTINGS PAGE (USER) */
-.settings .profile>h1 {
+.settings .utama a {
+    display: block;
+    width: fit-content;
+    margin-top: 10px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: red;
+    transition: .3s;
+    color: white;
+}
+
+.settings .utama a:hover {
+    background-color: #e40000;
+}
+
+.settings .utama h1 {
     font-size: 48px;
     font-weight: 300;
 }
@@ -177,7 +210,7 @@ form button {
     margin-bottom: 20px;
 }
 
-.settings .password h1 {
+.settings .utama h2 {
     font-size: 28px;
     font-weight: 400;
     margin-bottom: 20px;
@@ -377,7 +410,7 @@ form button:hover,
     margin: 10px 0px;
 }
 
-.detailPesanan .fas {
+.detailPesanan .utama .fas {
     font-size: 16px;
 }
 
@@ -434,22 +467,71 @@ form button:hover,
 /* desain & alamat */
 .detailPesanan .desain-alamat {
     width: 100%;
-    /* display: flex; */
-    gap: 20px;
+    display: flex;
+    gap: 30px;
+    margin-top: 30px;
 }
 
 .desain-alamat .desain {
     position: relative;
-    width: 400px;
+    width: 40%;
+    height: 400px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 2px 4px 15px rgba(0, 0, 0, 0.25);
+}
+
+.desain-alamat .desain h2 {
+    padding: 10px 35px;
 }
 
 .desain-alamat iframe {
     width: 100%;
-    height: 400px;
+    height: 80%;
 }
 
+.desain-alamat .alamat {
+    width: 60%;
+    background-color: #f9f9f9;
+    padding: 50px 40px;
+    border-radius: 10px;
+    box-shadow: 2px 4px 15px rgba(0, 0, 0, 0.25);
+}
 
 .desain-alamat .alamat table th {
     padding: 10px 0px;
     width: 200px;
+}
+
+/* STYLE DAFTAR PENAWARAN */
+.offer table td {
+    padding: 20px;
+}
+
+.offer button {
+    font-size: 14px;
+}
+
+.offer button .fas {
+    font-size: 16px;
+}
+
+.offer button.agree {
+    background-color: #008b00;
+    border: 1px solid #008b00;
+}
+
+.offer button.agree:hover {
+    background-color: #007500;
+    color: white;
+}
+
+.offer button.reject {
+    background-color: #cf0000;
+    border: 1px solid #cf0000;
+}
+
+.offer button.reject:hover {
+    background-color: #ab0000;
+    color: white;
 }

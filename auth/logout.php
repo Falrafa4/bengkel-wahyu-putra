@@ -13,8 +13,7 @@ session_destroy(); //tinggal menghentikan sesi
     <link rel="shortcut icon" href="../assets/img/logo-wp-circle.png">
 
     <!-- Sweetalert2 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.19.1/dist/sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.19.1/dist/sweetalert2.all.min.js"></script>
+    <script src="../assets/sweetalert2/sweetalert2.all.min.js"></script>
 
     <title>Logout</title>
 </head>

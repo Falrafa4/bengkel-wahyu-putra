@@ -29,7 +29,7 @@
         <div class="container-crud">
             <section class="daftar-crud">
                 <h1>Data Penawaran</h1>
-                <p>Berisi surat penawaran dari pemilik bengkel.</p>
+                <p>Berisi surat penawaran dari pemilik bengkel.</p><br>
                 <hr>
                 <a href="kelola/" class="btn-add"><i class="fas fa-plus"></i> Tambah Data</a>
         
@@ -50,8 +50,7 @@
                     <tr>
                         <th>ID Penawaran</th>
                         <th>No Pesanan</th>
-                        <th>Harga</th>
-                        <th>Estimasi</th>
+                        <th>Surat Penawaran</th>
                         <th>Tgl Penawaran</th>
                         <th>Status Penawaran</th>
                         <th>Aksi</th>
@@ -60,8 +59,7 @@
                     <tr>
                         <td><?= $result['id_penawaran'] ?></td>
                         <td><?= $result['no_pesanan'] ?></td>
-                        <td><?= $result['harga'] ?></td>
-                        <td><?= $result['estimasi'] ?></td>
+                        <td><iframe src="../../../uploads/penawaran/<?= $result['surat_penawaran'] ?>"></iframe></td>
                         <td><?= $result['tgl_penawaran'] ?></td>
                         <td><?= $result['status_penawaran'] ?></td>
                         <td class="action">

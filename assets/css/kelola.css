@@ -11,6 +11,7 @@ main {
 }
 
 .content {
+    height: fit-content;
     width: 90%;
     margin: 50px auto;
     border-radius: 14px;
@@ -66,14 +67,28 @@ main {
 
 .input-box input, .input-box select {
     width: 100%;
-    height: 35px;
-    padding: 5px;
+    padding: 10px;
     border: 1px solid #cccccc;
     border-radius: 5px;
 }
 
-.input-box input:focus {
-    box-shadow: 0 0 5px rgba(47, 47, 47, 0.5); /* Efek glow di sekitar input */
+.input-box input[type="file"] {
+    height: auto;
+}
+
+.input-box textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    resize: vertical;
+}
+
+.input-box input:focus,
+.input-box select:focus,
+.input-box textarea:focus {
+    box-shadow: 0 0 5px rgba(47, 47, 47, 0.3); /* Efek glow di sekitar input */
     outline: none; /* Hapus outline default browser */
 }
 

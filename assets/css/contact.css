@@ -74,18 +74,32 @@ input[type="text"],
 input[type="email"],
 input[type="tel"],
 textarea {
-    width: 100%;
+    /* width: 100%;
     height: 40px;
     padding-left: 10px;
     font-size: 15px;
     border: 1px solid #b6b6b6;
+    border-radius: 5px; */
+    width: 100%;
+    height: 40px;
+    padding: 10px 40px 10px 15px;
+    border: none;
     border-radius: 5px;
+    font-size: 14px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+}
+
+input:focus,
+textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(43, 43, 43, 0.5);
+    outline: none;
 }
 
 textarea {
-    height: 80px;
-    padding-top: 7px;
-    resize: vertical;
+    height: 180px;
+    padding-top: 10px;
+    resize: none;
 }
 
 input[type="submit"] {

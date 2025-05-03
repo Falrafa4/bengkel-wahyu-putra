@@ -38,9 +38,7 @@
                     <i class="fas fa-close" onclick="closeAlert()"></i>
                 </div>
                 <?php unset($_SESSION['eksekusi']); }
-                ?>
-        
-                <?php 
+
                     $querySelect = "SELECT * FROM service;";
                     $sql = mysqli_query($conn, $querySelect);
                 ?>
@@ -50,18 +48,18 @@
                         <th>ID Service</th>
                         <th>Nama Service</th>
                         <th>Deskripsi</th>
-                        <th>Nama Foto</th>
+                        <th>Gambar Jasa</th>
                         <th>Aksi</th>
                     </tr>
                     <?php while($result = mysqli_fetch_assoc($sql)){?>
                     <tr>
-                        <td><?= $result['id_service'] ?></td>
+                        <td style="text-align: center;"><?= $result['id_service'] ?></td>
                         <td><?= $result['nama_service'] ?></td>
                         <td style="width: 500px"><?= $result['deskripsi'] ?></td>
-                        <td><?= $result['nama_gambar'] ?></td>
+                        <td><img src="../../../assets/img/<?= $result['gambar_jasa'] ?>" alt="" style="width: 200px;"></td>
                         <td class="action">
-                            <a href="" class="btn edit"><i class="fas fa-pen-to-square"></i></a>
-                            <a href="" class="btn hapus"><i class="fas fa-trash"></i></a>
+                            <a href="kelola/?ubah=<?= $result['id_service'] ?>" class="btn edit"><i class="fas fa-pen-to-square"></i></a>
+                            <a href="./hapus=<?= $result['id_service'] ?>" class="btn hapus"><i class="fas fa-trash"></i></a>
                         </td>
                     </tr>
                     <?php } ?>
@@ -76,5 +74,9 @@
     </main>
 
     <script src="/bengkel-wahyu-putra/assets/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+
+    </script>
 </body>
 </html>

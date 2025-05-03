@@ -54,7 +54,7 @@ session_start();
             if ($i == $total - 1 && $total % 2 == 1) { ?>
                 <section class="card-full">
                     <div class="card-full-header">
-                        <img src="../../assets/img/<?= $layanan[$i]['nama_gambar'] ?>" alt="product-sparepart">
+                        <img src="../../assets/img/<?= $layanan[$i]['gambar_jasa'] ?>" alt="product-sparepart">
                     </div>
                     <div class="card-full-desc">
                         <h2>Jasa Pengerjaan <?= $layanan[$i]['nama_service'] ?></h2>
@@ -71,7 +71,7 @@ session_start();
             ?>
                 <section class="card">
                     <div class="layanan-header">
-                        <img src="../../assets/img/<?= $layanan[$i]['nama_gambar'] ?>" alt="product-edm-2">
+                        <img src="../../assets/img/<?= $layanan[$i]['gambar_jasa'] ?>" alt="product-edm-2">
                     </div>
                     <div class="layanan-desc">
                         <h2>Jasa Pengerjaan <?= $layanan[$i]['nama_service'] ?></h2>

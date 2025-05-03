@@ -51,6 +51,15 @@ function updatePemesanan($conn, $no_pesanan, $nama_jalan, $kecamatan, $kabupaten
     $stmt->close();
 }
 
+function deletePemesanan($conn, $no_pesanan) {
+    $query = 'DELETE FROM pemesanan WHERE no_pesanan = ?';
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('i', $no_pesanan);
+
+    return $stmt->execute();
+    $stmt->close();
+}
+
 // PEMESANAN ITEM
 function insertPemesananItem($conn, $no_pesanan, $nama_item, $desain_gambar, $material, $jumlah_item) {
     $query = 'INSERT INTO pemesanan_item (no_pesanan, nama_item, desain_gambar, material, jumlah_item)
@@ -62,6 +71,30 @@ function insertPemesananItem($conn, $no_pesanan, $nama_item, $desain_gambar, $ma
     $stmt->close();
 }
 
+// PENAWARAN
+function getPenawaran($conn, $no_pesanan) {
+    $query = 'SELECT * FROM penawaran WHERE id_pesanan = ?';
+}
+
+function insertPenawaran($conn, $no_pesanan, $surat_penawaran) {
+    $query = 'INSERT INTO penawaran (no_pesanan, surat_penawaran) VALUES (?, ?)';
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('is', $no_pesanan, $surat_penawaran);
+    
+    return $stmt->execute();
+    $stmt->close();
+}
+
+function updatePenawaran($conn, $no_pesanan, $surat_penawaran, $status_penawaran) {
+    $query = 'UPDATE penawaran SET no_pesanan = ?, surat_penawaran = ?, status_penawaran = ?';
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('iss', $no_pesanan, $surat_penawaran, $status_penawaran);
+
+    return $stmt->execute();
+    $stmt->close();
+}
+
+// PASSWORD
 function getPassword($conn, $email) {
     $password = '';
     $query = 'SELECT password FROM pelanggan WHERE email = ?';

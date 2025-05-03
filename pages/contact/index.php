@@ -1,5 +1,15 @@
 <?php 
 session_start();
+
+if(isset($_POST['submit_pesan'])){
+    $nama = $_POST['nama'];
+    $asal = $_POST['asal'];
+    $pesan = $_POST['pesan'];
+
+    $messages = urlencode("Assalamu'alaikum, permisi. Saya $nama dari $asal mau berpesan atau bertanya. $pesan. Terima kasih.");
+
+    $url = 'https://wa.me/6281216977427?text=' . $messages;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,6 +26,12 @@ session_start();
     <title>Contact Us - Bengkel Wahyu Putra</title>
 </head>
 <body>
+    <?php if(isset($url)) { ?>
+        <script>
+            window.open('<?= $url ?>', '_blank');
+        </script>
+    <?php } ?>
+
     <!-- NAVBAR -->
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/nav.php"; ?>
     <!-- NAVBAR END -->
@@ -30,15 +46,14 @@ session_start();
     <main>
         <div class="contact-page">
             <div class="contact-form">
-                <form action="" method="GET">
+                <form action="./" method="POST">
                     <h2>Kirimkan Pesan Kepada Kami!</h2>
                     <p>Ada pertanyaan atau saran? Isi formulir di bawah, dan kami akan segera merespons pesan Anda.</p>
         
                     <input type="text" name="nama" id="nama" placeholder="Nama" required> <br><br>
-                    <input type="email" name="email" id="email" placeholder="Email Anda" required><br><br>
-                    <input type="tel" name="telp" id="telp" placeholder="Nomor Telepon" required><br><br>
-                    <textarea name="pesan" id="pesan" placeholder="Pesan" required></textarea><br>
-                    <input type="submit" value="Kirim Pesan">
+                    <input type="text" name="asal" id="asal" placeholder="Asal Kota" required><br><br>
+                    <textarea name="pesan" id="pesan" placeholder="Tulis Pesan" required></textarea><br>
+                    <input type="submit" name="submit_pesan" value="Kirim Pesan">
                 </form>
             </div>
     

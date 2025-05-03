@@ -66,7 +66,7 @@ if (isset($_POST['aksi'])) {
                 $_SESSION['eksekusi'] = "Data Berhasil Ditambahkan!";
                 header("location: ../");
             } else {
-                die("Query gagal: " . $conn->error);
+                echo $stmt->execute();
             }
         }
     }
@@ -78,7 +78,7 @@ if (isset($_POST['aksi'])) {
             $_SESSION['eksekusi'] = "Data Berhasil Diubah!";
             header("location: ../");
         } else {
-            die("Query gagal: " . $conn->error);
+            echo $stmt->execute();
         }
     }
 }
@@ -96,7 +96,7 @@ if (isset($_POST['aksi'])) {
     <!-- Font Awesome -->
     <link rel="stylesheet" href="/bengkel-wahyu-putra/assets/fontawesome/css/all.css">
 
-    <title>Kelola - Bengkel Wahyu Putra</title>
+    <title>Kelola Pemesanan Item - Bengkel Wahyu Putra</title>
 </head>
 
 <body>

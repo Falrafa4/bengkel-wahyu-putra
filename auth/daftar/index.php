@@ -38,6 +38,10 @@
     <link rel="stylesheet" href="../../assets/css/global.css">
     <link rel="stylesheet" href="../../assets/css/daftar.css">
     <link rel="shortcut icon" href="../../assets/img/logo-wp-circle.png">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../../assets/fontawesome/css/all.css">
+    
     <title>Daftar - Bengkel Wahyu Putra</title>
 </head>
 <body>
@@ -63,8 +67,15 @@
                 <option value="Perusahaan">Perusahaan</option>
             </select>
 
-            <input type="password" minlength="8" name="pass" id="pass" placeholder="Buat Password" required><br>
-            <input type="password" name="ulangi_pass" id="ulangi_pass" placeholder="Ulangi Password" required><br>
+            <div class="input-box">
+                <span><i class="fas fa-eye-slash" onclick="openPass(this)"></i></span>
+                <input type="password" minlength="8" name="pass" id="pass" placeholder="Buat Password" required>
+            </div>
+            
+            <div class="input-box">
+                <span><i class="fas fa-eye-slash" onclick="openPass(this)"></i></span>
+                <input type="password" name="ulangi_pass" id="ulangi_pass" placeholder="Ulangi Password" required>
+            </div>
             <p class="msgPass" style="font-size: 14px; margin: 0px 0px 10px 0px; font-style: italic;"></p>
 
             
@@ -73,9 +84,7 @@
         </form>
     </main>
 
-
-    <script src="https://kit.fontawesome.com/ed13b1bb03.js" crossorigin="anonymous"></script>
-    <script src="../assets/js/main.js"></script>
+    <script src="../../assets/js/main.js"></script>
 
     <script> //Script For Validate Form DAFTAR
         let form = document.getElementById('formDaftar')

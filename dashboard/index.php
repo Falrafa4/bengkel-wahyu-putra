@@ -26,6 +26,32 @@
     } else {
         $_SESSION['pesanan'] = [];
     }
+
+    // kasih tahu ke pelanggan dengan notif sederhana
+    $query = "SELECT *, CONCAT('WP', LPAD(ps.no_pesanan, 5, '0')) AS nomor_pesanan
+            FROM penawaran pw
+            JOIN pemesanan ps ON ps.no_pesanan = pw.no_pesanan
+            WHERE ps.id_pelanggan = ?;";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('i', $_SESSION['data']['id_pelanggan']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if($result->num_rows > 0) {
+        $notif = [];
+        $notifText = [];
+
+        while($row = $result->fetch_assoc()) {
+            $notifText[] = "Anda mendapatkan surat penawaran dengan <strong>No. Pesanan " . $row['no_pesanan'] . "</strong>";
+            $notif[] = $row;
+        }
+
+        $_SESSION['notif'] = $notif;
+    } else {
+        $notifText = [];
+        $_SESSION['notif'] = [];
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -81,13 +107,14 @@
                     <td class="button"><a href="pages/settings/"><i class="fas fa-pen-to-square"></i> Edit Profil</a></td>
                 </tr>
             </table>
+
             <div class="riwayat-notif">
                 <div class="riwayat">
                     <h2>Daftar & Riwayat Pesanan</h2>
-                    <hr style="margin: 10px 0px; border: none; border-top: 0.5px solid black;">
+                    <hr class="hr-standar">
                     <div class="msg-riwayat">
                         <?php foreach ($_SESSION['pesanan'] as $pesanan) { ?>
-                        <a href="pages/my-order/detail/index.php?detail=<?= $pesanan['no_pesanan'] ?>" class="riwayat-box">
+                        <a href="pages/my-order/detail/?detail=<?= $pesanan['no_pesanan'] ?>" class="riwayat-box">
                             <p>
                                 <?php
                                 if($pesanan['status_pesanan'] == "Menunggu Penawaran") {
@@ -119,13 +146,28 @@
                 </div>
                 <div class="notif">
                     <h2>Notifikasi</h2><hr>
+                    <?php foreach($notifText as $notif) : ?>
+                        <p class="notif-text"><?= $notif ?></p>
+                    <?php endforeach; 
+
+                    if($notifText == []): ?>
                     <div class="msg-notif">
                         <em>Belum ada notifikasi</em>
                     </div>
+                    <?php endif ?>
                 </div>
             </div>
         </section>
     </main>
+
+    <script>
+        const notifText = document.querySelectorAll('.notif-text');
+        notifText.forEach(notif => {
+            notif.addEventListener('click', function() {
+                window.location.href = "list-offer/";
+            })
+        });
+    </script>
 
 </body>
 </html>
