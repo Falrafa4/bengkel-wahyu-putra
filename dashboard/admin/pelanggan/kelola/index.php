@@ -68,7 +68,7 @@
             if(isset($_POST['pass_pelanggan'])) {
                 $password = $_POST['pass_pelanggan'];
                 if(!updatePassword($conn, $id_pelanggan, $password)) {
-                    error_log('Terdapat kesalahan. Coba lagi nanti!');
+                    die('Terdapat kesalahan. Coba lagi nanti!');
                 }
             }
 
@@ -76,7 +76,7 @@
                 $_SESSION['eksekusi'] = "Data Berhasil Diubah!";
                 header("location: ../");
             } else {
-                echo $sql;
+                die('Terjadi kesalahan saat update data :(');
             }
         }
     }
@@ -121,7 +121,7 @@
                 </div>
                 <div class="input-box">
                     <label for="pass_user"><?= isset($_GET['ubah']) ? "Change Password (Optional)" : "New Password" ?></label>
-                    <span><i class="fas fa-eye-slash" id="eye" onclick="openPass()"></i></span>
+                    <span><i class="fas fa-eye-slash" id="eye" onclick="openPass(eye)"></i></span>
                     <input type="password" name="pass_pelanggan" id="pass_user" <?php if(!isset($_GET['ubah'])) {echo "required";} ?>>
                 </div>
                 <div class="input-box">

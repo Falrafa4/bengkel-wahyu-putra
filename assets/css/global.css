@@ -61,19 +61,19 @@ select,
 option,
 em,
 strong,
-button {
+button, span {
     animation: coolTransition 0.9s;
 }
 
 @keyframes coolTransition {
     from {
         opacity: 0;
-        transform: translateX(-10deg);
+        transform: translateY(-2px);
     }
 
     to {
         opacity: 1;
-        transform: translateX(0);
+        transform: translateY(0);
     }
 }
 
@@ -260,7 +260,6 @@ aside h1 {
     animation: coolTransition 0.3s;
     display: none;
     position: fixed;
-    padding: 20px 0;
     top: 8%;
     z-index: -1;
     background-color: var(--primary-color);
@@ -276,9 +275,9 @@ aside h1 {
 .ham-bar a {
     display: block;
     color: #adadad;
-    font-size: 20px;
+    font-size: 14px;
     text-align: center;
-    line-height: 70px;
+    line-height: 50px;
     cursor: pointer;
     transition: all .3s;
 }
@@ -354,7 +353,7 @@ footer hr {
 
 @media only screen and (max-width: 768px) {
     nav {
-        height: 80px;
+        height: 10dvh;
         padding: 0 30px;
     }
 
@@ -364,12 +363,16 @@ footer hr {
     }
 
     #toggleSideBar i {
-        font-size: 30px;
+        font-size: 25px;
         cursor: pointer;
     }
 
     .navbar {
         display: none;
+    }
+
+    .logo img {
+        width: 12%;
     }
 
     .right-bar {

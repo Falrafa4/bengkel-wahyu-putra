@@ -7,17 +7,12 @@ if (isset($_POST['aksi']) || isset($_GET['ubah'])) {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functions.php";
 }
 
+$id_item = '';
 $no_pesanan = '';
-$id_pelanggan = '';
-$waktu_pemesanan = '';
-$nama_jalan = '';
-$kecamatan = '';
-$kabupaten_kota = '';
-$provinsi = '';
-$kode_pos = '';
-$detail = '';
-$id_service = '';
-$status = '';
+$nama_item = '';
+$desain_gambar = '';
+$material = '';
+$jumlah_item = '';
 $pesan = '';
 
 if (isset($_GET['ubah'])) {
@@ -32,28 +27,21 @@ if (isset($_GET['ubah'])) {
     $result = $result->fetch_assoc();
 
     //data di bawah akan diletakkan pada tiap input-an
+    $id_item = $result['id_item'];
     $no_pesanan = $result['no_pesanan'];
-    $id_pelanggan = $result['id_pelanggan'];
-    $waktu_pemesanan = $result['waktu_pemesanan'];
-    $nama_jalan = $result['nama_jalan'];
-    $kecamatan = $result['kecamatan'];
-    $kabupaten_kota = $result['kabupaten_kota'];
-    $provinsi = $result['provinsi'];
-    $kode_pos = $result['kode_pos'];
-    $detail = $result['detail'];
-    $id_service = $result['id_service'];
-    $status = $result['status_pesanan'];
+    $nama_item = $result['nama_item'];
+    $desain_gambar = $result['desain_gambar'];
+    $material = $result['material'];
+    $jumlah_item = $result['jumlah_item'];
 }
 
 if (isset($_POST['aksi'])) {
-    $id_pelanggan = $_POST['id_pelanggan'];
-    $nama_jalan = $_POST['nama_jalan'];
-    $kecamatan = $_POST['kecamatan'];
-    $kabupaten_kota = $_POST['kabupaten_kota'];
-    $provinsi = $_POST['provinsi'];
-    $kode_pos = $_POST['kode_pos'];
-    $detail = $_POST['detail'];
-    $id_service = $_POST['id_service'];
+    $id_item = $_POST['id_item'];
+    $no_pesanan = $_POST['no_pesanan'];
+    $nama_item = $_POST['nama_item'];
+    $desain_gambar = $_POST['desain_gambar'];
+    $material = $_POST['material'];
+    $jumlah_item = $_POST['jumlah_item'];
 
     // CREATE DATA
     if ($_POST['aksi'] == 'add') {
@@ -62,7 +50,7 @@ if (isset($_POST['aksi'])) {
         } // LANJUTKAN TAMBAH DATA DAN UPDATE DATA
 
         if (empty($pesan)) {
-            if (insertPemesanan($conn, $id_pelanggan, $nama_jalan, $kecamatan, $kabupaten_kota, $provinsi, $kode_pos, $detail, $id_service)) {
+            if (insertPemesananItem($conn, $no_pesanan, $nama_item, $desain_gambar, $material, $jumlah_item)) {
                 $_SESSION['eksekusi'] = "Data Berhasil Ditambahkan!";
                 header("location: ../");
             } else {
@@ -92,7 +80,7 @@ if (isset($_POST['aksi'])) {
     <link rel="stylesheet" href="../../../../assets/css/global.css">
     <link rel="stylesheet" href="../../../../assets/css/kelola.css">
     <link rel="shortcut icon" href="../../../../assets/img/logo-wp-circle.png">
-    
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="/bengkel-wahyu-putra/assets/fontawesome/css/all.css">
 
@@ -109,55 +97,37 @@ if (isset($_POST['aksi'])) {
         <section class="content">
             <form action="./" method="POST">
                 <h1>
-                    <?= isset($_GET['ubah']) ? "Edit Data" : "Tambah Data" ?>
+                    <?= isset($_GET['ubah']) ? "Edit Data Item" : "Tambah Data Item" ?>
                 </h1>
                 <hr>
                 <span style="color: red; font-style:italic;"><?= $pesan ?></span>
 
-                <input type="hidden" name="no_pesanan" value="<?= $no_pesanan ?>" id="no_pesanan">
+                <input type="hidden" name="id_item" value="<?= $id_item ?>" id="id_item">
                 <div class="input-box">
-                    <label for="nama">Nama Pelanggan </label>
-                    <select name="id_pelanggan" id="id_pelanggan">
-                        <?php $result = $conn->query("SELECT * FROM pelanggan");
+                    <label for="nama">No Pesanan </label>
+                    <select name="no_pesanan" id="no_pesanan">
+                        <?php $result = $conn->query("SELECT * FROM pemesanan_item");
                         while ($row = $result->fetch_assoc()) {
                         ?>
-                            <option value="<?= $row['id_pelanggan'] ?>" <?php if($id_pelanggan == $row['id_pelanggan']) echo 'selected'; ?>><?= $row['nama_pelanggan'] ?></option>
+                            <option value="<?= $row['no_pesanan'] ?>" <?php if ($no_pesanan == $row['no_pesanan']) echo 'selected'; ?>><?= $row['no_pesanan'] ?></option>
                         <?php } ?>
                     </select>
                 </div>
                 <div class="input-box">
-                    <label for="jalan">Nama Jalan </label>
-                    <input type="text" name="nama_jalan" id="jalan" placeholder="Ex: Jl. Kolonel Sugiono No. 13" value="<?= $nama_jalan ?>" required>
+                    <label for="nama_item">Nama Item </label>
+                    <input type="text" name="nama_item" id="jalan" placeholder="Ex: Ambatubut" value="<?= $nama_item ?>" required>
                 </div>
                 <div class="input-box">
-                    <label for="kecamatan">Kecamatan </label>
-                    <input type="text" name="kecamatan" id="kecamatan" placeholder="Ex: Waru" value="<?= $kecamatan ?>" required>
+                    <label for="desain_gambar">Desain Gambar </label>
+                    <input type="file" name="desain_gambar" id="desain_gambar" placeholder="Ex: Waru" value="<?= $desain_gambar ?>" required>
                 </div>
                 <div class="input-box">
-                    <label for="kabupaten">Kabupaten/Kota </label>
-                    <input type="text" name="kabupaten_kota" id="kabupaten" placeholder="Ex: Sidoarjo" value="<?= $kabupaten_kota ?>" required>
+                    <label for="material">Material </label>
+                    <input type="text" name="material" id="material" placeholder="Ex: Sidoarjo" value="<?= $material ?>" required>
                 </div>
                 <div class="input-box">
-                    <label for="provinsi">Provinsi </label>
-                    <input type="text" name="provinsi" id="provinsi" placeholder="Ex: Jawa Timur" value="<?= $provinsi ?>" required>
-                </div>
-                <div class="input-box">
-                    <label for="kode_pos">Kode Pos </label>
-                    <input type="text" name="kode_pos" id="kode_pos" placeholder="Ex: 61256" value="<?= $kode_pos ?>" required>
-                </div>
-                <div class="input-box">
-                    <label for="detail">Detail </label>
-                    <input type="text" name="detail" id="detail" placeholder="Ex: Rumah Tingkat, sebelah toko" value="<?= $detail ?>" required>
-                </div>
-                <div class="input-box">
-                    <label for="detail">Service </label>
-                    <select name="id_service" id="id_service">
-                        <?php $result = $conn->query("SELECT * FROM service");
-                        while ($row = $result->fetch_assoc()) {
-                        ?>
-                            <option value="<?= $row['id_service'] ?>" <?php if($row['id_service'] == $id_service) echo 'Selected' ?>><?= $row['nama_service'] ?></option>
-                        <?php } ?>
-                    </select>
+                    <label for="jumlah_item">Jumlah Item </label>
+                    <input type="text" name="jumlah_item" id="jumlah_item" placeholder="Ex: Jawa Timur" value="<?= $jumlah_item ?>" required>
                 </div>
                 <?php
                 if (isset($_GET['ubah'])) { ?>

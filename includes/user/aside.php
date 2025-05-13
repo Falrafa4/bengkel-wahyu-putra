@@ -29,10 +29,10 @@ $namaFolder2 = $explode[count($explode) - 2];
             Surat Penawaran
         </a>
 
-        <a href="/bengkel-wahyu-putra/dashboard/pages/notification" class="<?= ($namaFolder == "notification") ? 'active' : '' ?>">
+        <!-- <a href="/bengkel-wahyu-putra/dashboard/pages/notification" class="<?= ($namaFolder == "notification") ? 'active' : '' ?>">
             <i class="fas fa-bell"></i>
             Notifikasi
-        </a>
+        </a> -->
 
         <a href="/bengkel-wahyu-putra/dashboard/pages/help" class="<?= ($namaFolder == "help") ? 'active' : '' ?>">
             <i class="fas fa-comment"></i>

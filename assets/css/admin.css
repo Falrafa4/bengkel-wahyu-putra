@@ -86,13 +86,34 @@ table .fas {
     font-size: 14px;
 }
 
-table .button {
+.button {
     background-color: var(--primary-color);
+    border:none;
+    border: 1px solid var(--primary-color);
     color: white;
     padding: 10px 15px;
-    border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: .3s;
+}
+
+.button a:hover {
+    color: #000000;
+}
+
+.button .fas {
+    font-size: 1rem;
+    margin-left: 5px;
+}
+
+.button:hover {
+    background-color: var(--secondary-color);
+    border: 1px solid var(--primary-color);
+    color: #000000;
+}
+
+a {
+    display: inline-block;
 }
 
 table a {
@@ -408,8 +429,8 @@ div.container-crud {
 }
 
 .settings table button {
-    background-color: var(--primary-color);
-    color: white;
+    background-color: inherit;
+    color: inherit;
     border: none;
     border-radius: 5px;
     cursor: pointer;

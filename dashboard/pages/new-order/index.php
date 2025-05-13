@@ -9,7 +9,6 @@
         $layanan = $_POST['jenis_layanan'];
         $desain_gambar = $_FILES['desain_gambar']['name'];
         $nama_item = $_POST['nama_item'];
-        // $desain_gambar = $_FILES['desain_gambar']['name'];
         $material = $_POST['material'];
         $jumlah_item = $_POST['jumlah_item'];
 
@@ -19,9 +18,6 @@
         $provinsi = $_POST['provinsi'];
         $kode_pos = $_POST['kode_pos'];
         $detail = $_POST['detail'];
-
-        // var_dump($_FILES['desain_gambar']);
-        // die();
         
         $query = 'SELECT no_pesanan FROM pemesanan WHERE id_pelanggan = ?';
         $stmt = $conn->prepare($query);

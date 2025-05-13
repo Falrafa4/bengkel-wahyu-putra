@@ -2,19 +2,6 @@
 session_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/session_admin.php";
-
-if (isset($_GET['hapus'])) {
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functions.php";
-    $no_pesanan = $_GET['hapus'];
-
-    if (deletePemesanan($conn, $no_pesanan)) {
-        $_SESSION['eksekusi'] = "Data Berhasil Dihapus!";
-        header("location: ./");
-        exit();
-    } else {
-        echo $stmt->execute();
-    }
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,35 +43,37 @@ if (isset($_GET['hapus'])) {
                 ?>
 
                 <?php
-                $querySelect = "SELECT p.no_pesanan,p.id_pelanggan,p.waktu_pemesanan,CONCAT(p.nama_jalan,', ',p.kecamatan,', ',p.kabupaten_kota,', ',p.provinsi,', ',p.kode_pos) AS alamat_lengkap,p.detail,p.id_service,p.status_pesanan
-                    FROM pemesanan p ";
+                $querySelect = "SELECT pemesanan.* ,CONCAT(nama_jalan,', ',kecamatan,', ',kabupaten_kota,', ',provinsi,', ',kode_pos) AS alamat_lengkap, pelanggan.nama_pelanggan, service.nama_service
+                FROM pemesanan
+                JOIN pelanggan ON pemesanan.id_pelanggan = pelanggan.id_pelanggan
+                JOIN service ON pemesanan.id_service = service.id_service ORDER BY pemesanan.no_pesanan ASC";
                 $sql = mysqli_query($conn, $querySelect);
                 ?>
 
                 <table class="table-crud">
                     <tr>
-                        <th>No. Pesanan</th>
-                        <th>ID Pelanggan</th>
+                        <th style="width: 50px;">No. Psnn</th>
+                        <th>Pelanggan</th>
                         <th>Waktu Pemesanan</th>
                         <th>Alamat</th>
                         <th>Detail Alamat</th>
-                        <th>ID Service</th>
+                        <th>Service</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
                     <?php while ($result = mysqli_fetch_assoc($sql)) { ?>
                         <tr>
                             <td style="text-align: center;"><?= $result['no_pesanan'] ?></td>
-                            <td style="text-align: center;"><?= $result['id_pelanggan'] ?></td>
+                            <td><?= $result['nama_pelanggan'] ?></td>
                             <td style="text-align: center;"><?= $result['waktu_pemesanan'] ?></td>
                             <td><?= $result['alamat_lengkap'] ?></td>
                             <td><?php if ($result['detail'] == NULL) echo "-";
                                 else echo $result['detail']; ?></td>
-                            <td style="text-align: center;"><?= $result['id_service'] ?></td>
+                            <td style="text-align: center;"><?= $result['nama_service'] ?></td>
                             <td><?= $result['status_pesanan'] ?></td>
                             <td class="action">
-                                <a href="./kelola/?ubah=<?= $result['no_pesanan'] ?>" class="btn edit"><i class="fas fa-pen-to-square"></i></a>
-                                <a href="./?hapus=<?= $result['no_pesanan'] ?>" data-id="" class="btn hapus"><i class="fas fa-trash"></i></a>
+                                <a href="./kelola/?ubah=<?= $result['no_pesanan'] ?>" class="btn edit"><i class="fas fa-pen-to-square"></i> Edit</a>
+                                <!-- <a href="./?hapus=<?= $result['no_pesanan'] ?>" data-id="" class="btn hapus"><i class="fas fa-trash"></i></a> -->
                             </td>
                         </tr>
                     <?php } ?>

@@ -10,7 +10,6 @@ if (isset($_POST['aksi']) || isset($_GET['ubah'])) {
 $pesan = '';
 $id_service = '';
 $nama_service = '';
-$deskripsi = '';
 $gambar_jasa = '';
 
 if (isset($_GET['ubah'])) {
@@ -27,47 +26,36 @@ if (isset($_GET['ubah'])) {
     //data di bawah akan diletakkan pada tiap input-an
     $id_service = $result['id_service'];
     $nama_service = $result['nama_service'];
-    $deskripsi = $result['deskripsi'];
     $gambar_jasa = $result['gambar_jasa'];
+} else {
+    die('Error: ID Service tidak diketahui');
 }
 
 if (isset($_POST['aksi'])) {
     $id_service = $_POST['id_service'];
-    $nama_service = $_POST['nama_service'];
-    $deskripsi = $_POST['deskripsi'];
     $gambar_jasa = $_FILES['gambar_jasa'];
-
-    // CREATE DATA
-    if ($_POST['aksi'] == 'add') {
-        if (empty($id_service) || empty($nama_service) || empty($deskripsi)) {
-            $pesan = "Data ada yang kosong! Harap diisi!";
-        } // LANJUTKAN TAMBAH DATA DAN UPDATE DATA
-
-        if (empty($pesan)) {
-            if (insertPemesanan($conn, $id_pelanggan, $nama_jalan, $kecamatan, $kabupaten_kota, $provinsi, $kode_pos, $detail, $id_service)) {
-                $_SESSION['eksekusi'] = "Data Berhasil Ditambahkan!";
-                header("location: ../");
-            } else {
-                die("Query gagal: " . $conn->error);
-            }
-        }
-    }
 
     // UPDATE DATA
     if ($_POST['aksi'] == 'edit') {
-        var_dump($_FILES);
-        die();
-        
-        $no_pesanan = $_POST['no_pesanan'];
-        if (empty($id_service) || empty($nama_service) || empty($deskripsi)) {
-            $pesan = "Data ada yang kosong! Harap diisi!";
-        } // LANJUTKAN TAMBAH DATA DAN UPDATE DATA
+        $id_service = $_POST['id_service'];
 
-        if (updatePemesanan($conn, $no_pesanan, $nama_jalan, $kecamatan, $kabupaten_kota, $provinsi, $kode_pos, $detail, $id_service, $id_pelanggan)) {
-            $_SESSION['eksekusi'] = "Data Berhasil Diubah!";
-            header("location: ../");
+        if (empty($id_service) || $_FILES['gambar_jasa']['error'] === 4) {
+            $pesan = "Data ada yang kosong! Harap diisi!";
         } else {
-            die("Query gagal: " . $conn->error);
+            $gambar_jasa = $_FILES['gambar_jasa']['name'];
+
+            $from = $_FILES['gambar_jasa']['tmp_name'];
+            $to = $_SERVER['DOCUMENT_ROOT'] . '/bengkel-wahyu-putra/assets/img/' . $gambar_jasa;
+
+            move_uploaded_file($from, $to);
+
+            if (updateService($conn, $id_service, $gambar_jasa)) {
+                $_SESSION['eksekusi'] = "Data Berhasil Diubah!";
+                header("location: ../");
+            } 
+            else {
+                die('Terjadi kesalahan saat update data layanan :(');
+            }
         }
     }
 }
@@ -96,21 +84,15 @@ if (isset($_POST['aksi'])) {
         <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/admin/aside.php"; ?>
 
         <section class="content">
-            <form action="./" method="POST" enctype="multipart/form-data">
-                <h1>
-                    <?= isset($_GET['ubah']) ? "Edit Data" : "Tambah Data" ?>
-                </h1>
+            <form action="./?ubah=<?= $id_service ?>" method="POST" enctype="multipart/form-data">
+                <h1>Edit Layanan</h1>
                 <hr>
                 <span style="color: red; font-style:italic;"><?= $pesan ?></span>
 
                 <input type="hidden" name="id_service" value="<?= $id_service ?>" id="id_service">
                 <div class="input-box">
                     <label for="jalan">Nama Service </label>
-                    <input type="text" name="nama_service" id="jalan" placeholder="Ex: Bubut" value="<?= $nama_service ?>" required>
-                </div>
-                <div class="input-box">
-                    <label for="kecamatan">Deskripsi </label>
-                    <textarea name="deskripsi" id="deskripsi" placeholder="Ex: Layanan ini merupakan layanan kami yang mencakup..." required><?= $deskripsi ?></textarea>
+                    <input type="text" disabled name="nama_service" id="jalan" placeholder="Ex: Bubut" value="<?= $nama_service ?>" required>
                 </div>
                 <div class="input-box">
                     <label for="gambar_jasa">Gambar Jasa </label>

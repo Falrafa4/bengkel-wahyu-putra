@@ -29,7 +29,7 @@
         <div class="container-crud">
             <section class="daftar-crud">
                 <h1>Data Item</h1><hr>
-                <a href="kelola/" class="btn-add"><i class="fas fa-plus"></i> Tambah Data</a>
+                <a href="../pemesanan/kelola/" class="btn-add"><i class="fas fa-plus"></i> Tambah Data</a>
         
                 <?php if(isset($_SESSION['eksekusi'])) {?>
                 <div class="success-update">
@@ -49,22 +49,35 @@
                         <th>ID Item</th>
                         <th>No Pesanan</th>
                         <th>Nama Item</th>
-                        <th>Desain Gambar</th>
+                        <th style="width: 300px;">Desain Gambar</th>
                         <th>Material</th>
                         <th>Jumlah Item</th>
                         <th>Aksi</th>
                     </tr>
                     <?php while($result = mysqli_fetch_assoc($sql)){?>
                     <tr>
-                        <td><?= $result['id_item'] ?></td>
-                        <td><?= $result['no_pesanan'] ?></td>
+                        <td style="text-align: center"><?= $result['id_item'] ?></td>
+                        <td style="text-align: center"><?= $result['no_pesanan'] ?></td>
                         <td><?= $result['nama_item'] ?></td>
-                        <td><?= $result['desain_gambar'] ?></td>
+                        <td style="text-align: center">
+                            <?php 
+                            $desain_gambar = $result['desain_gambar'];
+                            $split = explode('.', $desain_gambar);
+                            $ekstensi = $split[count($split)-1];
+
+                            if($ekstensi == 'pdf'):
+                            ?>
+                            <iframe src="../../../uploads/desain/<?= $result['desain_gambar'] ?>" width="100%" height="200px"></iframe>
+                            <?php else : ?>
+                            <img src="../../../uploads/desain/<?= $result['desain_gambar'] ?>" alt="" width="80%">
+                            <?php endif ?>
+                            <a class="button" href="../../../uploads/desain/<?= $result['desain_gambar'] ?>" download>Download</a>
+                        </td>
                         <td><?php if($result['material'] == NULL) echo "-"; else echo $result['material']; ?></td>
                         <td><?= $result['jumlah_item'] ?></td>
-                        <td class="action">
-                            <a href="" class="btn edit"><i class="fas fa-pen-to-square"></i></a>
-                            <a href="" class="btn hapus"><i class="fas fa-trash"></i></a>
+                        <td class="action" style="text-align: center">
+                            <a href="../pemesanan/kelola/" class="btn edit"><i class="fas fa-pen-to-square"></i> Edit</a>
+                            <!-- <a href="" class="btn hapus"><i class="fas fa-trash"></i></a> -->
                         </td>
                     </tr>
                     <?php } ?>

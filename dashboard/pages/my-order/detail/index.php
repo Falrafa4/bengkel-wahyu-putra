@@ -95,6 +95,10 @@ if (isset($_GET['detail'])) {
                         </div>
                         <table>
                             <tr>
+                                <th>No Pesanan</th>
+                                <td><?= $no_pesanan ?></td>
+                            </tr>
+                            <tr>
                                 <th>Jenis Layanan</th>
                                 <td><?= $nama_service ?></td>
                             </tr>

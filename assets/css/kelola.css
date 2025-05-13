@@ -10,6 +10,28 @@ main {
     height: 100%;
 }
 
+.button {
+    background-color: var(--primary-color);
+    border:none;
+    border: 1px solid var(--primary-color);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.button .fas {
+    font-size: 1rem;
+    margin-left: 5px;
+}
+
+.button:hover {
+    background-color: var(--secondary-color);
+    border: 1px solid var(--primary-color);
+    color: #000000;
+}
+
 .content {
     height: fit-content;
     width: 90%;
@@ -33,6 +55,24 @@ main {
 .content h3 {
     font-weight: 400;
     margin: 15px auto;
+}
+
+.form-pesanan h2 {
+    margin-bottom: 15px;
+    font-weight: 400;
+}
+
+.form-pesanan span {
+    color: red;
+}
+
+.form-pesanan em {
+    display: block;
+    margin-bottom: 10px;
+}
+
+#form2 {
+    margin-top: 40px;
 }
 
 .input-box {
@@ -65,7 +105,8 @@ main {
     width: 200px;
 }
 
-.input-box input, .input-box select {
+.input-box input,
+.input-box select {
     width: 100%;
     padding: 10px;
     border: 1px solid #cccccc;
@@ -88,8 +129,10 @@ main {
 .input-box input:focus,
 .input-box select:focus,
 .input-box textarea:focus {
-    box-shadow: 0 0 5px rgba(47, 47, 47, 0.3); /* Efek glow di sekitar input */
-    outline: none; /* Hapus outline default browser */
+    box-shadow: 0 0 5px rgba(47, 47, 47, 0.3);
+    /* Efek glow di sekitar input */
+    outline: none;
+    /* Hapus outline default browser */
 }
 
 /* btn kelola */

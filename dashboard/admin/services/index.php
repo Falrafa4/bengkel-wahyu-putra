@@ -30,7 +30,7 @@
             <section class="daftar-crud">
                 <h1>Daftar Services</h1>
                 <hr>
-                <a href="kelola/" class="btn-add"><i class="fas fa-plus"></i> Tambah Data</a>
+                <!-- <a href="kelola/" class="btn-add"><i class="fas fa-plus"></i> Tambah Data</a> -->
         
                 <?php if(isset($_SESSION['eksekusi'])) {?>
                 <div class="success-update">
@@ -47,19 +47,16 @@
                     <tr>
                         <th>ID Service</th>
                         <th>Nama Service</th>
-                        <th>Deskripsi</th>
-                        <th>Gambar Jasa</th>
-                        <th>Aksi</th>
+                        <th style="width: 500px;">Gambar Jasa</th>
+                        <th >Aksi</th>
                     </tr>
                     <?php while($result = mysqli_fetch_assoc($sql)){?>
                     <tr>
                         <td style="text-align: center;"><?= $result['id_service'] ?></td>
                         <td><?= $result['nama_service'] ?></td>
-                        <td style="width: 500px"><?= $result['deskripsi'] ?></td>
-                        <td><img src="../../../assets/img/<?= $result['gambar_jasa'] ?>" alt="" style="width: 200px;"></td>
-                        <td class="action">
-                            <a href="kelola/?ubah=<?= $result['id_service'] ?>" class="btn edit"><i class="fas fa-pen-to-square"></i></a>
-                            <a href="./hapus=<?= $result['id_service'] ?>" class="btn hapus"><i class="fas fa-trash"></i></a>
+                        <td><img src="../../../assets/img/<?= $result['gambar_jasa'] ?>" alt="" style="width: 100%;"></td>
+                        <td class="action" style="text-align: center;">
+                            <a href="kelola/?ubah=<?= $result['id_service'] ?>" class="btn edit"><i class="fas fa-pen-to-square"></i> Edit</a>
                         </td>
                     </tr>
                     <?php } ?>

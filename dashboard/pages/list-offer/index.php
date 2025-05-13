@@ -48,7 +48,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/s
                             <td><?= $notif['nomor_pesanan'] ?></td>
                             <td><?= $notif['status_pesanan'] ?></td>
                             <td><?= $notif['tgl_penawaran'] ?></td>
-                            <td><button onclick="download('../../../uploads/penawaran/<?= $notif['surat_penawaran'] ?>')">Unduh Surat</button></td>
+                            <td><button onclick="download('../../../uploads/penawaran/<?= $notif['surat_penawaran'] ?>')"><i class="fas fa-download"></i> Unduh Surat</button></td>
                             <td>
                                 <button class="agree"><i class="fas fa-check"></i> Setuju</button>
                                 <button class="reject"><i class="fas fa-xmark"></i> Tolak</button>

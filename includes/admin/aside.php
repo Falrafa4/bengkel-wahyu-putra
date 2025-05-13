@@ -49,9 +49,9 @@ $namaFolder2 = $explode[count($explode) - 2];
             Penilaian
         </a>
 
-        <a href="/bengkel-wahyu-putra/dashboard/admin/settings/" class="<?= ($namaFolder == "settings") ? 'active' : '' ?>">
+        <!-- <a href="/bengkel-wahyu-putra/dashboard/admin/settings/" class="<?= ($namaFolder == "settings") ? 'active' : '' ?>">
             <i class="fas fa-gear"></i>
             Settings
-        </a>
+        </a> -->
     </div>
 </aside>

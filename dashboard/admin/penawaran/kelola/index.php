@@ -44,9 +44,7 @@ if (isset($_POST['aksi'])) {
     if ($_POST['aksi'] == 'add') {
         if (empty($no_pesanan) || empty($surat_penawaran)) {
             $pesan = "Data ada yang kosong! Harap diisi!";
-        } // LANJUTKAN TAMBAH DATA DAN UPDATE DATA
-
-        if (empty($pesan)) {
+        } else if (empty($pesan)) {
             $split = explode('.', $_FILES['surat_penawaran']['name']);
             $ekstensi = $split[count($split)-1];
 

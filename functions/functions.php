@@ -118,6 +118,15 @@ function updatePassword($conn, $id_pelanggan, $password) {
     $stmt->close();
 }
 
+// SERVICE
+function updateService($conn, $id_service, $gambar_jasa) {
+    $query = 'UPDATE service SET gambar_jasa = ? WHERE id_service = ?';
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('si', $gambar_jasa, $id_service);
+
+    return $stmt->execute();
+    $stmt->close();
+}
 
 // USER ONLY
 function updateProfil($method, $conn) {

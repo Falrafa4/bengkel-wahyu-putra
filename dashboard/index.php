@@ -42,7 +42,7 @@
         $notifText = [];
 
         while($row = $result->fetch_assoc()) {
-            $notifText[] = "Anda mendapatkan surat penawaran dengan <strong>No. Pesanan " . $row['no_pesanan'] . "</strong>";
+            $notifText[] = "Anda mendapatkan surat penawaran dengan <strong>Nomor Pesanan " . $row['nomor_pesanan'] . "</strong>";
             $notif[] = $row;
         }
 
@@ -145,7 +145,7 @@
                     </div>
                 </div>
                 <div class="notif">
-                    <h2>Notifikasi</h2><hr>
+                    <h2>Notifikasi Penawaran</h2><hr>
                     <?php foreach($notifText as $notif) : ?>
                         <p class="notif-text"><?= $notif ?></p>
                     <?php endforeach; 
@@ -164,7 +164,7 @@
         const notifText = document.querySelectorAll('.notif-text');
         notifText.forEach(notif => {
             notif.addEventListener('click', function() {
-                window.location.href = "list-offer/";
+                window.location.href = "pages/list-offer/";
             })
         });
     </script>
