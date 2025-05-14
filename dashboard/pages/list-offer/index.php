@@ -51,7 +51,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/s
                             <td><button onclick="download('../../../uploads/penawaran/<?= $notif['surat_penawaran'] ?>')"><i class="fas fa-download"></i> Unduh Surat</button></td>
                             <td>
                                 <button class="agree"><i class="fas fa-check"></i> Setuju</button>
-                                <button class="reject"><i class="fas fa-xmark"></i> Tolak</button>
+                                <button class="warning"><i class="fas fa-handshake"></i> Nego</button>
                             </td>
                         </tr>
                         <?php endforeach; ?>

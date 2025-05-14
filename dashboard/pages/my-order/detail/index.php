@@ -31,24 +31,6 @@ if (isset($_GET['detail'])) {
     $stmt->execute();
     $result = $stmt->get_result();
     $result = $result->fetch_assoc();
-
-    // var_dump($result);
-    // die();
-    $gambar_jasa = $result['gambar_jasa'];
-    $nama_service = $result['nama_service'];
-    $nama_item = $result['nama_item'];
-    $material = $result['material'];
-    $jumlah_item = $result['jumlah_item'];
-    $waktu_pemesanan = $result['waktu_pemesanan'];
-    $status_pesanan = $result['status_pesanan'];
-
-    $desain_gambar = $result['desain_gambar'];
-    $nama_jalan = $result['nama_jalan'];
-    $kecamatan = $result['kecamatan'];
-    $kabupaten_kota = $result['kabupaten_kota'];
-    $provinsi = $result['provinsi'];
-    $kode_pos = $result['kode_pos'];
-    $detail = $result['detail'];
 } else {
     header('location: ../');
 }
@@ -90,37 +72,37 @@ if (isset($_GET['detail'])) {
                     <h2 style="margin-bottom: 10px;">Informasi Pesanan</h2>
                     <div class="informasi-flex">
                         <div class="img-jasa">
-                            <img src="../../../../assets/img/<?= $gambar_jasa ?>" alt="Jasa">
-                            <h1>Jasa <?= $nama_service ?></h1>
+                            <img src="../../../../assets/img/<?= $result['gambar_jasa'] ?>" alt="Jasa">
+                            <h1>Jasa <?= $result['nama_service'] ?></h1>
                         </div>
                         <table>
                             <tr>
                                 <th>No Pesanan</th>
-                                <td><?= $no_pesanan ?></td>
+                                <td><?= $result['no_pesanan'] ?></td>
                             </tr>
                             <tr>
                                 <th>Jenis Layanan</th>
-                                <td><?= $nama_service ?></td>
+                                <td><?= $result['nama_service'] ?></td>
                             </tr>
                             <tr>
                                 <th>Nama Item</th>
-                                <td><?= $nama_item ?></td>
+                                <td><?= $result['nama_item'] ?></td>
                             </tr>
                             <tr>
                                 <th>Material</th>
-                                <td><?= $material ?? '-' ?></td>
+                                <td><?= $result['material'] ?? '-' ?></td>
                             </tr>
                             <tr>
                                 <th>Jumlah Item</th>
-                                <td><?= $jumlah_item ?></td>
+                                <td><?= $result['jumlah_item'] ?></td>
                             </tr>
                             <tr>
                                 <th>Waktu Pemesanan</th>
-                                <td><?= $waktu_pemesanan ?></td>
+                                <td><?= $result['waktu_pemesanan'] ?></td>
                             </tr>
                             <tr>
                                 <th>Status Pesanan</th>
-                                <td><?= $status_pesanan ?></td>
+                                <td><?= $result['status_pesanan'] ?></td>
                             </tr>
                         </table>
                     </div>
@@ -129,34 +111,44 @@ if (isset($_GET['detail'])) {
                 <div class="desain-alamat">
                     <div class="desain">
                         <h2>Desain Gambar</h2>
-                        <iframe src="../../../../uploads/desain/<?= $desain_gambar ?>"></iframe>
+                        <?php
+                        $split = explode('.', $result['desain_gambar']);
+                        $ekstensi = $split[count($split) - 1];
+
+                        if ($ekstensi == 'pdf') { ?>
+                            <iframe src="../../../../uploads/desain/<?= $result['desain_gambar'] ?>" width="100%" height="200px"></iframe>
+                        <?php } else {
+                        ?>
+                            <img src="../../../../uploads/desain/<?= $result['desain_gambar'] ?>" alt="" style="height: 80%; width: 100%">
+                        <?php } ?>
+                        <!-- <iframe src="../../../../uploads/desain/<?= $result['desain_gambar'] ?>"></iframe> -->
                     </div>
                     <div class="alamat">
-                        <h2>Alamat Lengkap</h2>
+                        <h2 style="margin-bottom: 1rem;">Alamat Lengkap</h2>
                         <table>
                             <tr>
                                 <th>Nama Jalan</th>
-                                <td><?= $nama_jalan ?></td>
+                                <td><?= $result['nama_jalan'] ?></td>
                             </tr>
                             <tr>
                                 <th>Kecamatan</th>
-                                <td><?= $kecamatan ?></td>
+                                <td><?= $result['kecamatan'] ?></td>
                             </tr>
                             <tr>
                                 <th>Kabupaten/Kota</th>
-                                <td><?= $kabupaten_kota ?></td>
+                                <td><?= $result['kabupaten_kota'] ?></td>
                             </tr>
                             <tr>
                                 <th>Provinsi</th>
-                                <td><?= $provinsi ?></td>
+                                <td><?= $result['provinsi'] ?></td>
                             </tr>
                             <tr>
                                 <th>Kode Pos</th>
-                                <td><?= $kode_pos ?></td>
+                                <td><?= $result['kode_pos'] ?></td>
                             </tr>
                             <tr>
                                 <th>Detail Alamat</th>
-                                <td><?= $detail ?? '-' ?></td>
+                                <td><?= $result['detail'] ?? '-' ?></td>
                             </tr>
                         </table>
                     </div>

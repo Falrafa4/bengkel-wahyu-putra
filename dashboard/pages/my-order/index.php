@@ -1,17 +1,47 @@
-<?php 
-    session_start();
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/session_user.php";
+<?php
+session_start();
+require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/session_user.php";
+
+if (isset($_POST['search'])) {
+    $keyword = '%' . $_POST['search'] . '%';
+    // var_dump($keyword);
+    // die();
+
+    $query = "SELECT *, CONCAT('WP', LPAD(p.no_pesanan, 5, '0')) AS nomor_pesanan, CONCAT(p.nama_jalan,', ',p.kecamatan,', ',p.kabupaten_kota) AS alamat_lengkap
+    FROM pemesanan p
+    JOIN service s
+    ON p.id_service = s.id_service
+    JOIN pemesanan_item pi
+    ON p.no_pesanan = pi.no_pesanan
+    WHERE id_pelanggan = ? AND (p.no_pesanan LIKE ? OR pi.nama_item LIKE ? OR p.status_pesanan LIKE ?);";
+
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('isss', $_SESSION['data']['id_pelanggan'], $keyword, $keyword, $keyword);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $pesananSearch = [];
+        while ($data = $result->fetch_assoc()) {
+            $pesananSearch[] = $data;
+        }
+        $_SESSION['pesanan'] = $pesananSearch;
+    } else {
+        $_SESSION['pesanan'] = [];
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../../assets/css/global.css">
     <link rel="stylesheet" href="../../../assets/css/user.css">
     <link rel="shortcut icon" href="../../../assets/img/logo-wp-circle.png">
-    
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../../../assets/fontawesome/css/all.css">
 
@@ -22,51 +52,65 @@
     <!-- NAVBAR -->
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/nav.php"; ?>
     <!-- NAVBAR END -->
-    
+
     <main class="daftarPesanan">
         <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/user/aside.php"; ?>
-        
+
         <section class="utama">
             <div class="main-content">
-                <h1>Daftar Pesanan</h1><hr class="hr-standar" style="width: 10dvw">
+                <h1>Daftar Pesanan</h1>
+                <hr class="hr-standar" style="width: 10dvw">
                 <p>Berisi daftar pesanan yang telah Anda buat sebelumnya.</p>
+                <form action="./" method="post" class="search">
+                    <input type="text" name="search" id="search" placeholder="Cari...">
+                    <button type="submit">
+                        <i class="fas fa-search" style="font-size: 1rem;"></i>
+                    </button>
+                </form>
                 <table>
                     <thead>
                         <tr>
-                            <th>No Pesanan</th>
-                            <th style="width: 150px;">Waktu</th>
-                            <th style="width: 150px;">Status</th>
-                            <th style="width: 135px;">Nama Item</th>
-                            <th style="width: 110px;">Jumlah</th>
-                            <th style="width: 110px;">Material</th>
+                            <th style="width: 10%;">No Pesanan</th>
+                            <th style="width: 10%">Nama Item</th>
+                            <th style="width: 30%;">Desain Gambar</th>
                             <th>Alamat</th>
-                            <th style="width: 130px;">Aksi</th>
+                            <th style="width: 10%;">Status</th>
+                            <th style="width: 10%;">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                    <?php foreach($_SESSION['pesanan'] as $data) { ?>
-                    <tr>
-                        <td><?= $data['nomor_pesanan'] ?></td>
-                        <td><?= $data['waktu_pemesanan'] ?></td>
-                        <td><?= $data['status_pesanan'] ?></td>
-                        <td><?= $data['nama_item'] ?></td>
-                        <td><?= $data['jumlah_item'] ?></td>
-                        <td><?= $data['material'] == NULL ? '-' : $data['material'] ?></td>
-                        <td><?= $data['alamat_lengkap'] ?></td>
-                        <td>
-                            <a href="detail/?detail=<?= $data['no_pesanan'] ?>">
-                                Detail
-                                <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <?php } 
-                    if($_SESSION['pesanan'] == []) {
-                    ?>               
-                    <tr>
-                        <td colspan="8" style="font-style:italic; color:#adadad; font-size:14px;">Anda Belum Membuat Pesanan</td>
-                    </tr>
-                    <?php } ?>
+                        <?php foreach ($_SESSION['pesanan'] as $data) { ?>
+                            <tr>
+                                <td><?= $data['nomor_pesanan'] ?></td>
+                                <td><?= $data['nama_item'] ?></td>
+                                <td>
+                                    <?php
+                                    $split = explode('.', $data['desain_gambar']);
+                                    $ekstensi = $split[count($split) - 1];
+
+                                    if ($ekstensi == 'pdf') { ?>
+                                        <iframe src="../../../uploads/desain/<?= $data['desain_gambar'] ?>" width="100%" height="200px"></iframe>
+                                    <?php } else {
+                                    ?>
+                                        <img src="../../../uploads/desain/<?= $data['desain_gambar'] ?>" alt="" style="height: 200px;">
+                                    <?php } ?>
+                                </td>
+                                <td style="text-align: left;"><?= $data['alamat_lengkap'] ?></td>
+                                <td><?= $data['status_pesanan'] ?></td>
+                                <td>
+                                    <a href="detail/?detail=<?= $data['no_pesanan'] ?>">
+                                        Detail
+                                        <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php }
+                        if ($_SESSION['pesanan'] == []) {
+                        ?>
+                            <tr>
+                                <td colspan="8" style="font-style:italic; color:#adadad; font-size:14px;">Anda Belum Membuat Pesanan</td>
+                            </tr>
+                        <?php } ?>
                     </tbody>
                 </table>
                 <!-- <iframe src="../../../uploads/desain/test.pdf" width="600" height="400"></iframe> -->
@@ -74,4 +118,5 @@
         </section>
     </main>
 </body>
+
 </html>

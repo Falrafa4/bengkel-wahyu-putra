@@ -389,7 +389,7 @@ form button:hover,
 }
 
 .daftarPesanan table td {
-    padding: 40px 20px;
+    padding: 20px 10px;
 }
 
 .daftarPesanan table tr:hover {
@@ -419,6 +419,15 @@ form button:hover,
     height: 300px;
     object-fit: cover;
     border-radius: 5px;
+    cursor: pointer;
+}
+
+.detailPesanan .desain img {
+    width: auto;
+    height: auto;
+    min-width: none;
+    min-height: none;
+    object-fit: cover;
 }
 
 .detailPesanan table {
@@ -503,6 +512,11 @@ form button:hover,
     width: 200px;
 }
 
+.search input {
+    margin: 15px 0;
+    width: 30%;
+}
+
 /* STYLE DAFTAR PENAWARAN */
 .offer table td {
     padding: 20px;
@@ -516,22 +530,34 @@ form button:hover,
     font-size: 16px;
 }
 
-.offer button.agree {
+.agree {
     background-color: #008b00;
     border: 1px solid #008b00;
 }
 
-.offer button.agree:hover {
+.agree:hover {
     background-color: #007500;
     color: white;
 }
 
-.offer button.reject {
+.warning {
+    background-color: #006aff;
+    border: 1px solid #006aff;
+    /* color: black; */
+}
+
+.warning:hover {
+    color: white;
+    background-color: #0057d0;
+    border: 1px solid #0057d0;
+}
+
+.reject {
     background-color: #cf0000;
     border: 1px solid #cf0000;
 }
 
-.offer button.reject:hover {
+.reject:hover {
     background-color: #ab0000;
     color: white;
 }
