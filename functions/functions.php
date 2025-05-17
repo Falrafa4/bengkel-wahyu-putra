@@ -9,8 +9,9 @@ function insertPelanggan($conn, $password, $nama_pelanggan, $email, $no_telp, $j
     $stmt = $conn->prepare($query);
     $stmt->bind_param("ssssss", $hash, $nama_pelanggan, $email, $no_telp, $jenis_akun, $role);
 
-    return $stmt->execute();
+    $result = $stmt->execute();
     $stmt->close();
+    return $result;
 }
 
 function updatePelanggan($conn, $nama_pelanggan, $email, $no_telp, $jenis_akun, $role, $id_pelanggan) {
@@ -18,8 +19,9 @@ function updatePelanggan($conn, $nama_pelanggan, $email, $no_telp, $jenis_akun, 
     $stmt = $conn->prepare($query);
     $stmt->bind_param('sssssi', $nama_pelanggan, $email, $no_telp, $jenis_akun, $role, $id_pelanggan);
     
-    return $stmt->execute();
+    $result = $stmt->execute();
     $stmt->close();
+    return $result;
 }
 
 function deletePelanggan($conn, $id_pelanggan) {
@@ -27,8 +29,9 @@ function deletePelanggan($conn, $id_pelanggan) {
     $stmt = $conn->prepare($query);
     $stmt->bind_param('i', $id_pelanggan);
 
-    return $stmt->execute();
+    $result = $stmt->execute();
     $stmt->close();
+    return $result;
 }
 
 // PEMESANAN
@@ -38,8 +41,9 @@ function insertPemesanan($conn, $id_pelanggan, $nama_jalan, $kecamatan, $kabupat
     $stmt = $conn->prepare($query);
     $stmt->bind_param('issssssi', $id_pelanggan, $nama_jalan, $kecamatan, $kabupaten_kota, $provinsi, $kode_pos, $detail, $id_service);
 
-    return $stmt->execute();
+    $result = $stmt->execute();
     $stmt->close();
+    return $result;
 }
 
 function updatePemesanan($conn, $no_pesanan, $nama_jalan, $kecamatan, $kabupaten_kota, $provinsi, $kode_pos, $detail, $id_service, $id_pelanggan) {
@@ -47,8 +51,9 @@ function updatePemesanan($conn, $no_pesanan, $nama_jalan, $kecamatan, $kabupaten
     $stmt = $conn->prepare($query);
     $stmt->bind_param('issssssii', $id_pelanggan, $nama_jalan, $kecamatan, $kabupaten_kota, $provinsi, $kode_pos, $detail, $id_service, $no_pesanan);
 
-    return $stmt->execute();
+    $result = $stmt->execute();
     $stmt->close();
+    return $result;
 }
 
 function deletePemesanan($conn, $no_pesanan) {
@@ -56,8 +61,9 @@ function deletePemesanan($conn, $no_pesanan) {
     $stmt = $conn->prepare($query);
     $stmt->bind_param('i', $no_pesanan);
 
-    return $stmt->execute();
+    $result = $stmt->execute();
     $stmt->close();
+    return $result;
 }
 
 // PEMESANAN ITEM
@@ -67,13 +73,24 @@ function insertPemesananItem($conn, $no_pesanan, $nama_item, $desain_gambar, $ma
     $stmt = $conn->prepare($query);
     $stmt->bind_param('isssi', $no_pesanan, $nama_item, $desain_gambar, $material, $jumlah_item);
 
-    return $stmt->execute();
+    $result = $stmt->execute();
     $stmt->close();
+    return $result;
 }
 
 // PENAWARAN
-function getPenawaran($conn, $no_pesanan) {
-    $query = 'SELECT * FROM penawaran WHERE id_pesanan = ?';
+function getPenawaran($conn, $id_pelanggan) {
+    $query = "SELECT *, CONCAT('WP', LPAD(ps.no_pesanan, 5, '0')) AS nomor_pesanan
+            FROM penawaran pw
+            JOIN pemesanan ps ON ps.no_pesanan = pw.no_pesanan
+            WHERE ps.id_pelanggan = ?;";
+
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('i', $id_pelanggan);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    return $result;
 }
 
 function insertPenawaran($conn, $no_pesanan, $surat_penawaran) {
@@ -81,8 +98,9 @@ function insertPenawaran($conn, $no_pesanan, $surat_penawaran) {
     $stmt = $conn->prepare($query);
     $stmt->bind_param('is', $no_pesanan, $surat_penawaran);
     
-    return $stmt->execute();
+    $result = $stmt->execute();
     $stmt->close();
+    return $result;
 }
 
 function updatePenawaran($conn, $no_pesanan, $surat_penawaran, $status_penawaran) {
@@ -90,8 +108,9 @@ function updatePenawaran($conn, $no_pesanan, $surat_penawaran, $status_penawaran
     $stmt = $conn->prepare($query);
     $stmt->bind_param('iss', $no_pesanan, $surat_penawaran, $status_penawaran);
 
-    return $stmt->execute();
+    $result = $stmt->execute();
     $stmt->close();
+    return $result;
 }
 
 // PASSWORD
@@ -114,8 +133,9 @@ function updatePassword($conn, $id_pelanggan, $password) {
     $stmt = $conn->prepare($query);
     $stmt->bind_param('ss', $newHash, $id_pelanggan);
 
-    return $stmt->execute();
+    $result = $stmt->execute();
     $stmt->close();
+    return $result;
 }
 
 // SERVICE
@@ -124,8 +144,9 @@ function updateService($conn, $id_service, $gambar_jasa) {
     $stmt = $conn->prepare($query);
     $stmt->bind_param('si', $gambar_jasa, $id_service);
 
-    return $stmt->execute();
+    $result = $stmt->execute();
     $stmt->close();
+    return $result;
 }
 
 // USER ONLY

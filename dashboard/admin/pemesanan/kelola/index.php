@@ -7,17 +7,18 @@ if (isset($_POST['aksi']) || isset($_GET['ubah'])) {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functions.php";
 }
 
-$no_pesanan = '';
+// $no_pesanan = '';
 $id_pelanggan = '';
-$waktu_pemesanan = '';
-$nama_jalan = '';
-$kecamatan = '';
-$kabupaten_kota = '';
-$provinsi = '';
-$kode_pos = '';
-$detail = '';
-$id_service = '';
-$status = '';
+// $waktu_pemesanan = '';
+// $nama_jalan = '';
+// $kecamatan = '';
+// $kabupaten_kota = '';
+// $provinsi = '';
+// $kode_pos = '';
+// $detail = '';
+// $id_service = '';
+// $status = '';
+$result = null;
 $pesan = '';
 
 if (isset($_GET['ubah'])) {
@@ -28,21 +29,8 @@ if (isset($_GET['ubah'])) {
     $stmt = $conn->prepare($query);
     $stmt->bind_param('i', $no_pesanan);
     $stmt->execute();
-    $result = $stmt->get_result();
-    $result = $result->fetch_assoc();
-
-    //data di bawah akan diletakkan pada tiap input-an
-    $no_pesanan = $result['no_pesanan'];
-    $id_pelanggan = $result['id_pelanggan'];
-    $waktu_pemesanan = $result['waktu_pemesanan'];
-    $nama_jalan = $result['nama_jalan'];
-    $kecamatan = $result['kecamatan'];
-    $kabupaten_kota = $result['kabupaten_kota'];
-    $provinsi = $result['provinsi'];
-    $kode_pos = $result['kode_pos'];
-    $detail = $result['detail'];
-    $id_service = $result['id_service'];
-    $status = $result['status_pesanan'];
+    $res = $stmt->get_result();
+    $result = $res->fetch_assoc();
 }
 
 if (isset($_POST['aksi'])) {
@@ -64,7 +52,6 @@ if (isset($_POST['aksi'])) {
     if ($_POST['aksi'] == 'add') {
         if (empty($id_pelanggan) || empty($layanan) || empty($nama_item) || empty($material) || empty($jumlah_item) || empty($nama_jalan) || empty($kecamatan) || empty($kabupaten_kota) || empty($provinsi) || empty($kode_pos) || empty($detail)) {
             $pesan = "Data ada yang kosong! Harap diisi!";
-            echo "kosong";
         } else if (empty($pesan)) {
             if (insertPemesanan($conn, $id_pelanggan, $nama_jalan, $kecamatan, $kabupaten_kota, $provinsi, $kode_pos, $detail, $layanan)) {
                 $no_pesanan = $conn->insert_id;
@@ -141,8 +128,8 @@ if (isset($_POST['aksi'])) {
                 <div class="input-box">
                     <label for="nama">Nama Pelanggan </label>
                     <select name="id_pelanggan" id="id_pelanggan">
-                        <?php $result = $conn->query("SELECT * FROM pelanggan");
-                        while ($row = $result->fetch_assoc()) {
+                        <?php $resultSelect = $conn->query("SELECT * FROM pelanggan");
+                        while ($row = $resultSelect->fetch_assoc()) {
                         ?>
                             <option value="<?= $row['id_pelanggan'] ?>" <?php if ($id_pelanggan == $row['id_pelanggan']) echo 'selected'; ?>><?= $row['nama_pelanggan'] ?></option>
                         <?php } ?>
@@ -175,8 +162,8 @@ if (isset($_POST['aksi'])) {
                 <div class="input-box">
                     <label for="detail">Service </label>
                     <select name="id_service" id="id_service">
-                        <?php $result = $conn->query("SELECT * FROM service");
-                        while ($row = $result->fetch_assoc()) {
+                        <?php $resultSelect = $conn->query("SELECT * FROM service");
+                        while ($row = $resultSelect->fetch_assoc()) {
                         ?>
                             <option value="<?= $row['id_service'] ?>" <?php if ($row['id_service'] == $id_service) echo 'Selected' ?>><?= $row['nama_service'] ?></option>
                         <?php } ?>
@@ -208,14 +195,15 @@ if (isset($_POST['aksi'])) {
                         <h2>Data Item</h2>
                         <em><span>*</span> Wajib Diisi</em>
                         <p id="validate_form" style="color: red;"></p>
-                        <input type="hidden" hidden name="id_pelanggan" id="">
+                        <input type="hidden" hidden name="id_pelanggan" id="id_pelanggan" value="">
+                        <?php var_dump($result); ?>
                         <div class="input-box">
                             <label for="nama_pelanggan">Nama Pelanggan </label>
-                            <select name="nama_pelanggan" id="nama_pelanggan">
-                                <?php $result = $conn->query("SELECT * FROM pelanggan WHERE role ='User'");
-                                while ($row = $result->fetch_assoc()) {
+                            <select name="id_pelanggan" id="id_pelanggan">
+                                <?php $resultSelect = $conn->query("SELECT * FROM pelanggan WHERE role ='User'");
+                                while ($row = $resultSelect->fetch_assoc()) {
                                 ?>
-                                    <option value="<?= $row['id_pelanggan'] ?>" <?php if ($id_pelanggan == $row['id_pelanggan']) echo 'selected'; ?>><?= $row['nama_pelanggan'] ?></option>
+                                    <option value="<?= $row['id_pelanggan'] ?>" <?= $result != null && $result['id_pelanggan'] == $row['id_pelanggan'] ? 'selected' : ''; ?>><?= $row['nama_pelanggan'] ?></option>
                                 <?php } ?>
                             </select>
                         </div>
@@ -226,13 +214,13 @@ if (isset($_POST['aksi'])) {
                             ?>
                             <select name="jenis_layanan" id="jenis_layanan">
                                 <?php foreach ($service as $serviceKey) { ?>
-                                    <option value="<?= $serviceKey['id_service'] ?>"><?= $serviceKey['nama_service'] ?></option>
+                                    <option value="<?= $serviceKey['id_service'] ?>" <?= $result != null && $result['id_service'] == $serviceKey['id_service'] ? 'selected' : ''; ?>><?= $serviceKey['nama_service'] ?></option>
                                 <?php } ?>
                             </select>
                         </div>
                         <div class="input-box">
                             <label for="nama_item">Nama Item/Barang <span>*</span></label>
-                            <input type="text" name="nama_item" id="nama_item" required>
+                            <input type="text" name="nama_item" id="nama_item" required value="<?= $result != null ? $result['nama_item'] : '' ?>">
                         </div>
                         <div class="input-box">
                             <label for="desain_gambar">Desain Gambar <span>*</span></label>

@@ -3,15 +3,9 @@
     session_start();
     require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
     require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/session_user.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functions.php";
 
-    // $query = "SELECT p.no_pesanan, CONCAT('WP', LPAD(p.no_pesanan, 5, '0')) AS nomor_pesanan, p.waktu_pemesanan, CONCAT(p.nama_jalan,', ',p.kecamatan,', ',p.kabupaten_kota) AS alamat_lengkap, s.nama_service, p.status_pesanan, pi.nama_item, pi.material, pi.jumlah_item
-    // FROM pemesanan p
-    // JOIN service s
-    // ON p.id_service = s.id_service
-    // JOIN pemesanan_item pi
-    // ON p.no_pesanan = pi.no_pesanan
-    // WHERE id_pelanggan = ?;";
-    $query = "SELECT *, CONCAT('WP', LPAD(p.no_pesanan, 5, '0')) AS nomor_pesanan, p.waktu_pemesanan, CONCAT(p.nama_jalan,', ',p.kecamatan,', ',p.kabupaten_kota) AS alamat_lengkap
+    $query = "SELECT *, CONCAT('WP', LPAD(p.no_pesanan, 5, '0')) AS nomor_pesanan, p.waktu_pemesanan, CONCAT(p.nama_jalan,', ',p.kecamatan,', ',p.kabupaten_kota,', ',p.provinsi,' ',p.kode_pos) AS alamat_lengkap
     FROM pemesanan p
     JOIN service s
     ON p.id_service = s.id_service
@@ -35,16 +29,8 @@
     }
 
     // kasih tahu ke pelanggan dengan notif sederhana
-    $query = "SELECT *, CONCAT('WP', LPAD(ps.no_pesanan, 5, '0')) AS nomor_pesanan
-            FROM penawaran pw
-            JOIN pemesanan ps ON ps.no_pesanan = pw.no_pesanan
-            WHERE ps.id_pelanggan = ?;";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param('i', $_SESSION['data']['id_pelanggan']);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if($result->num_rows > 0) {
+    $result = getPenawaran($conn, $_SESSION['data']['id_pelanggan']);
+    if($result) {
         $notif = [];
         $notifText = [];
 
@@ -52,11 +38,8 @@
             $notifText[] = "Anda mendapatkan surat penawaran dengan <strong>Nomor Pesanan " . $row['nomor_pesanan'] . "</strong>";
             $notif[] = $row;
         }
-
-        $_SESSION['notif'] = $notif;
     } else {
         $notifText = [];
-        $_SESSION['notif'] = [];
     }
 
 ?>

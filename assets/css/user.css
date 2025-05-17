@@ -225,7 +225,7 @@ input,
 select {
     width: 100%;
     height: 40px;
-    padding: 10px 40px 10px 15px;
+    padding: 10px;
     border: none;
     border-radius: 5px;
     font-size: 14px;
@@ -234,6 +234,17 @@ select {
 
 select {
     cursor: pointer;
+}
+
+textarea {
+    margin: 10px 0;
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
 }
 
 .input-box {
@@ -251,7 +262,7 @@ select {
     right: 0px;
 }
 
-input:focus {
+input:focus, select:focus, textarea:focus {
     border-color: var(--primary-color);
     box-shadow: 0 0 5px rgba(43, 43, 43, 0.5);
     outline: none;
@@ -389,7 +400,7 @@ form button:hover,
 }
 
 .daftarPesanan table td {
-    padding: 20px 10px;
+    padding: 10px;
 }
 
 .daftarPesanan table tr:hover {
@@ -530,6 +541,61 @@ form button:hover,
     font-size: 16px;
 }
 
+#modal {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+}
+
+#modal h1 {
+    margin-bottom: 20px;
+}
+
+#modal input {
+    margin-bottom: 10px;
+}
+
+#modal .bg {
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+}
+
+#modal .wrapper {
+    background-color: var(--secondary-color);
+    border-radius: 15px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    padding: 1.8rem;
+    width: 40%;
+    animation: coolTransition 0.5s;
+}
+
+#modal button {
+    margin: 5px 0;
+}
+
+button.hapus {
+    background-color: #e40000;
+    border: 1px solid #e40000;
+}
+
+button.hapus:hover {
+    background-color: #cf0000;
+    border: 1px solid #e40000;
+    color: white;
+}
+
 .agree {
     background-color: #008b00;
     border: 1px solid #008b00;
@@ -537,6 +603,7 @@ form button:hover,
 
 .agree:hover {
     background-color: #007500;
+    border: 1px solid #008b00;
     color: white;
 }
 

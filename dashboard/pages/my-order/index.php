@@ -5,19 +5,17 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/s
 
 if (isset($_POST['search'])) {
     $keyword = '%' . $_POST['search'] . '%';
-    // var_dump($keyword);
-    // die();
 
-    $query = "SELECT *, CONCAT('WP', LPAD(p.no_pesanan, 5, '0')) AS nomor_pesanan, CONCAT(p.nama_jalan,', ',p.kecamatan,', ',p.kabupaten_kota) AS alamat_lengkap
+    $query = "SELECT *,
+    CONCAT('WP', LPAD(p.no_pesanan, 5, '0')) AS nomor_pesanan,
+    CONCAT(p.nama_jalan,', ',p.kecamatan,', ',p.kabupaten_kota,' ',p.kode_pos) AS alamat_lengkap
     FROM pemesanan p
-    JOIN service s
-    ON p.id_service = s.id_service
-    JOIN pemesanan_item pi
-    ON p.no_pesanan = pi.no_pesanan
-    WHERE id_pelanggan = ? AND (p.no_pesanan LIKE ? OR pi.nama_item LIKE ? OR p.status_pesanan LIKE ?);";
+    JOIN service s ON p.id_service = s.id_service
+    JOIN pemesanan_item pi ON p.no_pesanan = pi.no_pesanan
+    WHERE id_pelanggan = ? AND (CONCAT_WS(' ', p.no_pesanan, pi.nama_item, p.nama_jalan, p.kecamatan, p.kabupaten_kota, p.provinsi, p.kode_pos, p.status_pesanan)LIKE ?);";
 
     $stmt = $conn->prepare($query);
-    $stmt->bind_param('isss', $_SESSION['data']['id_pelanggan'], $keyword, $keyword, $keyword);
+    $stmt->bind_param('is', $_SESSION['data']['id_pelanggan'], $keyword);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -108,7 +106,7 @@ if (isset($_POST['search'])) {
                         if ($_SESSION['pesanan'] == []) {
                         ?>
                             <tr>
-                                <td colspan="8" style="font-style:italic; color:#adadad; font-size:14px;">Anda Belum Membuat Pesanan</td>
+                                <td colspan="8" style="font-style:italic; color:#adadad; font-size:14px; padding: 5%;">Anda Belum Membuat Pesanan</td>
                             </tr>
                         <?php } ?>
                     </tbody>
