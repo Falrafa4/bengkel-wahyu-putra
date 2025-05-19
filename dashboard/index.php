@@ -5,42 +5,35 @@
     require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/session_user.php";
     require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functions.php";
 
-    $query = "SELECT *, CONCAT('WP', LPAD(p.no_pesanan, 5, '0')) AS nomor_pesanan, p.waktu_pemesanan, CONCAT(p.nama_jalan,', ',p.kecamatan,', ',p.kabupaten_kota,', ',p.provinsi,' ',p.kode_pos) AS alamat_lengkap
+    $query = "SELECT p.*, s.nama_service, pi.nama_item, CONCAT('WP', LPAD(p.no_pesanan, 5, '0')) AS nomor_pesanan
     FROM pemesanan p
-    JOIN service s
-    ON p.id_service = s.id_service
-    JOIN pemesanan_item pi
-    ON p.no_pesanan = pi.no_pesanan
-    WHERE id_pelanggan = ?;";
-    
+    JOIN service s ON p.id_service = s.id_service
+    JOIN pemesanan_item pi ON p.no_pesanan = pi.no_pesanan
+    WHERE id_pelanggan = ?
+    ORDER BY waktu_pemesanan DESC
+	LIMIT 3;";
     $stmt = $conn->prepare($query);
     $stmt->bind_param('i', $_SESSION['data']['id_pelanggan']);
     $stmt->execute();
-    $result = $stmt->get_result();
-    
-    if($result->num_rows > 0) {
-        $pesanan = [];
-        while($data = $result->fetch_assoc()) {
-            $pesanan[] = $data;
-        }
-        $_SESSION['pesanan'] = $pesanan;
-    } else {
-        $_SESSION['pesanan'] = [];
-    }
+    $result_riwayat = $stmt->get_result();
 
     // kasih tahu ke pelanggan dengan notif sederhana
     $result = getPenawaran($conn, $_SESSION['data']['id_pelanggan']);
-    if($result) {
+    if($result->num_rows > 0) {
         $notif = [];
         $notifText = [];
 
         while($row = $result->fetch_assoc()) {
-            $notifText[] = "Anda mendapatkan surat penawaran dengan <strong>Nomor Pesanan " . $row['nomor_pesanan'] . "</strong>";
+            $notifText[] = $row['tgl_penawaran'] . " - Anda mendapatkan surat penawaran untuk <strong>Nomor Pesanan " . $row['nomor_pesanan'] . "</strong>";
             $notif[] = $row;
+
+            $_SESSION['notif'] = $row;
         }
     } else {
         $notifText = [];
+        $_SESSION['notif'] = [];
     }
+
 
 ?>
 <!DOCTYPE html>
@@ -103,26 +96,29 @@
                     <h2>Daftar & Riwayat Pesanan</h2>
                     <hr class="hr-standar">
                     <div class="msg-riwayat">
-                        <?php foreach ($_SESSION['pesanan'] as $pesanan) { ?>
-                        <a href="pages/my-order/detail/?detail=<?= $pesanan['no_pesanan'] ?>" class="riwayat-box">
+                        <?php while ($riwayat = $result_riwayat->fetch_assoc()) { ?>
+                        <a href="pages/my-order/detail/?detail=<?= $riwayat['no_pesanan'] ?>" class="riwayat-box">
                             <p>
                                 <?php
-                                if($pesanan['status_pesanan'] == "Menunggu Penawaran") {
-                                    echo "Pesanan " . $pesanan['status_pesanan'];
-                                } else if($pesanan['status_pesanan'] == "Dalam Proses") {
-                                    echo "Pesanan Sedang " . $pesanan['status_pesanan'];
-                                } else {
-                                    echo "Pesanan Telah " . $pesanan['status_pesanan'];
+                                if($riwayat['status_pesanan'] == "Menunggu Penawaran") {
+                                    echo "Pesanan " . $riwayat['status_pesanan'];
+                                } else if($riwayat['status_pesanan'] == "Dalam Proses") {
+                                    echo "Pesanan Sedang " . $riwayat['status_pesanan'];
+                                } else if ($riwayat['status_pesanan'] == "Penawaran Diterbitkan") {
+                                    echo "Penawaran Pesanan Telah Diterbitkan";
+                                }
+                                else {
+                                    echo "Pesanan Dalam " . $riwayat['status_pesanan'];
                                 }
                                 ?>
                             </p>
-                            <p>Cek rincian pesanan <?= $pesanan['nomor_pesanan'] . " - " . $pesanan['nama_item'] ?> dengan jenis layanan <?= $pesanan['nama_service'] ?> di sini</p>
+                            <p>Cek rincian pesanan <?= $riwayat['nomor_pesanan'] . " - " . $riwayat['nama_item'] ?> dengan jenis layanan <?= $riwayat['nama_service'] ?> di sini</p>
                             <i class="fas fa-chevron-right"></i>
                             <hr>
                         </a>
                         <?php } ?>
                         <?php 
-                        if($_SESSION['pesanan'] == []) { 
+                        if($result_riwayat->num_rows == 0) { 
                         ?>
                         <div class="no-order">
                             <em>Anda belum membuat pesanan sama sekali.</em>

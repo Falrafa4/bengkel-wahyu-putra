@@ -28,6 +28,27 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/nav.php"; ?>
     <!-- NAVBAR END -->
 
+    <?php
+    if (isset($_GET['no'])) {
+        // Acc pesanan dengan mengubah status penawaran
+        $no_pesanan = $_GET['no'];
+
+        if (updateStatusPenawaran($conn, 3, $no_pesanan)) {
+            echo '<script>Swal.fire({
+                title: "Berhasil!",
+                text: "Surat Penawaran diterima! Terima kasih atas kepercayaan Anda",
+                icon: "success",
+                confirmButtonText: "OK"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "./";
+                    console.log("Ini Redirect");
+                }
+            });</script>';
+        }
+    }
+    ?>
+
     <main class="daftarPesanan offer">
         <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/user/aside.php"; ?>
 
@@ -47,17 +68,25 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
                         </tr>
                     </thead>
                     <tbody>
-                        <?php 
+                        <?php
                         $penawaran = getPenawaran($conn, $_SESSION['data']['id_pelanggan']);
-                        while($row = $penawaran->fetch_assoc()) : ?>
+                        while ($row = $penawaran->fetch_assoc()) : ?>
                             <tr>
                                 <td><a href="../my-order/detail/?detail=<?= $row['no_pesanan'] ?>"><?= $row['nomor_pesanan'] ?></a></td>
                                 <td><?= $row['status_penawaran'] ?></td>
                                 <td><?= $row['tgl_penawaran'] ?></td>
                                 <td><button onclick="download('../../../uploads/penawaran/<?= $row['surat_penawaran'] ?>')"><i class="fas fa-download"></i> Unduh Surat</button></td>
-                                <td>
-                                    <button class="agree" data-no="<?= $row['nomor_pesanan'] ?>"><i class="fas fa-check"></i> Setuju</button>
-                                    <button class="warning nego" data-no="<?= $row['no_pesanan'] ?>" onclick="modalAktif('<?= $row['nomor_pesanan'] ?>','<?= $row['no_pesanan'] ?>')"><i class="fas fa-handshake"></i> Nego</button>
+                                <td class="<?= $row['status_penawaran'] == 'Disetujui' ? 'offer-agree' : '' ?>">
+                                    <?php if ($row['status_penawaran'] == 'Disetujui') : ?>
+                                        <i class="fas fa-check"></i> Penawaran Disetujui
+                                    <?php else : ?>
+                                        <button class="agree" data-no="<?= $row['no_pesanan'] ?>" data-nomor="<?= $row['nomor_pesanan'] ?>">
+                                            <i class="fas fa-check"></i> Setuju
+                                        </button>
+                                        <button class="warning nego" data-no="<?= $row['no_pesanan'] ?>" onclick="modalAktif('<?= $row['nomor_pesanan'] ?>','<?= $row['no_pesanan'] ?>')">
+                                            <i class="fas fa-handshake"></i> Nego
+                                        </button>
+                                    <?php endif ?>
                                 </td>
                             </tr>
                         <?php endwhile; ?>
@@ -97,6 +126,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
             </div>
         </section>
     </main>
+
     <script>
         // download surat
         function download(url) {
@@ -127,10 +157,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
         // 
         document.querySelectorAll('.agree').forEach(agree => {
             const no = agree.dataset.no;
+            const nomor = agree.dataset.nomor;
             agree.addEventListener('click', function() {
                 Swal.fire({
                     title: "Konfirmasi",
-                    text: `Apakah Anda yakin untuk menerima Surat Penawaran agar pesanan ${no} segera dikerjakan?`,
+                    text: `Apakah Anda yakin untuk menerima Surat Penawaran agar pesanan ${nomor} segera dikerjakan?`,
                     icon: "question",
                     showCancelButton: true,
                     confirmButtonColor: "#3085d6",
@@ -139,15 +170,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
                     cancelButtonText: "Batal"
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        Swal.fire({
-                            title: "Berhasil!",
-                            text: "Surat Penawaran diterima! Terima kasih atas kepercayaan Anda",
-                            icon: "success"
-                        });
+                        window.location.href = './?no=' + encodeURIComponent(no);
                     }
                 });
             });
-        })
+        });
     </script>
 </body>
 

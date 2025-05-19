@@ -40,14 +40,18 @@
                 ?>
         
                 <?php 
-                    $querySelect = "SELECT * FROM pemesanan_item";
-                    $sql = mysqli_query($conn, $querySelect);
+                    $querySelect = "SELECT pi.*, pl.nama_pelanggan FROM pemesanan_item pi
+                                    JOIN pemesanan p ON p.no_pesanan = pi.no_pesanan
+                                    JOIN pelanggan pl ON p.id_pelanggan = pl.id_pelanggan
+                                    ORDER BY pi.no_pesanan ASC";
+                    $sql = $conn->query($querySelect);
                 ?>
         
                 <table class="table-crud">
                     <tr>
                         <th>ID Item</th>
-                        <th>No Pesanan</th>
+                        <th>No Psnn</th>
+                        <th>Nama Pelanggan</th>
                         <th>Nama Item</th>
                         <th style="width: 300px;">Desain Gambar</th>
                         <th>Material</th>
@@ -57,7 +61,8 @@
                     <?php while($result = mysqli_fetch_assoc($sql)){?>
                     <tr>
                         <td style="text-align: center"><?= $result['id_item'] ?></td>
-                        <td style="text-align: center"><?= $result['no_pesanan'] ?></td>
+                        <td style="text-align: center" id="<?= $result['no_pesanan'] ?>"><?= $result['no_pesanan'] ?></td>
+                        <td><?= $result['nama_pelanggan'] ?></td>
                         <td><?= $result['nama_item'] ?></td>
                         <td style="text-align: center">
                             <?php 
@@ -69,14 +74,14 @@
                             ?>
                             <iframe src="../../../uploads/desain/<?= $result['desain_gambar'] ?>" width="100%" height="200px"></iframe>
                             <?php else : ?>
-                            <img src="../../../uploads/desain/<?= $result['desain_gambar'] ?>" alt="" width="80%">
+                            <img src="../../../uploads/desain/<?= $result['desain_gambar'] ?>" alt="<?= $result['desain_gambar'] ?>" width="80%">
                             <?php endif ?>
                             <a class="button" href="../../../uploads/desain/<?= $result['desain_gambar'] ?>" download>Download</a>
                         </td>
                         <td><?php if($result['material'] == NULL) echo "-"; else echo $result['material']; ?></td>
                         <td><?= $result['jumlah_item'] ?></td>
                         <td class="action" style="text-align: center">
-                            <a href="../pemesanan/kelola/" class="btn edit"><i class="fas fa-pen-to-square"></i> Edit</a>
+                            <a href="../pemesanan/#<?= $result['no_pesanan']-1 ?>" class="btn edit"><i class="fas fa-pen-to-square"></i> Edit</a>
                             <!-- <a href="" class="btn hapus"><i class="fas fa-trash"></i></a> -->
                         </td>
                     </tr>

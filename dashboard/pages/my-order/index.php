@@ -3,6 +3,27 @@ session_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/session_user.php";
 
+$query = "SELECT *, CONCAT('WP', LPAD(p.no_pesanan, 5, '0')) AS nomor_pesanan, p.waktu_pemesanan, CONCAT(p.nama_jalan,', ',p.kecamatan,', ',p.kabupaten_kota,', ',p.provinsi,' ',p.kode_pos) AS alamat_lengkap
+    FROM pemesanan p
+    JOIN service s
+    ON p.id_service = s.id_service
+    JOIN pemesanan_item pi
+    ON p.no_pesanan = pi.no_pesanan
+    WHERE id_pelanggan = ?;";
+
+$stmt = $conn->prepare($query);
+$stmt->bind_param('i', $_SESSION['data']['id_pelanggan']);
+$stmt->execute();
+$result_pesanan = $stmt->get_result();
+if($result_pesanan->num_rows > 0) {
+        $pesanan = [];
+        while($data = $result_pesanan->fetch_assoc()) {
+            $pesanan[] = $data;
+        }
+    } else {
+        $pesanan = [];
+    }
+
 if (isset($_POST['search'])) {
     $keyword = '%' . $_POST['search'] . '%';
 
@@ -24,9 +45,9 @@ if (isset($_POST['search'])) {
         while ($data = $result->fetch_assoc()) {
             $pesananSearch[] = $data;
         }
-        $_SESSION['pesanan'] = $pesananSearch;
+        $pesanan = $pesananSearch;
     } else {
-        $_SESSION['pesanan'] = [];
+        $pesanan = [];
     }
 }
 ?>
@@ -77,33 +98,33 @@ if (isset($_POST['search'])) {
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($_SESSION['pesanan'] as $data) { ?>
+                        <?php foreach($pesanan as $row) { ?>
                             <tr>
-                                <td><?= $data['nomor_pesanan'] ?></td>
-                                <td><?= $data['nama_item'] ?></td>
+                                <td><?= $row['nomor_pesanan'] ?></td>
+                                <td><?= $row['nama_item'] ?></td>
                                 <td>
                                     <?php
-                                    $split = explode('.', $data['desain_gambar']);
+                                    $split = explode('.', $row['desain_gambar']);
                                     $ekstensi = $split[count($split) - 1];
 
                                     if ($ekstensi == 'pdf') { ?>
-                                        <iframe src="../../../uploads/desain/<?= $data['desain_gambar'] ?>" width="100%" height="200px"></iframe>
+                                        <iframe src="../../../uploads/desain/<?= $row['desain_gambar'] ?>" width="100%" height="200px"></iframe>
                                     <?php } else {
                                     ?>
-                                        <img src="../../../uploads/desain/<?= $data['desain_gambar'] ?>" alt="" style="height: 200px;">
+                                        <img src="../../../uploads/desain/<?= $row['desain_gambar'] ?>" alt="" style="height: 200px;">
                                     <?php } ?>
                                 </td>
-                                <td style="text-align: left;"><?= $data['alamat_lengkap'] ?></td>
-                                <td><?= $data['status_pesanan'] ?></td>
+                                <td style="text-align: left;"><?= $row['alamat_lengkap'] ?></td>
+                                <td><?= $row['status_pesanan'] ?></td>
                                 <td>
-                                    <a href="detail/?detail=<?= $data['no_pesanan'] ?>">
+                                    <a href="detail/?detail=<?= $row['no_pesanan'] ?>">
                                         Detail
                                         <i class="fas fa-arrow-right"></i>
                                     </a>
                                 </td>
                             </tr>
                         <?php }
-                        if ($_SESSION['pesanan'] == []) {
+                        if ($pesanan == []) {
                         ?>
                             <tr>
                                 <td colspan="8" style="font-style:italic; color:#adadad; font-size:14px; padding: 5%;">Anda Belum Membuat Pesanan</td>

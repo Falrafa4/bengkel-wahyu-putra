@@ -7,49 +7,30 @@ if (isset($_POST['aksi']) || isset($_GET['ubah'])) {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functions.php";
 }
 
-// $no_pesanan = '';
 $id_pelanggan = '';
-// $waktu_pemesanan = '';
-// $nama_jalan = '';
-// $kecamatan = '';
-// $kabupaten_kota = '';
-// $provinsi = '';
-// $kode_pos = '';
-// $detail = '';
-// $id_service = '';
-// $status = '';
 $result = null;
 $pesan = '';
 
 if (isset($_GET['ubah'])) {
-    $no_pesanan = $_GET['ubah'];
-
-    //query SELECT untuk memasukkan data ke dalam form => untuk diedit
-    $query = "SELECT * FROM pemesanan JOIN pemesanan_item ON pemesanan.no_pesanan = pemesanan_item.no_pesanan WHERE pemesanan.no_pesanan = ?;";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param('i', $no_pesanan);
-    $stmt->execute();
-    $res = $stmt->get_result();
-    $result = $res->fetch_assoc();
 }
 
 if (isset($_POST['aksi'])) {
-    $id_pelanggan = $_POST['id_pelanggan'];
-    $layanan = $_POST['jenis_layanan'];
-    $desain_gambar = $_FILES['desain_gambar']['name'];
-    $nama_item = $_POST['nama_item'];
-    $material = $_POST['material'];
-    $jumlah_item = $_POST['jumlah_item'];
-
-    $nama_jalan = $_POST['nama_jalan'];
-    $kecamatan = $_POST['kecamatan'];
-    $kabupaten_kota = $_POST['kabupaten_kota'];
-    $provinsi = $_POST['provinsi'];
-    $kode_pos = $_POST['kode_pos'];
-    $detail = $_POST['detail'];
-
     // CREATE DATA
     if ($_POST['aksi'] == 'add') {
+        $id_pelanggan = $_POST['id_pelanggan'];
+        $layanan = $_POST['jenis_layanan'];
+        $desain_gambar = $_FILES['desain_gambar']['name'];
+        $nama_item = $_POST['nama_item'];
+        $material = $_POST['material'];
+        $jumlah_item = $_POST['jumlah_item'];
+    
+        $nama_jalan = $_POST['nama_jalan'];
+        $kecamatan = $_POST['kecamatan'];
+        $kabupaten_kota = $_POST['kabupaten_kota'];
+        $provinsi = $_POST['provinsi'];
+        $kode_pos = $_POST['kode_pos'];
+        $detail = $_POST['detail'];
+
         if (empty($id_pelanggan) || empty($layanan) || empty($nama_item) || empty($material) || empty($jumlah_item) || empty($nama_jalan) || empty($kecamatan) || empty($kabupaten_kota) || empty($provinsi) || empty($kode_pos) || empty($detail)) {
             $pesan = "Data ada yang kosong! Harap diisi!";
         } else if (empty($pesan)) {
@@ -81,10 +62,9 @@ if (isset($_POST['aksi'])) {
         }
     }
 
-    // UPDATE DATA
+    // UPDATE STATUS
     if ($_POST['aksi'] == 'edit') {
-        $no_pesanan = $_POST['no_pesanan'];
-        if (updatePemesanan($conn, $no_pesanan, $nama_jalan, $kecamatan, $kabupaten_kota, $provinsi, $kode_pos, $detail, $id_service, $id_pelanggan)) {
+        if (updateStatusPesanan($conn, $_POST['no_pesanan'], $_POST['status_pesanan'])) {
             $_SESSION['eksekusi'] = "Data Berhasil Diubah!";
             header("location: ../");
         } else {
@@ -117,171 +97,154 @@ if (isset($_POST['aksi'])) {
         <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/admin/aside.php"; ?>
 
         <section class="content">
-            <!-- <form action="./" method="POST">
-                <h1>
-                    <?= isset($_GET['ubah']) ? "Edit Data" : "Tambah Data" ?>
-                </h1>
+            <?php if (isset($_GET['ubah'])) {
+                $no_pesanan = $_GET['ubah'];
+
+                //query SELECT untuk memasukkan data ke dalam form => untuk diedit
+                $query = "SELECT * FROM pemesanan p JOIN pemesanan_item pi ON p.no_pesanan = pi.no_pesanan JOIN pelanggan pl ON p.id_pelanggan = pl.id_pelanggan WHERE p.no_pesanan = ?;";
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param('i', $no_pesanan);
+                $stmt->execute();
+                $res = $stmt->get_result();
+                $result = $res->fetch_assoc();
+            ?>
+                <h1>Edit Status</h1>
                 <hr>
                 <span style="color: red; font-style:italic;"><?= $pesan ?></span>
-
-                <input type="hidden" name="no_pesanan" value="<?= $no_pesanan ?>" id="no_pesanan">
-                <div class="input-box">
-                    <label for="nama">Nama Pelanggan </label>
-                    <select name="id_pelanggan" id="id_pelanggan">
-                        <?php $resultSelect = $conn->query("SELECT * FROM pelanggan");
-                        while ($row = $resultSelect->fetch_assoc()) {
-                        ?>
-                            <option value="<?= $row['id_pelanggan'] ?>" <?php if ($id_pelanggan == $row['id_pelanggan']) echo 'selected'; ?>><?= $row['nama_pelanggan'] ?></option>
-                        <?php } ?>
-                    </select>
-                </div>
-                <div class="input-box">
-                    <label for="jalan">Nama Jalan </label>
-                    <input type="text" name="nama_jalan" id="jalan" placeholder="Ex: Jl. Kolonel Sugiono No. 13" value="<?= $nama_jalan ?>" required>
-                </div>
-                <div class="input-box">
-                    <label for="kecamatan">Kecamatan </label>
-                    <input type="text" name="kecamatan" id="kecamatan" placeholder="Ex: Waru" value="<?= $kecamatan ?>" required>
-                </div>
-                <div class="input-box">
-                    <label for="kabupaten">Kabupaten/Kota </label>
-                    <input type="text" name="kabupaten_kota" id="kabupaten" placeholder="Ex: Sidoarjo" value="<?= $kabupaten_kota ?>" required>
-                </div>
-                <div class="input-box">
-                    <label for="provinsi">Provinsi </label>
-                    <input type="text" name="provinsi" id="provinsi" placeholder="Ex: Jawa Timur" value="<?= $provinsi ?>" required>
-                </div>
-                <div class="input-box">
-                    <label for="kode_pos">Kode Pos </label>
-                    <input type="text" name="kode_pos" id="kode_pos" placeholder="Ex: 61256" value="<?= $kode_pos ?>" required>
-                </div>
-                <div class="input-box">
-                    <label for="detail">Detail </label>
-                    <input type="text" name="detail" id="detail" placeholder="Ex: Rumah Tingkat, sebelah toko" value="<?= $detail ?>" required>
-                </div>
-                <div class="input-box">
-                    <label for="detail">Service </label>
-                    <select name="id_service" id="id_service">
-                        <?php $resultSelect = $conn->query("SELECT * FROM service");
-                        while ($row = $resultSelect->fetch_assoc()) {
-                        ?>
-                            <option value="<?= $row['id_service'] ?>" <?php if ($row['id_service'] == $id_service) echo 'Selected' ?>><?= $row['nama_service'] ?></option>
-                        <?php } ?>
-                    </select>
-                </div>
-                <?php
-                if (isset($_GET['ubah'])) { ?>
-                    <button type="submit" name="aksi" value="edit" class="btn-kelola update">
-                        <i class="fa-solid fa-floppy-disk"></i>
-                        Simpan Perubahan
-                    </button>
-                <?php } else { ?>
-                    <button type="submit" name="aksi" value="add" class="btn-kelola update">
-                        <i class="fa-solid fa-floppy-disk"></i>
-                        Tambahkan
-                    </button>
-                <?php } ?>
-                <a href="../" class="btn-kelola back">
-                    <i class="fas fa-reply"></i>
-                    Batal
-                </a>
-            </form> -->
-            <h1>Buat Pesanan</h1>
-            <hr>
-            <form action="index.php" method="POST" enctype="multipart/form-data">
-                <span style="color: red; font-style:italic;"><?= $pesan ?></span>
-                <div class="form-pesanan">
-                    <div class="step-form" id="form1">
-                        <h2>Data Item</h2>
-                        <em><span>*</span> Wajib Diisi</em>
-                        <p id="validate_form" style="color: red;"></p>
-                        <input type="hidden" hidden name="id_pelanggan" id="id_pelanggan" value="">
-                        <?php var_dump($result); ?>
-                        <div class="input-box">
-                            <label for="nama_pelanggan">Nama Pelanggan </label>
-                            <select name="id_pelanggan" id="id_pelanggan">
-                                <?php $resultSelect = $conn->query("SELECT * FROM pelanggan WHERE role ='User'");
-                                while ($row = $resultSelect->fetch_assoc()) {
-                                ?>
-                                    <option value="<?= $row['id_pelanggan'] ?>" <?= $result != null && $result['id_pelanggan'] == $row['id_pelanggan'] ? 'selected' : ''; ?>><?= $row['nama_pelanggan'] ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-                        <div class="input-box">
-                            <label for="jenis_layanan">Jenis Layanan <span>*</span></label>
-                            <?php
-                            $service = mysqli_query($conn, "SELECT * FROM service");
-                            ?>
-                            <select name="jenis_layanan" id="jenis_layanan">
-                                <?php foreach ($service as $serviceKey) { ?>
-                                    <option value="<?= $serviceKey['id_service'] ?>" <?= $result != null && $result['id_service'] == $serviceKey['id_service'] ? 'selected' : ''; ?>><?= $serviceKey['nama_service'] ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-                        <div class="input-box">
-                            <label for="nama_item">Nama Item/Barang <span>*</span></label>
-                            <input type="text" name="nama_item" id="nama_item" required value="<?= $result != null ? $result['nama_item'] : '' ?>">
-                        </div>
-                        <div class="input-box">
-                            <label for="desain_gambar">Desain Gambar <span>*</span></label>
-                            <input type="file" name="desain_gambar" id="desain_gambar" accept=".pdf, .jpg, .jpeg, .png" required>
-                        </div>
-                        <div class="input-box">
-                            <label for="material">Material <span>*</span></label>
-                            <input type="text" name="material" id="material" required>
-                        </div>
-                        <div class="input-box">
-                            <label for="jumlah_item">Jumlah Item <span>*</span></label>
-                            <input type="number" name="jumlah_item" id="jumlah_item" placeholder="Masukkan Dalam Bentuk Angka" min="1" maxlength="2" required>
-                        </div>
+                <form action="./" method="post">
+                    <input type="text" name="id_pelanggan" id="id_pelanggan" value="<?= $result['id_pelanggan'] ?>">
+                    <div class="input-box">
+                        <label for="no_pesanan">Nomor Pesanan</label>
+                        <input type="text" name="no_pesanan" id="no_pesanan" readonly value="<?= $result['no_pesanan'] ?>">
                     </div>
-                    <div class="step-form" id="form2">
-                        <h2>Alamat Pengiriman</h2>
-                        <p id="validate_form2" style="color: red;"></p>
-                        <div class="input-box">
-                            <label for="nama_jalan">Nama Jalan & Nomor <span>*</span></label>
-                            <input type="text" name="nama_jalan" id="nama_jalan" value="" required>
+                    <div class="input-box">
+                        <label for="nama_pelanggan">Nama Pelanggan</label>
+                        <input type="text" name="nama_pelanggan" id="nama_pelanggan" readonly value="<?= $result['nama_pelanggan']; ?>">
+                    </div>
+                    <div class="input-box">
+                        <label for="status">Status Pemesanan</label>
+                        <select name="status_pesanan" id="status_pesanan">
+                            <option <?php if($result['status_pesanan'] == 'Menunggu Penawaran') echo 'selected'; ?> value="1">
+                                Menunggu Penawaran
+                            </option>
+                            <option <?php if($result['status_pesanan'] == 'Penawaran Diterbitkan') echo 'selected'; ?> value="2">
+                                Penawaran Diterbitkan
+                            </option>
+                            <option <?php if($result['status_pesanan'] == 'Negosiasi Penawaran') echo 'selected'; ?> value="3">
+                                Negosiasi Penawaran
+                            </option>
+                            <option <?php if($result['status_pesanan'] == 'Dalam Proses') echo 'selected'; ?> value="4">
+                                Dalam Proses
+                            </option>
+                            <option <?php if($result['status_pesanan'] == 'Menunggu Pembayaran') echo 'selected'; ?> value="5">
+                                Menunggu Pembayaran
+                            </option>
+                            <option <?php if($result['status_pesanan'] == 'Selesai') echo 'selected'; ?> value="6">
+                                Selesai
+                            </option>
+                        </select>
+                    </div>
+                    <div class="btn">
+                        <button class="button" type="submit" name="aksi" value="edit">
+                            <i class="fa-solid fa-floppy-disk"></i>
+                            Simpan Perubahan
+                        </button>
+                        <a href="../" class="btn-kelola back" style="width: fit-content; padding-left: 20px; padding-right: 20px;">
+                            <i class="fas fa-reply"></i>
+                            Batal
+                        </a>
+                    </div>
+                </form>
+            <?php } else { ?>
+                <h1>Buat Pesanan</h1>
+                <hr>
+                <form action="index.php" method="POST" enctype="multipart/form-data">
+                    <span style="color: red; font-style:italic;"><?= $pesan ?></span>
+                    <div class="form-pesanan">
+                        <div class="step-form" id="form1">
+                            <h2>Data Item</h2>
+                            <em><span>*</span> Wajib Diisi</em>
+                            <p id="validate_form" style="color: red;"></p>
+                            <input type="hidden" hidden name="id_pelanggan" id="id_pelanggan" value="">
+                            <div class="input-box">
+                                <label for="nama_pelanggan">Nama Pelanggan </label>
+                                <select name="id_pelanggan" id="id_pelanggan">
+                                    <?php $resultSelect = $conn->query("SELECT * FROM pelanggan WHERE role ='User'");
+                                    while ($row = $resultSelect->fetch_assoc()) {
+                                    ?>
+                                        <option value="<?= $row['id_pelanggan'] ?>" <?= $result != null && $result['id_pelanggan'] == $row['id_pelanggan'] ? 'selected' : ''; ?>><?= $row['nama_pelanggan'] ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                            <div class="input-box">
+                                <label for="jenis_layanan">Jenis Layanan <span>*</span></label>
+                                <?php
+                                $service = mysqli_query($conn, "SELECT * FROM service");
+                                ?>
+                                <select name="jenis_layanan" id="jenis_layanan">
+                                    <?php foreach ($service as $serviceKey) { ?>
+                                        <option value="<?= $serviceKey['id_service'] ?>" <?= $result != null && $result['id_service'] == $serviceKey['id_service'] ? 'selected' : ''; ?>><?= $serviceKey['nama_service'] ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                            <div class="input-box">
+                                <label for="nama_item">Nama Item/Barang <span>*</span></label>
+                                <input type="text" name="nama_item" id="nama_item" required value="<?= $result != null ? $result['nama_item'] : '' ?>">
+                            </div>
+                            <div class="input-box">
+                                <label for="desain_gambar">Desain Gambar <span>*</span></label>
+                                <input type="file" name="desain_gambar" id="desain_gambar" accept=".pdf, .jpg, .jpeg, .png" required>
+                            </div>
+                            <div class="input-box">
+                                <label for="material">Material <span>*</span></label>
+                                <input type="text" name="material" id="material" required>
+                            </div>
+                            <div class="input-box">
+                                <label for="jumlah_item">Jumlah Item <span>*</span></label>
+                                <input type="number" name="jumlah_item" id="jumlah_item" placeholder="Masukkan Dalam Bentuk Angka" min="1" maxlength="2" required>
+                            </div>
                         </div>
-                        <div class="input-box">
-                            <label for="kecamatan">Kecamatan <span>*</span></label>
-                            <input type="text" name="kecamatan" id="kecamatan" required>
-                        </div>
-                        <div class="input-box">
-                            <label for="kabupaten_kota">Kabupaten/Kota <span>*</span></label>
-                            <input type="text" name="kabupaten_kota" id="kabupaten_kota" required>
-                        </div>
-                        <div class="input-box">
-                            <label for="provinsi">Provinsi <span>*</span></label>
-                            <input type="text" name="provinsi" id="provinsi" required>
-                        </div>
-                        <div class="input-box">
-                            <label for="kode_pos">Kode Pos <span>*</span></label>
-                            <input type="number" name="kode_pos" id="kode_pos" required>
-                        </div>
-                        <div class="input-box">
-                            <label for="detail">Detail Alamat</label>
-                            <input type="text" name="detail" id="detail" required>
-                        </div>
-                        <div class="btn">
-                            <?php if (isset($_GET['ubah'])) { ?>
-                                <button class="button" type="submit" name="aksi" value="edit">
-                                    <i class="fa-solid fa-floppy-disk"></i>
-                                    Simpan Perubahan
-                                </button>
-                            <?php } else { ?>
+                        <div class="step-form" id="form2">
+                            <h2>Alamat Pengiriman</h2>
+                            <p id="validate_form2" style="color: red;"></p>
+                            <div class="input-box">
+                                <label for="nama_jalan">Nama Jalan & Nomor <span>*</span></label>
+                                <input type="text" name="nama_jalan" id="nama_jalan" value="" required>
+                            </div>
+                            <div class="input-box">
+                                <label for="kecamatan">Kecamatan <span>*</span></label>
+                                <input type="text" name="kecamatan" id="kecamatan" required>
+                            </div>
+                            <div class="input-box">
+                                <label for="kabupaten_kota">Kabupaten/Kota <span>*</span></label>
+                                <input type="text" name="kabupaten_kota" id="kabupaten_kota" required>
+                            </div>
+                            <div class="input-box">
+                                <label for="provinsi">Provinsi <span>*</span></label>
+                                <input type="text" name="provinsi" id="provinsi" required>
+                            </div>
+                            <div class="input-box">
+                                <label for="kode_pos">Kode Pos <span>*</span></label>
+                                <input type="number" name="kode_pos" id="kode_pos" required>
+                            </div>
+                            <div class="input-box">
+                                <label for="detail">Detail Alamat</label>
+                                <input type="text" name="detail" id="detail" required>
+                            </div>
+                            <div class="btn">
                                 <button class="button" type="submit" id="submit" name="aksi" value="add">
                                     Buat Pesanan
                                     <i class="fas fa-check-to-slot"></i>
                                 </button>
-                            <?php } ?>
-                            <a href="../" class="btn-kelola back" style="width: fit-content; padding-left: 20px; padding-right: 20px;">
-                                <i class="fas fa-reply"></i>
-                                Batal
-                            </a>
+                                <a href="../" class="btn-kelola back" style="width: fit-content; padding-left: 20px; padding-right: 20px;">
+                                    <i class="fas fa-reply"></i>
+                                    Batal
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            <?php } ?>
         </section>
     </main>
 

@@ -184,7 +184,7 @@ p .fa-envelope {
     position: relative;
     background-color: rgba(43, 43, 43, 0.5);
     border-radius: 5px;
-    padding: 10px 30px;
+    padding: 10px 30px 10px 20px;
     margin-top: 15px;
     width: 100%;
 }
@@ -269,7 +269,7 @@ p .fa-envelope {
     background-color: #0057d0;
 }
 
-.btn-add, .edit, .hapus {
+.btn-add, .btn {
     transition: .3s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
@@ -297,6 +297,29 @@ p .fa-envelope {
     background-color: #ab0000;
 }
 
+.warning {
+    background-color: #ffbf00;
+}
+
+.done {
+    background-color: #555;
+}
+
+.warning:hover {
+    background-color: #e7ad00;
+}
+
+.blue {
+    background-color: #006aff;
+    border: 1px solid #006aff;
+}
+
+.blue:hover {
+    color: white;
+    background-color: #0057d0;
+    border: 1px solid #0057d0;
+}
+
 /* TABLE CRUD REGULAR */
 table.table-crud {
     width: 100%;
@@ -317,7 +340,7 @@ table.table-crud th {
 }
 
 table.table-crud td {
-    padding: 10px;
+    padding: 15px;
 }
 
 table.table-crud th,
@@ -340,6 +363,11 @@ table.table-crud .btn {
 
 table.table-crud .action {
     white-space: nowrap;
+}
+
+.row-yellow {
+    border: 1px solid #ffeeba;
+    background-color: #fff5d8;
 }
 
 /* CRUD PEMESANAN */

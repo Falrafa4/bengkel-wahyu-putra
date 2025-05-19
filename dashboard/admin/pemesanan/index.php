@@ -61,19 +61,22 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/s
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
-                    <?php while ($result = mysqli_fetch_assoc($sql)) { ?>
+                    <?php while ($result = mysqli_fetch_assoc($sql)) { $no_pesanan = $result['no_pesanan']; ?>
                         <tr>
-                            <td style="text-align: center;"><?= $result['no_pesanan'] ?></td>
+                            <td style="text-align: center;" id="<?= $result['no_pesanan'] ?>"><?= $result['no_pesanan'] ?></td>
                             <td><?= $result['nama_pelanggan'] ?></td>
                             <td style="text-align: center;"><?= $result['waktu_pemesanan'] ?></td>
                             <td><?= $result['alamat_lengkap'] ?></td>
                             <td><?php if ($result['detail'] == NULL) echo "-";
                                 else echo $result['detail']; ?></td>
                             <td style="text-align: center;"><?= $result['nama_service'] ?></td>
-                            <td><?= $result['status_pesanan'] ?></td>
+                            <td class="<?= $result['status_pesanan'] == 'Menunggu Penawaran' ? 'row-yellow' : '' ?>"><?= $result['status_pesanan'] ?></td>
                             <td class="action">
                                 <a href="./kelola/?ubah=<?= $result['no_pesanan'] ?>" class="btn edit"><i class="fas fa-pen-to-square"></i> Edit</a>
-                                <!-- <a href="./?hapus=<?= $result['no_pesanan'] ?>" data-id="" class="btn hapus"><i class="fas fa-trash"></i></a> -->
+                                <br><br>
+                                <a <?= $result['status_pesanan'] == 'Menunggu Penawaran' ? "href='../penawaran/kelola/?no=$no_pesanan'" : '' ?> class="btn <?= $result['status_pesanan'] == 'Menunggu Penawaran' ? 'warning' : 'done' ?>"><i class="fas fa-envelope"></i> Buat Surat</a>
+                                <br><br>
+                                <a href="../pemesanan_item/#<?= $result['no_pesanan']-1 ?>" class="btn blue"><i class="fas fa-arrow-right"></i> Lihat Item</a>
                             </td>
                         </tr>
                     <?php } ?>

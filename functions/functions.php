@@ -56,6 +56,16 @@ function updatePemesanan($conn, $no_pesanan, $nama_jalan, $kecamatan, $kabupaten
     return $result;
 }
 
+function updateStatusPesanan($conn, $no_pesanan, $status_pesanan) {
+    $query = 'UPDATE pemesanan SET status_pesanan = ? WHERE no_pesanan = ?';
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('ii',$status_pesanan, $no_pesanan);
+
+    $result = $stmt->execute();
+    $stmt->close();
+    return $result;
+}
+
 function deletePemesanan($conn, $no_pesanan) {
     $query = 'DELETE FROM pemesanan WHERE no_pesanan = ?';
     $stmt = $conn->prepare($query);
@@ -80,10 +90,11 @@ function insertPemesananItem($conn, $no_pesanan, $nama_item, $desain_gambar, $ma
 
 // PENAWARAN
 function getPenawaran($conn, $id_pelanggan) {
-    $query = "SELECT *, CONCAT('WP', LPAD(ps.no_pesanan, 5, '0')) AS nomor_pesanan
+    $query = "SELECT *, CONCAT('WP', LPAD(ps.no_pesanan, 5, '0')) AS nomor_pesanan, DATE_FORMAT(pw.tgl_penawaran, '%d-%m-%Y') as tgl_penawaran
             FROM penawaran pw
             JOIN pemesanan ps ON ps.no_pesanan = pw.no_pesanan
-            WHERE ps.id_pelanggan = ?;";
+            WHERE ps.id_pelanggan = ?
+            ORDER BY pw.tgl_penawaran DESC;";
 
     $stmt = $conn->prepare($query);
     $stmt->bind_param('i', $id_pelanggan);
@@ -107,6 +118,16 @@ function updatePenawaran($conn, $no_pesanan, $surat_penawaran, $status_penawaran
     $query = 'UPDATE penawaran SET no_pesanan = ?, surat_penawaran = ?, status_penawaran = ?';
     $stmt = $conn->prepare($query);
     $stmt->bind_param('iss', $no_pesanan, $surat_penawaran, $status_penawaran);
+
+    $result = $stmt->execute();
+    $stmt->close();
+    return $result;
+}
+
+function updateStatusPenawaran($conn, $status_penawaran, $no_pesanan) {
+    $query = 'UPDATE penawaran SET status_penawaran = ? WHERE no_pesanan = ?';
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('ii', $status_penawaran, $no_pesanan);
 
     $result = $stmt->execute();
     $stmt->close();

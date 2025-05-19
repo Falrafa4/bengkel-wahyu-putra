@@ -51,7 +51,7 @@ main {
 }
 
 .utama table .info {
-    width: 20vw;
+    width: 25%;
 }
 
 .utama table .data {
@@ -477,11 +477,11 @@ form button:hover,
     z-index: 2;
     bottom: 0;
     color: white;
-    left: 50%;
-    transform: translateX(-50%);
     transition: none;
     animation: none;
     margin-bottom: 8px;
+    width: 100%;
+    text-align: center;
 }
 
 /* desain & alamat */
@@ -594,6 +594,13 @@ button.hapus:hover {
     background-color: #cf0000;
     border: 1px solid #e40000;
     color: white;
+}
+
+.offer-agree {
+    background-color: #e4ffe4;
+    i {
+        font-size: 1rem;
+    }
 }
 
 .agree {

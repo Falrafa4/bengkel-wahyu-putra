@@ -5,9 +5,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/k
 require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/session_admin.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functions.php";
 
-if (isset($_POST['aksi']) || isset($_GET['ubah'])) {
-}
-
 $id_penawaran = '';
 $no_pesanan = '';
 $harga = '';
@@ -46,7 +43,7 @@ if (isset($_POST['aksi'])) {
             $pesan = "Data ada yang kosong! Harap diisi!";
         } else if (empty($pesan)) {
             $split = explode('.', $_FILES['surat_penawaran']['name']);
-            $ekstensi = $split[count($split)-1];
+            $ekstensi = $split[count($split) - 1];
 
             $surat_penawaran = time() . '.' . $ekstensi;
 
@@ -56,22 +53,13 @@ if (isset($_POST['aksi'])) {
             move_uploaded_file($from, $to);
 
             if (insertPenawaran($conn, $no_pesanan, $surat_penawaran)) {
-                $_SESSION['eksekusi'] = "Penawaran Berhasil Diterbitkan!";
-                header("location: ../");
+                if (updateStatusPesanan($conn, $no_pesanan, 2)) {
+                    $_SESSION['eksekusi'] = "Penawaran Berhasil Diterbitkan!";
+                    header("location: ../");
+                }
             } else {
-                die("Query gagal: " . $conn->error);
+                die("Data penawaran gagal ditambahkan :(");
             }
-        }
-    }
-
-    // UPDATE DATA
-    if ($_POST['aksi'] == 'edit') {
-        $no_pesanan = $_POST['no_pesanan'];
-        if ($no_pesanan = 1) {
-            $_SESSION['eksekusi'] = "Data Berhasil Diubah!";
-            header("location: ../");
-        } else {
-            die("Query gagal: " . $conn->error);
         }
     }
 }
@@ -114,12 +102,14 @@ if (isset($_POST['aksi'])) {
                         <?php $result = $conn->query("SELECT * FROM pemesanan");
                         while ($row = $result->fetch_assoc()) {
                         ?>
-                            <option value="<?= $row['no_pesanan'] ?>" <?php if($no_pesanan == $row['no_pesanan']) echo "Selected" ?> ><?= $row['no_pesanan'] ?></option>
+                            <option value="<?= $row['no_pesanan'] ?>" <?= ($no_pesanan == $row['no_pesanan'] || (isset($_GET['no']) && $_GET['no'] == $row['no_pesanan'])) ? 'selected' : '' ?>>
+                                <?= $row['no_pesanan'] ?>
+                            </option>
                         <?php } ?>
                     </select>
                 </div>
                 <div class="input-box">
-                    <label for="surat_penawaran">Surat Penawaran  </label>
+                    <label for="surat_penawaran">Surat Penawaran </label>
                     <input type="file" name="surat_penawaran" id="surat_penawaran" accept=".pdf, .jpg, .jpeg, .png" required>
                 </div>
 

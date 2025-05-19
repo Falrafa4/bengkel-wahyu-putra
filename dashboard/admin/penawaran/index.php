@@ -31,7 +31,7 @@
                 <h1>Data Penawaran</h1>
                 <p>Berisi surat penawaran dari pemilik bengkel.</p><br>
                 <hr>
-                <a href="kelola/" class="btn-add"><i class="fas fa-plus"></i> Tambah Data</a>
+                <!-- <a href="kelola/" class="btn-add"><i class="fas fa-plus"></i> Tambah Data</a> -->
         
                 <?php if(isset($_SESSION['eksekusi'])) {?>
                 <div class="success-update">
