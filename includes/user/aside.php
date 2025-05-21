@@ -6,8 +6,8 @@ $explode = explode('/', trim($path2, '/'));
 $namaFolder2 = $explode[count($explode) - 2];
 
 ?>
-<aside>
-    <h1>Bengkel Wahyu Putra</h1>
+<aside id="sidebar">
+    <h1>Bengkel<br> Wahyu Putra</h1>
     <div class="nav-dash">
         <a href="/bengkel-wahyu-putra/dashboard/" class="<?= ($namaFolder == "dashboard") ? 'active' : '' ?>">
             <i class="fas fa-house"></i>
@@ -50,3 +50,6 @@ $namaFolder2 = $explode[count($explode) - 2];
         </a>
     </div>
 </aside>
+<div id="sideBarIcon" onclick="closeSideBar()">
+    <i class="fa-solid fa-chevron-left"></i>
+</div>

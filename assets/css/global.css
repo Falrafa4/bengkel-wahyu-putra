@@ -213,6 +213,9 @@ aside {
     width: 300px;
     height: 90vh;
     align-self: start;
+    flex-shrink: 0;
+    transition: 0.3s ease;
+    overflow: hidden;
 }
 
 aside h1 {
@@ -222,6 +225,7 @@ aside h1 {
     font-weight: 700;
     line-height: 45px;
     padding: 35px 73px 8px 50px;
+    white-space: nowrap;
 }
 
 .nav-dash {
@@ -238,6 +242,8 @@ aside h1 {
     display: block;
     padding: 17px 0px 17px 42px;
     transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .nav-dash .active {
@@ -248,10 +254,27 @@ aside h1 {
     background-color: var(--primary-color);
 }
 
-/* HAMBURGER MENU STYLE */
-@keyframes animHamburger {
-
+#sideBarIcon {
+    position: fixed;
+    left: 300px;
+    background-color: #2b2b2b;
+    padding: 10px;
+    transition: 0.3s ease;
 }
+
+#sideBarIcon:hover {
+    cursor: pointer;
+}
+
+#sideBarIcon i {
+    color: #ffffff;
+}
+
+.menu-close {
+    width: 0;
+}
+
+/* HAMBURGER MENU STYLE */
 
 #toggleSideBar {
     display: none;

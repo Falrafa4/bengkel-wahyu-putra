@@ -121,7 +121,6 @@ if (isset($_GET['detail'])) {
                         ?>
                             <img src="../../../../uploads/desain/<?= $result['desain_gambar'] ?>" alt="" style="height: 80%; width: 100%">
                         <?php } ?>
-                        <!-- <iframe src="../../../../uploads/desain/<?= $result['desain_gambar'] ?>"></iframe> -->
                     </div>
                     <div class="alamat">
                         <h2 style="margin-bottom: 1rem;">Alamat Lengkap</h2>
@@ -153,10 +152,11 @@ if (isset($_GET['detail'])) {
                         </table>
                     </div>
                 </div>
-
             </div>
         </section>
     </main>
+
+    <script src="../../../../assets/js/main.js"></script>
 </body>
 
 </html>

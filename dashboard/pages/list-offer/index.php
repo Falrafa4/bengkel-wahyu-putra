@@ -31,9 +31,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
     <?php
     if (isset($_GET['no'])) {
         // Acc pesanan dengan mengubah status penawaran
-        $no_pesanan = $_GET['no'];
+        $id_penawaran = $_GET['no'];
 
-        if (updateStatusPenawaran($conn, 3, $no_pesanan)) {
+        if (updateStatusPenawaran($conn, 3, $id_penawaran)) {
             echo '<script>Swal.fire({
                 title: "Berhasil!",
                 text: "Surat Penawaran diterima! Terima kasih atas kepercayaan Anda",
@@ -45,6 +45,38 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
                     console.log("Ini Redirect");
                 }
             });</script>';
+        }
+    }
+
+    if (isset($_POST['negosiasi'])) {
+        $no_pesanan = $_POST['no_pesanan'];
+        $id_penawaran = $_POST['id_penawaran'];
+        $jenis_negosiasi = $_POST['jenis_negosiasi'];
+        $harga_tawaran = !empty($_POST['harga_tawaran']) ? $_POST['harga_tawaran'] : null;
+        $estimasi_tawaran = !empty($_POST['estimasi_tawara ']) ? $_POST['estimasi_tawara '] : null;
+        $catatan = !empty($_POST['catatan']) ? $_POST['catatan'] : null;
+
+        if (insertNegosiasi($conn, $id_penawaran, $jenis_negosiasi, $harga_tawaran, $estimasi_tawaran, $catatan)) {
+            if(updateStatusPenawaran($conn, 2, $id_penawaran)) {
+                if(updateStatusPesanan($conn, $no_pesanan, 3)) {
+                    echo '<script>Swal.fire({
+                        title: "Berhasil!",
+                        text: "Pengajuan negosiasi sukses dikirim. Harap menunggu surat terbaru dari kami. Terima kasih",
+                        icon: "success",
+                        confirmButtonText: "OK"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "./";
+                        }
+                    });</script>';
+                } else {
+                    die('Gagal update status pesanan :(');
+                }
+            } else {
+                die('Gagal update status penawaran :(');
+            }
+        } else {
+            die('Gagal membuat negosiasi :(');
         }
     }
     ?>
@@ -60,11 +92,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
                 <table>
                     <thead>
                         <tr>
-                            <th style="width: 200px;">No Pesanan</th>
-                            <th style="width: 250px;">Status Penawaran</th>
-                            <th>Tanggal Terbit</th>
+                            <th style="width: 10%;">No Pesanan</th>
+                            <th style="width: 15%;">Status Penawaran</th>
+                            <th style="width: 15%;">Tanggal Terbit</th>
                             <th>Surat Penawaran</th>
-                            <th style="width: 250px">Aksi</th>
+                            <th style="width: 20%;">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -75,15 +107,22 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
                                 <td><a href="../my-order/detail/?detail=<?= $row['no_pesanan'] ?>"><?= $row['nomor_pesanan'] ?></a></td>
                                 <td><?= $row['status_penawaran'] ?></td>
                                 <td><?= $row['tgl_penawaran'] ?></td>
-                                <td><button onclick="download('../../../uploads/penawaran/<?= $row['surat_penawaran'] ?>')"><i class="fas fa-download"></i> Unduh Surat</button></td>
-                                <td class="<?= $row['status_penawaran'] == 'Disetujui' ? 'offer-agree' : '' ?>">
+                                <td>
+                                    <iframe src="../../../uploads/penawaran/<?= $row['surat_penawaran'] ?>" frameborder="0" width="100%"></iframe>
+                                    <button onclick="download('../../../uploads/penawaran/<?= $row['surat_penawaran'] ?>')">
+                                        <i class="fas fa-download"></i> Unduh Surat
+                                    </button>
+                                </td>
+                                <td class="action <?= $row['status_penawaran'] == 'Disetujui' ? 'offer-agree' : ($row['status_penawaran'] == 'Negosiasi' ? 'offer-nego' : '') ?>">
                                     <?php if ($row['status_penawaran'] == 'Disetujui') : ?>
                                         <i class="fas fa-check"></i> Penawaran Disetujui
+                                    <?php elseif ($row['status_penawaran'] == 'Negosiasi') : ?>
+                                        <i class="fas fa-clock"></i> Penawaran Dalam Proses Negosiasi
                                     <?php else : ?>
-                                        <button class="agree" data-no="<?= $row['no_pesanan'] ?>" data-nomor="<?= $row['nomor_pesanan'] ?>">
+                                        <button class="agree" data-id="<?= $row['id_penawaran'] ?>" data-nomor="<?= $row['nomor_pesanan'] ?>">
                                             <i class="fas fa-check"></i> Setuju
                                         </button>
-                                        <button class="warning nego" data-no="<?= $row['no_pesanan'] ?>" onclick="modalAktif('<?= $row['nomor_pesanan'] ?>','<?= $row['no_pesanan'] ?>')">
+                                        <button type="button" class="warning nego" data-no="<?= $row['no_pesanan'] ?>" onclick="modalAktif('<?= $row['nomor_pesanan'] ?>','<?= $row['id_penawaran'] ?>','<?= $row['no_pesanan'] ?>')">
                                             <i class="fas fa-handshake"></i> Nego
                                         </button>
                                     <?php endif ?>
@@ -101,25 +140,32 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
 
                 <div class="modal" id="modal">
                     <div class="bg"></div>
-                    <form action="" method="POST" class="wrapper">
+                    <form action="./" method="POST" class="wrapper">
                         <h1>Ajukan Negosiasi</h1>
                         <input type="hidden" name="no_pesanan" id="no_pesanan">
+                        <input type="hidden" name="id_penawaran" id="id_penawaran">
                         <div class="input-box">
                             <input type="text" name="nomor" id="nomor" disabled>
                         </div>
                         <div class="input-box">
-                            <select name="" id="">
+                            <select name="jenis_negosiasi" id="jenis_negosiasi" onchange="inputNego()">
                                 <option value="" selected hidden>Pilih Jenis Negosiasi</option>
-                                <option value="">Harga</option>
-                                <option value="">Estimasi</option>
-                                <option value="">Lainnya (tulis di catatan)</option>
+                                <option value="Harga">Harga</option>
+                                <option value="Estimasi">Estimasi</option>
+                                <option value="Harga & Estimasi">Harga & Estimasi</option>
+                                <option value="Lainnya">Lainnya (tulis di catatan)</option>
                             </select>
                         </div>
                         <div class="input-box">
-                            <textarea name="catatan" id="catatan" placeholder="Tambah Catatan (Opsional)"></textarea>
-                            <!-- <input type="text" name="catatan" id="catatan" placeholder="Tambah Catatan"> -->
+                            <input type="number" name="harga_tawaran" id="harga" placeholder="Harga Tawaran (Isi dengan angka)" style="display: none;">
                         </div>
-                        <button class="button kirim" type="submit">Kirim</button>
+                        <div class="input-box">
+                            <input type="text" name="estimasi_tawaran" id="estimasi" placeholder="Estimasi Tawaran" style="display: none;">
+                        </div>
+                        <div class="input-box">
+                            <textarea name="catatan" id="catatan" placeholder="Tambah Catatan (Opsional)" style="display: none;"></textarea>
+                        </div>
+                        <button class="button kirim" type="submit" name="negosiasi">Kirim</button>
                         <button class="button hapus" type="button" onclick="modalNonaktif()">Batal</button>
                     </form>
                 </div>
@@ -127,6 +173,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
         </section>
     </main>
 
+    <script src="../../../assets/js/main.js"></script>
     <script>
         // download surat
         function download(url) {
@@ -139,8 +186,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
         }
 
         // untuk menampilkan modal
-        function modalAktif(nomor, noPesanan) {
+        function modalAktif(nomor, idPenawaran, noPesanan) {
             document.getElementById('nomor').value = nomor;
+            document.getElementById('id_penawaran').value = idPenawaran;
             document.getElementById('no_pesanan').value = noPesanan;
             document.getElementById('modal').style.display = 'flex';
         }
@@ -156,7 +204,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
 
         // 
         document.querySelectorAll('.agree').forEach(agree => {
-            const no = agree.dataset.no;
+            const idPenawaran = agree.dataset.id;
             const nomor = agree.dataset.nomor;
             agree.addEventListener('click', function() {
                 Swal.fire({
@@ -170,11 +218,36 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
                     cancelButtonText: "Batal"
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = './?no=' + encodeURIComponent(no);
+                        window.location.href = './?no=' + encodeURIComponent(idPenawaran);
                     }
                 });
             });
         });
+
+        function inputNego() {
+            const jenis = document.getElementById('jenis_negosiasi').value;
+            const harga = document.getElementById('harga');
+            const estimasi = document.getElementById('estimasi');
+            const catatan = document.getElementById('catatan');
+
+            harga.style.display = 'none';
+            estimasi.style.display = 'none';
+            catatan.style.display = 'none';
+
+            if (jenis === 'Harga') {
+                harga.style.display = 'block';
+                catatan.style.display = 'block';
+            } else if (jenis === 'Estimasi') {
+                estimasi.style.display = 'block';
+                catatan.style.display = 'block';
+            } else if (jenis === 'Lainnya') {
+                catatan.style.display = 'block';
+            } else if (jenis === 'Harga & Estimasi') {
+                harga.style.display = 'block';
+                estimasi.style.display = 'block';
+                catatan.style.display = 'block';
+            }
+        }
     </script>
 </body>
 

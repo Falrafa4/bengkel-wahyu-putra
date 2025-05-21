@@ -36,6 +36,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/s
             </div>
         </section>
     </main>
+
+    <script src="../../../assets/js/main.js"></script>
 </body>
 
 </html>

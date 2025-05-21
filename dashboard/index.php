@@ -146,6 +146,7 @@
         </section>
     </main>
 
+    <script src="../assets/js/main.js"></script>
     <script>
         const notifText = document.querySelectorAll('.notif-text');
         notifText.forEach(notif => {
@@ -154,6 +155,5 @@
             })
         });
     </script>
-
 </body>
 </html>

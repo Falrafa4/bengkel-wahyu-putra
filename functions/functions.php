@@ -124,10 +124,21 @@ function updatePenawaran($conn, $no_pesanan, $surat_penawaran, $status_penawaran
     return $result;
 }
 
-function updateStatusPenawaran($conn, $status_penawaran, $no_pesanan) {
-    $query = 'UPDATE penawaran SET status_penawaran = ? WHERE no_pesanan = ?';
+function updateStatusPenawaran($conn, $status_penawaran, $id_penawaran) {
+    $query = 'UPDATE penawaran SET status_penawaran = ? WHERE id_penawaran = ?';
     $stmt = $conn->prepare($query);
-    $stmt->bind_param('ii', $status_penawaran, $no_pesanan);
+    $stmt->bind_param('ii', $status_penawaran, $id_penawaran);
+
+    $result = $stmt->execute();
+    $stmt->close();
+    return $result;
+}
+
+// NEGOSIASI
+function insertNegosiasi($conn, $id_penawaran, $jenis_negosiasi, $harga_tawaran, $estimasi_tawaran, $catatan) {
+    $query = 'INSERT INTO negosiasi_penawaran (id_penawaran, jenis_negosiasi, harga_tawaran, estimasi_tawaran, catatan) VALUES (?, ?, ?, ?, ?)';
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('isiss', $id_penawaran, $jenis_negosiasi, $harga_tawaran, $estimasi_tawaran, $catatan);
 
     $result = $stmt->execute();
     $stmt->close();

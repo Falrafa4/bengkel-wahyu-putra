@@ -35,3 +35,21 @@ function closeAlert() {
     alert.style.display = "none";
   }
 }
+
+// CLOSE SIDEBAR USR
+function closeSideBar() {
+  const sideBar = document.getElementById('sidebar');
+  const sideBarIcon = document.getElementById('sideBarIcon');
+  const fas = sideBarIcon.firstElementChild;
+  sideBar.classList.toggle('menu-close');
+  
+  if (sideBar.className == 'menu-close') {
+    sideBarIcon.style.left = '0px';
+    fas.classList.remove('fa-chevron-left');
+    fas.classList.add('fa-chevron-right');
+  } else {
+    sideBarIcon.style.left = '300px';
+    fas.classList.remove('fa-chevron-right');
+    fas.classList.add('fa-chevron-left');
+  }
+}

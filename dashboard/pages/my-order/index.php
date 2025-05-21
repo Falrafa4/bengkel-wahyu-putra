@@ -111,11 +111,27 @@ if (isset($_POST['search'])) {
                                         <iframe src="../../../uploads/desain/<?= $row['desain_gambar'] ?>" width="100%" height="200px"></iframe>
                                     <?php } else {
                                     ?>
-                                        <img src="../../../uploads/desain/<?= $row['desain_gambar'] ?>" alt="" style="height: 200px;">
+                                        <img src="../../../uploads/desain/<?= $row['desain_gambar'] ?>" alt="" style="width: 100%;">
                                     <?php } ?>
                                 </td>
                                 <td style="text-align: left;"><?= $row['alamat_lengkap'] ?></td>
-                                <td><?= $row['status_pesanan'] ?></td>
+                                <td style="font-weight: bold;
+                                <?php
+                                if($row['status_pesanan'] == 'Menunggu Penawaran') {
+                                    echo 'background-color: #e4efff';
+                                } else if($row['status_pesanan'] == 'Penawaran Diterbitkan') {
+                                    echo 'background-color: #ffd670';
+                                } else if($row['status_pesanan'] == 'Negosiasi Penawaran') {
+                                    echo 'background-color: #d9534f';
+                                } else if($row['status_pesanan'] == 'Dalam Proses') {
+                                    echo 'background-color:rgb(112, 171, 255); color:white;';
+                                } else if($row['status_pesanan'] == 'Menunggu Pembayaran') {
+                                    echo 'background-color: #ffd670';
+                                } else {
+                                    echo 'background-color: #e4ffe4';
+                                }
+                                ?>
+                                "><?= $row['status_pesanan'] ?></td>
                                 <td>
                                     <a href="detail/?detail=<?= $row['no_pesanan'] ?>">
                                         Detail
@@ -136,6 +152,8 @@ if (isset($_POST['search'])) {
             </div>
         </section>
     </main>
+
+    <script src="../../../assets/js/main.js"></script>
 </body>
 
 </html>
