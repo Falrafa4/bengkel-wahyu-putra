@@ -7,9 +7,21 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
 if (isset($_GET['hapus'])) {
     $id_penawaran = $_GET['hapus'];
     $no_pesanan = $_GET['no'];
+    
+    $stmt = $conn->prepare("SELECT * FROM penawaran WHERE id_penawaran = ?");
+    $stmt->bind_param('i', $id_penawaran);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    $data = $result->fetch_assoc();
 
     if (deletePenawaran($conn, $id_penawaran)) {
-        if (updateStatusPesanan($conn, $no_pesanan, 1)) {
+        $path_lama = $_SERVER['DOCUMENT_ROOT'] . '/bengkel-wahyu-putra/uploads/penawaran/' . $data['surat_penawaran'];
+        if (file_exists($path_lama)) {
+            unlink($path_lama);
+        }
+
+        if (updateStatusPesanan($conn, $no_pesanan, 2)) {
             $_SESSION['eksekusi'] = "Data Berhasil Dihapus!";
             header("location: ./");
             exit();
@@ -96,22 +108,28 @@ if (isset($_GET['hapus'])) {
                             } elseif ($result['status_penawaran'] == 'Disetujui') {
                                 $status = "<i class='fas fa-check'></i> Disetujui";
                                 echo 'row-green';
-                            } else {
+                            } elseif ($result['status_penawaran'] == 'Terbit Baru') {
+                                $status = "<i class='fas fa-envelope'></i> Terbit Baru";
+                                echo 'row-blue';
+                            }
+                            else {
                                 $status = "<i class='fas fa-envelope'></i> Diterbitkan";
+                                echo 'row-blue';
                             }
                             ?>
-                            " <?php //echo $result['status_penawaran'] == 'Disetujui' ? 'colspan="2"' : ''; ?> style="text-align: center;"><?= $status ?></td>
-                            
-                            <?php if($result['status_penawaran'] != 'Disetujui') : ?>
-                            <td class="action">
-                                <a href="kelola/?no=<?= $result['no_pesanan'] ?>&edit=1" class="btn edit"><i class="fas fa-pen-to-square"></i></a>
-                                <a href="./?hapus=<?= $result['id_penawaran'] ?>&no=<?= $result['no_pesanan'] ?>" class="btn hapus"><i class="fas fa-trash"></i></a>
-                            </td>
+                            " <?php //echo $result['status_penawaran'] == 'Disetujui' ? 'colspan="2"' : ''; 
+                                ?> style="text-align: center;"><?= $status ?></td>
 
-                            <?php else : 
-                                echo '<td style="text-align: center;"> - </td>'; 
+                            <?php if ($result['status_penawaran'] != in_array($result['status_penawaran'], ['Disetujui', 'Terbit Baru'])) : ?>
+                                <td class="action">
+                                    <a href="kelola/?no=<?= $result['no_pesanan'] ?>&edit=1" class="btn edit"><i class="fas fa-pen-to-square"></i></a>
+                                    <a href="./?hapus=<?= $result['id_penawaran'] ?>&no=<?= $result['no_pesanan'] ?>" class="btn hapus"><i class="fas fa-trash"></i></a>
+                                </td>
+
+                            <?php else :
+                                echo '<td style="text-align: center;"> - </td>';
                             endif;
-                            ?> 
+                            ?>
                         </tr>
                     <?php } ?>
                     <?php if (mysqli_num_rows($sql) == 0) { ?>

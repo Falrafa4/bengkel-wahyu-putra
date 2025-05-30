@@ -73,11 +73,17 @@
                         </td>
                         <td><?= number_format($result['total_bayar'], 0, ',', '.') ?></td>
                         <td><?= $result['tgl_bayar'] ?></td>
-                        <td style="width: 25%"><img src="../../../uploads/pembayaran/<?= $result['bukti_bayar'] ?>" alt="" width="100%"></td>
-                        <td><?= $result['status_bayar'] ?></td>
+                        
+                        <td style="width: 25%; text-align: center;">
+                            <img src="../../../uploads/pembayaran/<?= $result['bukti_bayar'] ?>" alt="" width="100%">
+                            <a class="button" href="../../../uploads/pembayaran/<?= $result['bukti_bayar'] ?>" download>Download</a>
+                        </td>
+
+                        <td
+                        <?= $result['status_bayar'] == 'Sedang Dikonfirmasi' ? 'class="row-yellow"' : '' ?>
+                        ><?= $result['status_bayar'] ?></td>
                         <td class="action">
-                            <a href="" class="btn edit"><i class="fas fa-pen-to-square"></i></a>
-                            <a href="" class="btn hapus"><i class="fas fa-trash"></i></a>
+                            <a href="./kelola/?id=<?= $result['id_pembayaran'] ?>" class="btn edit"><i class="fas fa-pen-to-square"></i> Edit</a>
                         </td>
                     </tr>
                     <?php } ?>

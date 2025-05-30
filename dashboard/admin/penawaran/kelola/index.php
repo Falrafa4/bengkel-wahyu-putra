@@ -46,7 +46,7 @@ if (isset($_POST['aksi'])) {
             $split = explode('.', $_FILES['surat_penawaran']['name']);
             $ekstensi = $split[count($split) - 1];
 
-            $surat_penawaran = time() . '.' . $ekstensi;
+            $surat_penawaran = 'spwp_' . time() . '.' . $ekstensi;
 
             $from = $_FILES['surat_penawaran']['tmp_name'];
             $to = $_SERVER['DOCUMENT_ROOT'] . '/bengkel-wahyu-putra/uploads/penawaran/' . $surat_penawaran;
@@ -114,15 +114,15 @@ if (isset($_POST['aksi'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../../assets/css/global.css">
-    <link rel="stylesheet" href="../../../../assets/css/kelola.css">
-    <link rel="shortcut icon" href="../../../../assets/img/logo-wp-circle.png">
+    <link rel="stylesheet" href="/bengkel-wahyu-putra/assets/css/global.css">
+    <link rel="stylesheet" href="/bengkel-wahyu-putra/assets/css/kelola.css">
+    <link rel="shortcut icon" href="/bengkel-wahyu-putra/assets/img/logo-wp-circle.png">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="/bengkel-wahyu-putra/assets/fontawesome/css/all.css">
 
     <!-- Sweetalert2 -->
-    <script src="../../../../assets/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="/bengkel-wahyu-putra/assets/sweetalert2/sweetalert2.all.min.js"></script>
 
     <title>Kelola - Bengkel Wahyu Putra</title>
 </head>

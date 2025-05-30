@@ -16,6 +16,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/s
     <!-- Font Awesome -->
     <link rel="stylesheet" href="/bengkel-wahyu-putra/assets/fontawesome/css/all.css">
 
+    <!-- Sweetalert2 -->
+    <script src="/bengkel-wahyu-putra/assets/sweetalert2/sweetalert2.all.min.js"></script>
+
     <title>Pemesanan - Bengkel Wahyu Putra</title>
 </head>
 
@@ -70,7 +73,21 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/s
                             <td><?php if ($result['detail'] == NULL) echo "-";
                                 else echo $result['detail']; ?></td>
                             <td style="text-align: center;"><?= $result['nama_service'] ?></td>
-                            <td class="<?= $result['status_pesanan'] == 'Menunggu Penawaran' ? 'row-yellow' : '' ?>"><?= $result['status_pesanan'] ?></td>
+
+                            <td class="
+                            <?php
+                            if ($result['status_pesanan'] == 'Menunggu Penawaran') {
+                                echo 'row-yellow';
+                            } elseif ($result['status_pesanan'] == 'Selesai') {
+                                echo 'row-green';
+                            } elseif ($result['status_pesanan'] == 'Menunggu Pembayaran') {
+                                echo 'row-blue';
+                            } elseif ($result['status_pesanan'] == 'Negosiasi Penawaran') {
+                                echo 'row-orange';
+                            }
+                            ?>
+                            "><?= $result['status_pesanan'] ?></td>
+
                             <td class="action">
                                 <a href="./kelola/?ubah=<?= $result['no_pesanan'] ?>" class="btn edit"><i class="fas fa-pen-to-square"></i> Edit</a>
                                 <br><br>
@@ -88,7 +105,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/s
     </main>
 
     <script src="/bengkel-wahyu-putra/assets/js/main.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         document.querySelectorAll('.btn.hapus').forEach(button => {
             button.addEventListener('click', function(e) {

@@ -420,6 +420,11 @@ table.table-crud .action {
     white-space: nowrap;
 }
 
+.row-orange {
+    border: 1px solid #ffd0ba;
+    background-color: #ffe3d8;
+}
+
 .row-yellow {
     border: 1px solid #ffeeba;
     background-color: #fff5d8;
@@ -511,6 +516,12 @@ div.container-crud {
     margin: 5px 0;
 }
 
+#modal .input-box {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
 /* SETTINGS PAGE */
 .settings {
     background-color: white;
@@ -582,28 +593,28 @@ div.container-crud {
 }
 
 /* INPUT BOX */
-.settings input,
-.settings select {
+input,
+select {
     width: 100%;
     height: 40px;
-    padding: 10px 40px 10px 15px;
+    padding: 10px 15px;
     border: none;
     border-radius: 5px;
     font-size: 14px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
 }
 
-.settings select {
+select {
     cursor: pointer;
 }
 
-.settings .input-box {
+.input-box {
     position: relative;
     display: flex;
     align-items: center;
 }
 
-.settings .input-box i {
+.input-box i {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -612,7 +623,7 @@ div.container-crud {
     right: 0px;
 }
 
-.settings input:focus {
+input:focus {
     border-color: var(--primary-color);
     box-shadow: 0 0 5px rgba(43, 43, 43, 0.5);
     outline: none;
