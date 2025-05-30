@@ -19,13 +19,14 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 700px;
+    height: fit-content;
+    padding: 40px 0;
 }
 
 form {
     border-radius: 6px;
     width: 500px;
-    height: 650px;
+    height: fit-content;
     max-width: 90%;
     margin: 0px auto;
     padding: 40px 50px;

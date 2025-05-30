@@ -5,10 +5,11 @@
     $pesan = "";
     if(isset($_POST['daftar'])) {
         $password = $_POST['pass'];
-        $nama_pelanggan = $conn -> real_escape_string($_POST['nama']);
+        $nama_pelanggan = $_POST['nama'];
         $email = $_POST['email'];
         $no_telp = $_POST['telp'];
         $jenis_akun = $_POST['jenis_akun'];
+        $nama_perusahaan = $_POST['nama_perusahaan'];
         $role = "User";
 
         $queryCheck = "SELECT email FROM pelanggan WHERE email = ?";
@@ -18,8 +19,20 @@
         $result = $stmt->get_result();
 
         if($result->num_rows < 1) {
-            if(insertPelanggan($conn, $password, $nama_pelanggan, $email, $no_telp, $jenis_akun, $role)) {
-                $pesan = "<em class='sukses'>Sukses membuat akun! Silahkan <a href='../login/'>login.</a></em>";
+            if(insertPelanggan($conn, $password, $nama_pelanggan, $email, $no_telp, $jenis_akun, $nama_perusahaan, $role)) {
+                $pesan = '<script>
+                        Swal.fire({
+                            title: "Berhasil!",
+                            text: "Sukses membuat akun! silahkan login.",
+                            icon: "success",
+                            timer: 2000,
+                            timerProgressBar: true,
+                            showConfirmButton: false
+                        }).then(() => {
+                            window.location.href="../../dashboard/admin/";
+                        });
+                        </script>';
+                //$pesan = "<em class='sukses'>Sukses membuat akun! Silahkan <a href='../login/'>login.</a></em>";
             } else {
                 $pesan = "<em class='error'>Terjadi Kesalahan! Silahkan Coba Kembali Nanti.</em>";
             }
@@ -42,6 +55,9 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../../assets/fontawesome/css/all.css">
     
+    <!-- Sweetalert2 -->
+    <script src="../../assets/sweetalert2/sweetalert2.all.min.js"></script>
+    
     <title>Daftar - Bengkel Wahyu Putra</title>
 </head>
 <body>
@@ -56,16 +72,20 @@
             <em id="validate" class="error"></em>
             <?= $pesan ?>
 
-            <input type="text" name="nama" id="nama" placeholder="Nama Lengkap" required autocomplete="off"><br>
-            <input type="email" name="email" id="email" placeholder="Alamat Email" autocomplete="off">
+            <input type="text" name="nama" id="nama" placeholder="Nama Lengkap" required><br>
+            <input type="email" name="email" id="email" placeholder="Alamat Email" required>
             
-            <input type="tel" name="telp" id="telp" placeholder="Nomor Telepon" required autocomplete="off">
+            <input type="tel" name="telp" id="telp" placeholder="Nomor Telepon" required>
             
             <label for="jenis_akun" class="label">Jenis Akun: </label>
-            <select name="jenis_akun" id="jenis_akun">
+            <select name="jenis_akun" id="jenis_akun" onchange="inputPT()">
                 <option value="Pribadi">Pribadi</option>
                 <option value="Perusahaan">Perusahaan</option>
             </select>
+
+            <div class="input-box" id="perusahaan" style="display: none;">
+                <input type="text" name="nama_perusahaan" id="nama_perusahaan" placeholder="Nama Perusahaan">
+            </div>
 
             <div class="input-box">
                 <span><i class="fas fa-eye-slash" onclick="openPass(this)"></i></span>
@@ -86,7 +106,8 @@
 
     <script src="../../assets/js/main.js"></script>
 
-    <script> //Script For Validate Form DAFTAR
+    <script> 
+        //Script For Validate Form DAFTAR
         let form = document.getElementById('formDaftar')
         let nama = document.getElementById('nama');
         let email = document.getElementById('email');
@@ -134,6 +155,20 @@
                 msgPass.style.color = "red";
             }
         })
+
+        // onchange event untuk input jenis akun
+        function inputPT() {
+            const jenis = document.getElementById('jenis_akun').value;
+            const perusahaan = document.getElementById('perusahaan');
+
+            perusahaan.style.display = 'none';
+
+            if (jenis === 'Perusahaan') {
+                perusahaan.style.display = 'block';
+            } else if (jenis === 'Pribadi') {
+                perusahaan.style.display = 'none';
+            }
+        }
     </script>
 </body>
 </html>

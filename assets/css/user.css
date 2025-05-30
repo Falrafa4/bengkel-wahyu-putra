@@ -56,7 +56,7 @@ main {
 }
 
 .utama table .data {
-    /* padding-left: 25px; */
+    padding-left: 25px;
     width: 100dvw;
 }
 
@@ -170,7 +170,8 @@ table a,
 }
 
 table button,
-form button {
+form button,
+form .bukti {
     background-color: var(--primary-color);
     color: white;
     padding: 10px 15px;
@@ -233,6 +234,11 @@ select {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
 }
 
+input[type='radio'] {
+    box-shadow: none;
+    height: auto;
+}
+
 select {
     cursor: pointer;
 }
@@ -270,6 +276,15 @@ input:focus, select:focus, textarea:focus {
     outline: none;
 }
 
+input[type='radio']:focus {
+    outline: none;
+    box-shadow: none;
+    .input-box .radio-box {
+        background-color: red;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+}
+
 /* STYLE FOR BUAT PESANAN PAGE */
 .progress-bar {
     width: 50%;
@@ -286,7 +301,8 @@ input:focus, select:focus, textarea:focus {
     font-weight: 300;
 }
 
-.buatPesanan form {
+.buatPesanan form,
+.pembayaran form {
     background-color: #F9F9F9;
     box-shadow: 2px 4px 15px rgba(0, 0, 0, 0.25);
     margin-top: 15px;
@@ -409,8 +425,12 @@ form button:hover,
     background-color: #e8e8e8;
 }
 
-.daftarPesanan table .fa-arrow-right {
+.daftarPesanan table .fas {
     font-size: 14px;
+}
+
+.daftarPesanan table td a {
+    margin: 5px 0;
 }
 
 /* STYLE DETAIL PESANAN */
@@ -590,6 +610,76 @@ form button:hover,
 
 #modal button {
     margin: 5px 0;
+}
+
+/* PEMBAYARAN */
+.pembayaran {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.pembayaran .fas {font-size: 14px;}
+
+.pembayaran form {
+    width: 50%;
+    margin: auto;
+    box-shadow: 2px 4px 15px rgba(0, 0, 0, 0.25);
+}
+
+.pembayaran > h1 {
+    font-family: 'Oswald', serif;
+    font-weight: 500;
+    font-size: 48px;
+}
+
+.pembayaran p {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.form-pembayaran {
+    padding: 25px 40px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.form-pembayaran h1 {
+    font-weight: 300;
+    font-size: 32px;
+    margin-top: 10px;
+}
+
+.form-pembayaran img {
+    height: 80px;
+}
+
+.form-pembayaran .input-box {
+    gap: 50px;
+    justify-content: center;
+}
+
+.form-pembayaran .bukti {
+    width: fit-content;
+    margin: auto;
+}
+
+.form-pembayaran label {
+    cursor: pointer;
+    padding-top: inherit;
+    padding-bottom: inherit;
+}
+
+.input-box .radio-box {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    height: 100%;
+    transition: .3s;
+}
+
+.input-box .radio-box:hover {
+    background-color: #d8d8d8;
 }
 
 button.hapus {

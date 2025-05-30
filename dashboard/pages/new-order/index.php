@@ -3,6 +3,7 @@
     require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
     require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/session_user.php";
 
+    $alert = '';
     if(isset($_POST['submit_pesanan'])) {
         require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functions.php";
         $id_pelanggan = $_SESSION['data']['id_pelanggan'];
@@ -42,15 +43,45 @@
 
             if($no_pesanan) {
                 if(insertPemesananItem($conn, $no_pesanan, $nama_item, $desain_gambar, $material, $jumlah_item)) {
-                    echo "<script>alert('Pesanan berhasil dibuat! Pesanan sedang menunggu penawaran. Terima kasih.'); location.href='../ ';</script>";
+                    $alert = '<script>
+                        Swal.fire({
+                            title: "Berhasil!",
+                            text: "Pesanan berhasil dibuat! Pesanan sedang menunggu penawaran. Terima kasih.",
+                            icon: "success"
+                        }).then(() => {
+                            window.location.href="../../";
+                        });
+                        </script>';
+                    // echo "<script>alert('Pesanan berhasil dibuat! Pesanan sedang menunggu penawaran. Terima kasih.'); location.href='../ ';</script>";
                 } else {
-                    echo "<script> alert('Terjadi kesalahan saat menambahkan item pesanan. :\(') </script>";
+                    $alert = '<script>
+                        Swal.fire({
+                            title: "Kesalahan!",
+                            text: "Terjadi kesalahan saat menambahkan item pesanan. :\(",
+                            icon: "error"
+                        });
+                        </script>';
+                    // echo "<script> alert('Terjadi kesalahan saat menambahkan item pesanan. :\(') </script>";
                 }
             } else {
-                echo "<script>alert('Gagal mengambil Nomor Pesanan :\(');</script>";
+                $alert = '<script>
+                        Swal.fire({
+                            title: "Kesalahan!",
+                            text: "Gagal mengambil Nomor Pesanan :\(",
+                            icon: "error"
+                        });
+                        </script>';
+                // echo "<script>alert('Gagal mengambil Nomor Pesanan :\(');</script>";
             }
         } else {
-            echo "<script>alert('Terjadi kesalahan saat menambahkan pesanan :\(. Coba lagi nanti.');</script>";
+            $alert = '<script>
+                    Swal.fire({
+                        title: "Kesalahan!",
+                        text: "Terjadi kesalahan saat menambahkan pesanan :\(. Coba lagi nanti.",
+                        icon: "error"
+                    });
+                    </script>';
+            // echo "<script>alert('Terjadi kesalahan saat menambahkan pesanan :\(. Coba lagi nanti.');</script>";
         }
 
     }
@@ -68,6 +99,9 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../../../assets/fontawesome/css/all.css">
 
+    <!-- Sweetalert2 -->
+    <script src="../../../assets/sweetalert2/sweetalert2.all.min.js"></script>
+
     <title>Dashboard - Bengkel Wahyu Putra</title>
 </head>
 
@@ -81,6 +115,7 @@
 
         <section class="utama">
             <h1>Buat Pesanan</h1>
+            <?= $alert ?>
             <form action="index.php" method="POST" enctype="multipart/form-data">
                 <div class="progress-bar"></div>
                 <div class="form-pesanan">
@@ -113,7 +148,7 @@
                         </div>
                         <div class="input-box">
                             <label for="jumlah_item">Jumlah Item <span>*</span></label>
-                            <input type="number" name="jumlah_item" id="jumlah_item" placeholder="Masukkan Dalam Bentuk Angka" min="1" required>
+                            <input type="number" name="jumlah_item" id="jumlah_item" placeholder="Masukkan Dalam Bentuk Angka" min="1" max="10" required>
                         </div>
                         <div class="btn">
                             <button type="button" id="next">
@@ -160,8 +195,6 @@
                                 <i class="fas fa-check-to-slot"></i>
                             </button>
                         </div>
-                        <div class="btn">
-                        </div>
                     </div>
                 </div>
             </form>
@@ -203,6 +236,10 @@
                 validate.innerHTML = "Jumlah item minimal 1!";
                 heightForm.style.height = '500px';
             } 
+            else if (jumlah_item.value > 10) {
+                event.preventDefault();
+                validate.innerHTML = "Jumlah item maksimal 10!";
+            }
             else {
                 form1.style.display = 'none';
                 form2.style.display = 'block';

@@ -15,14 +15,14 @@ $stmt = $conn->prepare($query);
 $stmt->bind_param('i', $_SESSION['data']['id_pelanggan']);
 $stmt->execute();
 $result_pesanan = $stmt->get_result();
-if($result_pesanan->num_rows > 0) {
-        $pesanan = [];
-        while($data = $result_pesanan->fetch_assoc()) {
-            $pesanan[] = $data;
-        }
-    } else {
-        $pesanan = [];
+if ($result_pesanan->num_rows > 0) {
+    $pesanan = [];
+    while ($data = $result_pesanan->fetch_assoc()) {
+        $pesanan[] = $data;
     }
+} else {
+    $pesanan = [];
+}
 
 if (isset($_POST['search'])) {
     $keyword = '%' . $_POST['search'] . '%';
@@ -98,7 +98,7 @@ if (isset($_POST['search'])) {
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach($pesanan as $row) { ?>
+                        <?php foreach ($pesanan as $row) { ?>
                             <tr>
                                 <td><?= $row['nomor_pesanan'] ?></td>
                                 <td><?= $row['nama_item'] ?></td>
@@ -117,33 +117,47 @@ if (isset($_POST['search'])) {
                                 <td style="text-align: left;"><?= $row['alamat_lengkap'] ?></td>
                                 <td style="font-weight: bold;
                                 <?php
-                                if($row['status_pesanan'] == 'Menunggu Penawaran') {
+                                if ($row['status_pesanan'] == 'Menunggu Penawaran') {
                                     echo 'background-color: #e4efff';
-                                } else if($row['status_pesanan'] == 'Penawaran Diterbitkan') {
+                                } elseif ($row['status_pesanan'] == 'Penawaran Diterbitkan') {
                                     echo 'background-color: #ffd670';
-                                } else if($row['status_pesanan'] == 'Negosiasi Penawaran') {
-                                    echo 'background-color: #d9534f';
-                                } else if($row['status_pesanan'] == 'Dalam Proses') {
-                                    echo 'background-color:rgb(112, 171, 255); color:white;';
-                                } else if($row['status_pesanan'] == 'Menunggu Pembayaran') {
+                                } elseif ($row['status_pesanan'] == 'Negosiasi Penawaran') {
+                                    echo 'background-color: #ff7975';
+                                } elseif ($row['status_pesanan'] == 'Dalam Proses') {
+                                    echo 'background-color: #70abff';
+                                } elseif ($row['status_pesanan'] == 'Menunggu Pembayaran') {
                                     echo 'background-color: #ffd670';
                                 } else {
                                     echo 'background-color: #e4ffe4';
                                 }
                                 ?>
-                                "><?= $row['status_pesanan'] ?></td>
+                                ">
+                                    <?php
+                                    echo $row['status_pesanan'];
+                                    if ($row['status_pesanan'] == 'Penawaran Diterbitkan') {
+                                        echo "<br><br><a href='../list-offer/'>Lihat</a>";
+                                    }
+                                    ?>
+
+                                </td>
                                 <td>
                                     <a href="detail/?detail=<?= $row['no_pesanan'] ?>">
                                         Detail
                                         <i class="fas fa-arrow-right"></i>
                                     </a>
+                                    <?php if ($row['status_pesanan'] == 'Menunggu Pembayaran') : ?>
+                                        <a class="agree" href="../payment/?no=<?= $row['no_pesanan'] ?>">
+                                            Bayar
+                                            <i class="fas fa-receipt"></i>
+                                        </a>
+                                    <?php endif ?>
                                 </td>
                             </tr>
                         <?php }
                         if ($pesanan == []) {
                         ?>
                             <tr>
-                                <td colspan="8" style="font-style:italic; color:#adadad; font-size:14px; padding: 5%;">Anda Belum Membuat Pesanan</td>
+                                <td colspan="8" class="no-record">Anda Belum Membuat Pesanan</td>
                             </tr>
                         <?php } ?>
                     </tbody>

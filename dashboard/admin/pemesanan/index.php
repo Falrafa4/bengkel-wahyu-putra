@@ -74,8 +74,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/s
                             <td class="action">
                                 <a href="./kelola/?ubah=<?= $result['no_pesanan'] ?>" class="btn edit"><i class="fas fa-pen-to-square"></i> Edit</a>
                                 <br><br>
-                                <a <?= $result['status_pesanan'] == 'Menunggu Penawaran' ? "href='../penawaran/kelola/?no=$no_pesanan'" : '' ?> class="btn <?= $result['status_pesanan'] == 'Menunggu Penawaran' ? 'warning' : 'done' ?>"><i class="fas fa-envelope"></i> Buat Surat</a>
-                                <br><br>
+                                <?php if($result['status_pesanan'] == 'Menunggu Penawaran') : ?>
+                                    <a <?= $result['status_pesanan'] == 'Menunggu Penawaran' ? "href='../penawaran/kelola/?no=$no_pesanan'" : '' ?> class="btn warning"><i class="fas fa-envelope"></i> Buat Surat</a>
+                                    <br><br>
+                                <?php endif; ?>
                                 <a href="../pemesanan_item/#<?= $result['no_pesanan']-1 ?>" class="btn blue"><i class="fas fa-arrow-right"></i> Lihat Item</a>
                             </td>
                         </tr>

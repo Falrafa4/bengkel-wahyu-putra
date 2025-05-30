@@ -5,6 +5,7 @@ session_destroy(); //tinggal menghentikan sesi
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,12 +18,16 @@ session_destroy(); //tinggal menghentikan sesi
 
     <title>Logout</title>
 </head>
+
 <body>
     <script>
         Swal.fire({
             title: "Logout",
             text: "Anda berhasil logout. Selamat tinggal!",
-            icon: "success"
+            icon: "success",
+            timer: 1500,
+            timerProgressBar: true,
+            showConfirmButton: false
         }).then(() => {
             location.href = "login/";
         });
@@ -30,4 +35,5 @@ session_destroy(); //tinggal menghentikan sesi
         // location.href = "login/";
     </script>
 </body>
+
 </html>

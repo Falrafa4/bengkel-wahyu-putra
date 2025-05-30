@@ -2,12 +2,12 @@
 // ADMIN OR USER CAN USE IT
 
 // PELANGGAN
-function insertPelanggan($conn, $password, $nama_pelanggan, $email, $no_telp, $jenis_akun, $role) {
+function insertPelanggan($conn, $password, $nama_pelanggan, $email, $no_telp, $jenis_akun, $nama_perusahaan, $role) {
     $hash = password_hash($password, PASSWORD_DEFAULT);
     
-    $query = "INSERT INTO pelanggan (password, nama_pelanggan, email, no_telp, jenis_akun, role) VALUES (?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO pelanggan (password, nama_pelanggan, email, no_telp, jenis_akun, nama_perusahaan, role) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("ssssss", $hash, $nama_pelanggan, $email, $no_telp, $jenis_akun, $role);
+    $stmt->bind_param("sssssss", $hash, $nama_pelanggan, $email, $no_telp, $jenis_akun, $nama_perusahaan, $role);
 
     $result = $stmt->execute();
     $stmt->close();
@@ -104,20 +104,20 @@ function getPenawaran($conn, $id_pelanggan) {
     return $result;
 }
 
-function insertPenawaran($conn, $no_pesanan, $surat_penawaran) {
-    $query = 'INSERT INTO penawaran (no_pesanan, surat_penawaran) VALUES (?, ?)';
+function insertPenawaran($conn, $no_pesanan, $harga, $surat_penawaran) {
+    $query = 'INSERT INTO penawaran (no_pesanan, harga, surat_penawaran) VALUES (?, ?, ?)';
     $stmt = $conn->prepare($query);
-    $stmt->bind_param('is', $no_pesanan, $surat_penawaran);
+    $stmt->bind_param('iis', $no_pesanan, $harga, $surat_penawaran);
     
     $result = $stmt->execute();
     $stmt->close();
     return $result;
 }
 
-function updatePenawaran($conn, $no_pesanan, $surat_penawaran, $status_penawaran) {
-    $query = 'UPDATE penawaran SET no_pesanan = ?, surat_penawaran = ?, status_penawaran = ?';
+function updatePenawaran($conn, $no_pesanan, $surat_penawaran, $harga, $id_penawaran) {
+    $query = 'UPDATE penawaran SET no_pesanan = ?, surat_penawaran = ?, harga = ? WHERE id_penawaran = ?';
     $stmt = $conn->prepare($query);
-    $stmt->bind_param('iss', $no_pesanan, $surat_penawaran, $status_penawaran);
+    $stmt->bind_param('isii', $no_pesanan, $surat_penawaran, $harga, $id_penawaran);
 
     $result = $stmt->execute();
     $stmt->close();
@@ -134,11 +134,32 @@ function updateStatusPenawaran($conn, $status_penawaran, $id_penawaran) {
     return $result;
 }
 
+function deletePenawaran($conn, $id_penawaran) {
+    $query = 'DELETE FROM penawaran WHERE id_penawaran = ?';
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('i', $id_penawaran);
+
+    $result = $stmt->execute();
+    $stmt->close();
+    return $result;
+}
+
 // NEGOSIASI
 function insertNegosiasi($conn, $id_penawaran, $jenis_negosiasi, $harga_tawaran, $estimasi_tawaran, $catatan) {
     $query = 'INSERT INTO negosiasi_penawaran (id_penawaran, jenis_negosiasi, harga_tawaran, estimasi_tawaran, catatan) VALUES (?, ?, ?, ?, ?)';
     $stmt = $conn->prepare($query);
     $stmt->bind_param('isiss', $id_penawaran, $jenis_negosiasi, $harga_tawaran, $estimasi_tawaran, $catatan);
+
+    $result = $stmt->execute();
+    $stmt->close();
+    return $result;
+}
+
+// PEMBAYARAN
+function insertPembayaran($conn, $no_pesanan, $metode_pembayaran, $total_bayar, $bukti_bayar) {
+    $query = 'INSERT INTO pembayaran (no_pesanan, metode_pembayaran, total_bayar, bukti_bayar) VALUES (?, ?, ?, ?)';
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('isis', $no_pesanan, $metode_pembayaran, $total_bayar, $bukti_bayar);
 
     $result = $stmt->execute();
     $stmt->close();

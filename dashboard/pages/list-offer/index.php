@@ -29,22 +29,28 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
     <!-- NAVBAR END -->
 
     <?php
-    if (isset($_GET['no'])) {
-        // Acc pesanan dengan mengubah status penawaran
-        $id_penawaran = $_GET['no'];
+    if (isset($_GET['id']) && isset($_GET['no'])) {
+        // Acc pesanan dengan mengubah status penawaran dan pesanan
+        $id_penawaran = $_GET['id'];
+        $no_pesanan = $_GET['no'];
 
         if (updateStatusPenawaran($conn, 3, $id_penawaran)) {
-            echo '<script>Swal.fire({
-                title: "Berhasil!",
-                text: "Surat Penawaran diterima! Terima kasih atas kepercayaan Anda",
-                icon: "success",
-                confirmButtonText: "OK"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = "./";
-                    console.log("Ini Redirect");
-                }
-            });</script>';
+            if(updateStatusPesanan($conn, $no_pesanan, 4)) {
+                echo '<script>Swal.fire({
+                    title: "Berhasil!",
+                    text: "Surat Penawaran diterima! Terima kasih atas kepercayaan Anda",
+                    icon: "success",
+                    confirmButtonText: "OK"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "./";
+                    }
+                });</script>';
+            } else {
+                die("Gagal mengubah status pesanan.");
+            }
+        } else {
+            die("Gagal mengubah status penawaran");
         }
     }
 
@@ -119,7 +125,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
                                     <?php elseif ($row['status_penawaran'] == 'Negosiasi') : ?>
                                         <i class="fas fa-clock"></i> Penawaran Dalam Proses Negosiasi
                                     <?php else : ?>
-                                        <button class="agree" data-id="<?= $row['id_penawaran'] ?>" data-nomor="<?= $row['nomor_pesanan'] ?>">
+                                        <button class="agree" data-id="<?= $row['id_penawaran'] ?>" data-no="<?= $row['no_pesanan'] ?>" data-nomor="<?= $row['nomor_pesanan'] ?>">
                                             <i class="fas fa-check"></i> Setuju
                                         </button>
                                         <button type="button" class="warning nego" data-no="<?= $row['no_pesanan'] ?>" onclick="modalAktif('<?= $row['nomor_pesanan'] ?>','<?= $row['id_penawaran'] ?>','<?= $row['no_pesanan'] ?>')">
@@ -132,7 +138,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
 
                         <?php if ($_SESSION['notif'] == []): ?>
                             <tr>
-                                <td colspan="8" style="font-style:italic; color:#adadad; font-size:14px;">Belum Ada Penawaran. Mohon Bersabar Menunggu.</td>
+                                <td colspan="8" class="no-record">Belum Ada Penawaran. Mohon Bersabar Menunggu.</td>
                             </tr>
                         <?php endif ?>
                     </tbody>
@@ -205,6 +211,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
         // 
         document.querySelectorAll('.agree').forEach(agree => {
             const idPenawaran = agree.dataset.id;
+            const noPesanan = agree.dataset.no;
             const nomor = agree.dataset.nomor;
             agree.addEventListener('click', function() {
                 Swal.fire({
@@ -218,7 +225,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
                     cancelButtonText: "Batal"
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = './?no=' + encodeURIComponent(idPenawaran);
+                        window.location.href = './?id=' + encodeURIComponent(idPenawaran) + '&no=' + encodeURIComponent(noPesanan);
                     }
                 });
             });

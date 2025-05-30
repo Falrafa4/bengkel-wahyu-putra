@@ -6,8 +6,8 @@ $explode = explode('/', trim($path2, '/'));
 $namaFolder2 = $explode[count($explode) - 2];
 ?>
 
-<aside>
-    <h1>Bengkel Wahyu Putra</h1>
+<aside id="sidebar">
+    <h1>Bengkel <br> Wahyu Putra</h1>
     <div class="nav-dash">
         <a href="/bengkel-wahyu-putra/dashboard/admin/" class="<?= ($namaFolder == "admin") ? 'active' : '' ?>">
             <i class="fas fa-house"></i>
@@ -39,15 +39,20 @@ $namaFolder2 = $explode[count($explode) - 2];
             Penawaran
         </a>
 
+        <a href="/bengkel-wahyu-putra/dashboard/admin/negosiasi/" class="<?= ($namaFolder == "negosiasi" || $namaFolder2 == "negosiasi") ? 'active' : '' ?>">
+            <i class="fas fa-handshake"></i>
+            Negosiasi Penawaran
+        </a>
+
         <a href="/bengkel-wahyu-putra/dashboard/admin/pembayaran/" class="<?= ($namaFolder == "pembayaran" || $namaFolder2 == "pembayaran") ? 'active' : '' ?>">
             <i class="fas fa-money-bill"></i>
             Pembayaran
         </a>
 
-        <a href="/bengkel-wahyu-putra/dashboard/admin/penilaian/" class="<?= ($namaFolder == "penilaian" || $namaFolder2 == "penilaian") ? 'active' : '' ?>">
+        <!-- <a href="/bengkel-wahyu-putra/dashboard/admin/penilaian/" class="<?= ($namaFolder == "penilaian" || $namaFolder2 == "penilaian") ? 'active' : '' ?>">
             <i class="fas fa-comment"></i>
             Penilaian
-        </a>
+        </a> -->
 
         <!-- <a href="/bengkel-wahyu-putra/dashboard/admin/settings/" class="<?= ($namaFolder == "settings") ? 'active' : '' ?>">
             <i class="fas fa-gear"></i>
@@ -55,3 +60,6 @@ $namaFolder2 = $explode[count($explode) - 2];
         </a> -->
     </div>
 </aside>
+<div id="sideBarIcon" onclick="closeSideBar()">
+    <i class="fa-solid fa-chevron-left"></i>
+</div>

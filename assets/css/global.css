@@ -216,6 +216,7 @@ aside {
     flex-shrink: 0;
     transition: 0.3s ease;
     overflow: hidden;
+    animation: none;
 }
 
 aside h1 {
@@ -272,6 +273,13 @@ aside h1 {
 
 .menu-close {
     width: 0;
+}
+
+.no-record {
+    font-style:italic;
+    color:#adadad;
+    font-size:14px;
+    padding: 5% !important;
 }
 
 /* HAMBURGER MENU STYLE */

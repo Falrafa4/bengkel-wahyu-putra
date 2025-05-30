@@ -28,7 +28,10 @@
 
         <div class="container-crud">
             <section class="daftar-crud">
-                <h1>Data Item</h1><hr>
+                <h1>Data Item</h1>
+                <p>Semua item di sini memiliki hubungan dengan pemesanan</p><br>
+                <hr>
+
                 <a href="../pemesanan/kelola/" class="btn-add"><i class="fas fa-plus"></i> Tambah Data</a>
         
                 <?php if(isset($_SESSION['eksekusi'])) {?>

@@ -19,7 +19,7 @@ $namaFolder2 = $explode[count($explode) - 2];
             Buat Pesanan
         </a>
 
-        <a href="/bengkel-wahyu-putra/dashboard/pages/my-order" class="<?= ($namaFolder == "my-order"  || $namaFolder2 == "my-order") ? 'active' : '' ?>">
+        <a href="/bengkel-wahyu-putra/dashboard/pages/my-order" class="<?= ($namaFolder == "my-order" || $namaFolder == "payment"  || $namaFolder2 == "my-order") ? 'active' : '' ?>">
             <i class="fas fa-list"></i>
             Daftar Pesanan
         </a>

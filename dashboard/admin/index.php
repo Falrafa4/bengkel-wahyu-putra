@@ -28,7 +28,7 @@
     <main>
         <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/admin/aside.php"; ?>
 
-        <div class="utama">
+        <div class="utama admin">
             <section class="welcome">
                 <h1>Dashboard Admin</h1>
                 <hr>
@@ -36,34 +36,58 @@
                 <p style="font-style: italic;">Halaman ini adalah halaman khusus para admin. Jika anda bukan admin, selamat Anda dapat membobol sistem kami :)</p><br>
             </section>
             <section class="informasi">
+                <?php 
+                $admin = $conn->query("SELECT COUNT(id_pelanggan) As jml_admin FROM pelanggan WHERE role = 'Admin'");
+                $admin = $admin->fetch_assoc();
+
+                $user = $conn->query("SELECT COUNT(id_pelanggan) As jml_pelanggan FROM pelanggan WHERE role = 'User'");
+                $user = $user->fetch_assoc();
+
+                $pesanan = $conn->query("SELECT COUNT(no_pesanan) As jml_pesanan FROM pemesanan");
+                $pesanan = $pesanan->fetch_assoc();
+                ?>
                 <table>
                     <tr>
-                        <td><h1>Informasi Admin</h1></td>
+                        <td><h1>Informasi</h1></td>
                     </tr>
                     <tr>
-                        <td class="info">Nama Lengkap</td>
+                        <td class="info">Nama Admin</td>
                         <td>:</td>
                         <td class="data"><?= $_SESSION['data']['nama_pelanggan']?></td>
                     </tr>
                     <tr>
-                        <td class="info">Email</td>
+                        <td class="info">Jumlah Admin</td>
                         <td>:</td>
-                        <td class="data"><?= $_SESSION['data']['email']?></td>
+                        <td class="data"><?= $admin['jml_admin']?></td>
                     </tr>
                     <tr>
-                        <td class="info">No. Telepon</td>
+                        <td class="info">Jumlah Pelanggan</td>
                         <td>:</td>
-                        <td class="data"><?= $_SESSION['data']['no_telp']?></td>
+                        <td class="data"><?= $user['jml_pelanggan']?></td>
                     </tr>
                     <tr>
-                        <td class="info">Jenis Akun</td>
+                        <td class="info">Banyak Pesanan</td>
                         <td>:</td>
-                        <td class="data"><?= $_SESSION['data']['jenis_akun']?></td>
-                    </tr>
-                    <tr>
-                        <td class="button"><a href="settings/"><i class="fas fa-pen-to-square"></i> Edit Profil</a></td>
+                        <td class="data"><?= $pesanan['jml_pesanan']?></td>
                     </tr>
                 </table>
+            </section>
+            <section class="notif">
+                <h1>Notifikasi</h1><hr>
+                <?php 
+                $notif = $conn->query('SELECT * FROM pemesanan p JOIN pelanggan pl ON pl.id_pelanggan = p.id_pelanggan WHERE p.status_pesanan = 1 OR p.status_pesanan = 3 ORDER BY p.waktu_pemesanan DESC');
+
+                while($row = $notif->fetch_assoc()) :
+                
+                    if($row['status_pesanan'] == 'Menunggu Penawaran') {
+                ?>
+                <p class="notif-text">  [<?= $row['waktu_pemesanan'] ?>] - Pesanan <strong><?= $row['no_pesanan'] ?></strong> Menunggu Surat Penawaran</p>
+                <?php 
+                    } else { ?>
+                <p class="notif-text" style="background-color: #70abff;">  [<?= $row['waktu_pemesanan'] ?>] - Pesanan <strong><?= $row['no_pesanan'] ?></strong> Negosiasi</p>
+                <?php    }
+                endwhile; 
+                ?>
             </section>
         </div>
     </main>

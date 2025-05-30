@@ -51,11 +51,14 @@
 
                 if ($data) {
                     if ($data['role'] === 'Admin') {
-                        echo '<script type="text/javascript">
+                        echo '<script>
                         Swal.fire({
                             title: "Login Sukses!",
                             text: "Selamat datang, ' . $data['nama_pelanggan'] .'!",
-                            icon: "success"
+                            icon: "success",
+                            timer: 1500,
+                            timerProgressBar: true,
+                            showConfirmButton: false
                         }).then(() => {
                             window.location.href="../../dashboard/admin/";
                         });
@@ -65,7 +68,10 @@
                         Swal.fire({
                             title: "Login Sukses!",
                             text: "Selamat datang, ' . $data['nama_pelanggan'] .'!",
-                            icon: "success"
+                            icon: "success",
+                            timer: 1500,
+                            timerProgressBar: true,
+                            showConfirmButton: false
                         }).then(() => {
                             window.location.href="../../dashboard/";
                         });

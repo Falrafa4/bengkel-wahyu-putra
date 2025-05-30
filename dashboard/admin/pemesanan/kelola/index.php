@@ -33,7 +33,7 @@ if (isset($_POST['aksi'])) {
 
         if (empty($id_pelanggan) || empty($layanan) || empty($nama_item) || empty($material) || empty($jumlah_item) || empty($nama_jalan) || empty($kecamatan) || empty($kabupaten_kota) || empty($provinsi) || empty($kode_pos) || empty($detail)) {
             $pesan = "Data ada yang kosong! Harap diisi!";
-        } else if (empty($pesan)) {
+        } elseif (empty($pesan)) {
             if (insertPemesanan($conn, $id_pelanggan, $nama_jalan, $kecamatan, $kabupaten_kota, $provinsi, $kode_pos, $detail, $layanan)) {
                 $no_pesanan = $conn->insert_id;
 
@@ -112,7 +112,7 @@ if (isset($_POST['aksi'])) {
                 <hr>
                 <span style="color: red; font-style:italic;"><?= $pesan ?></span>
                 <form action="./" method="post">
-                    <input type="text" name="id_pelanggan" id="id_pelanggan" value="<?= $result['id_pelanggan'] ?>">
+                    <input type="hidden" name="id_pelanggan" id="id_pelanggan" value="<?= $result['id_pelanggan'] ?>">
                     <div class="input-box">
                         <label for="no_pesanan">Nomor Pesanan</label>
                         <input type="text" name="no_pesanan" id="no_pesanan" readonly value="<?= $result['no_pesanan'] ?>">
@@ -149,7 +149,7 @@ if (isset($_POST['aksi'])) {
                             <i class="fa-solid fa-floppy-disk"></i>
                             Simpan Perubahan
                         </button>
-                        <a href="../" class="btn-kelola back" style="width: fit-content; padding-left: 20px; padding-right: 20px;">
+                        <a href="../#<?= $result['no_pesanan'] - 1 ?>" class="btn-kelola back" style="width: fit-content; padding-left: 20px; padding-right: 20px;">
                             <i class="fas fa-reply"></i>
                             Batal
                         </a>

@@ -12,7 +12,7 @@ if (isset($_GET['hapus'])) {
         header("location: ./");
         exit();
     } else {
-        echo $stmt->execute();
+        die("Terjadi kesalahan saat menghapus data pelanggan.");
     }
 }
 ?>

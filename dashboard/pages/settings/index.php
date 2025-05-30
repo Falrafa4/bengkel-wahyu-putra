@@ -5,19 +5,19 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/k
 require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/session_user.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functions.php";
 
-$id_pelanggan = '';
-$nama_pelanggan = '';
-$email = '';
-$no_telp = '';
-$jenis_akun = '';
+// $id_pelanggan = '';
+// $nama_pelanggan = '';
+// $email = '';
+// $no_telp = '';
+// $jenis_akun = '';
 
-if (isset($_SESSION['data'])) {
-    $id_pelanggan = $_SESSION['data']['id_pelanggan'];
-    $nama_pelanggan = $_SESSION['data']['nama_pelanggan'];
-    $email = $_SESSION['data']['email'];
-    $no_telp = $_SESSION['data']['no_telp'];
-    $jenis_akun = $_SESSION['data']['jenis_akun'];
-}
+// if (isset($_SESSION['data'])) {
+//     $id_pelanggan = $_SESSION['data']['id_pelanggan'];
+//     $nama_pelanggan = $_SESSION['data']['nama_pelanggan'];
+//     $email = $_SESSION['data']['email'];
+//     $no_telp = $_SESSION['data']['no_telp'];
+//     $jenis_akun = $_SESSION['data']['jenis_akun'];
+// }
 
 ?>
 
@@ -119,33 +119,40 @@ if (isset($_SESSION['data'])) {
                             <td>
                                 <h2>Edit Profil</h2>
                             </td>
-                            <input type="hidden" name="id_pelanggan" value="<?= $id_pelanggan ?>">
+                            <input type="hidden" name="id_pelanggan" value="<?= $_SESSION['data']['id_pelanggan'] ?>">
                         </tr>
                         <tr>
                             <td class="info">Nama Lengkap</td>
-                            <td class="data"><input type="text" name="nama_pelanggan" value="<?= $nama_pelanggan ?>"></td>
+                            <td class="data"><input type="text" name="nama_pelanggan" value="<?= $_SESSION['data']['nama_pelanggan'] ?>"></td>
                         </tr>
                         <tr>
                             <td class="info">Email</td>
-                            <td class="data"><input type="email" name="email" value="<?= $email ?>"></td>
+                            <td class="data"><input type="email" name="email" value="<?= $_SESSION['data']['email'] ?>"></td>
                         </tr>
                         <tr>
                             <td class="info">No. Telepon</td>
-                            <td class="data"><input type="tel" name="no_telp" value="<?= $no_telp ?>"></td>
+                            <td class="data"><input type="tel" name="no_telp" value="<?= $_SESSION['data']['no_telp'] ?>"></td>
                         </tr>
                         <tr>
                             <td class="info">Jenis Akun</td>
                             <td class="data">
                                 <select name="jenis_akun">
-                                    <option value="Pribadi" <?php if ($jenis_akun == "Pribadi") {
+                                    <option value="Pribadi" <?php if ($_SESSION['data']['jenis_akun'] == "Pribadi") {
                                                                 echo "selected";
                                                             } ?>>Pribadi</option>
-                                    <option value="Perusahaan" <?php if ($jenis_akun == "Perusahaan") {
+                                    <option value="Perusahaan" <?php if ($_SESSION['data']['jenis_akun'] == "Perusahaan") {
                                                                     echo "selected";
                                                                 } ?>>Perusahaan</option>
                                 </select>
                             </td>
                         </tr>
+                        <?php
+                        if ($_SESSION['data']['jenis_akun'] == 'Perusahaan') { ?>
+                            <tr>
+                                <td class="info">Nama Perusahaan</td>
+                                <td class="data"><input type="text" name="nama_perusahaan" value="<?= $_SESSION['data']['nama_perusahaan'] ?>"></td>
+                            </tr>
+                        <?php } ?>
                         <tr>
                             <td class="button"><button type="submit" name="update_profil"><i class="fas fa-pen-to-square"></i> Update Profil</button></td>
                         </tr>
@@ -226,8 +233,10 @@ if (isset($_SESSION['data'])) {
                 confirmButtonText: 'Hapus Akun',
                 cancelButtonText: 'Batal'
             }).then(async (result) => {
-                if(result.isConfirmed) {
-                    const {value: email} = await Swal.fire({
+                if (result.isConfirmed) {
+                    const {
+                        value: email
+                    } = await Swal.fire({
                         icon: 'info',
                         title: "Masukkan Email Anda",
                         input: "email",

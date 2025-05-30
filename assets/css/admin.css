@@ -21,7 +21,7 @@ main {
     width: 100%;
 }
 
-.utama table h1 {
+.admin h1 {
     font-size: 28px;
     font-weight: 400;
 }
@@ -39,13 +39,56 @@ main {
     padding: 10px 0px;
 }
 
-.welcome, .informasi {
+.admin {
+    display: grid;
+    grid-template-columns: 1fr 0.7fr;
+    grid-template-rows: auto 1fr;
+    grid-auto-flow: row;
+    height: fit-content;
+}
+
+.admin section:nth-child(1) {
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.admin section:nth-child(2) {
+    grid-area: 2 / 1 / 3 / 2;
+}
+
+.admin section:nth-child(3) {
+    grid-area: 1 / 2 / 2 / 3;
+    grid-column: 2 / 0;
+    grid-row: 1 / 3;
+    height: 65dvh;
+    overflow-y: scroll;
+}
+
+.notif-text {
+    background-color: #fff5d8;
+    border: 1px solid #ffeeba;
+    margin: 10px 0px;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+
+
+.admin section {
     width: 95%;
     margin: 0px auto 30px auto;
     border-radius: 10px;
-    padding: 20px 50px 50px 50px;
     background-color: #f4f4f4;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.welcome,
+.informasi {
+    padding: 20px 50px;
+    height: fit-content;
+}
+
+.notif {
+    padding: 20px;
 }
 
 .welcome h1 {
@@ -88,7 +131,7 @@ table .fas {
 
 .button {
     background-color: var(--primary-color);
-    border:none;
+    border: none;
     border: 1px solid var(--primary-color);
     color: white;
     padding: 10px 15px;
@@ -269,7 +312,8 @@ p .fa-envelope {
     background-color: #0057d0;
 }
 
-.btn-add, .btn {
+.btn-add,
+.btn {
     transition: .3s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
@@ -281,24 +325,34 @@ p .fa-envelope {
     font-size: 14px;
 }
 
+.primary {
+    background-color: #2b2b2b;
+}
+
 .edit {
     background-color: #008b00;
+    border: 1px solid #008b00;
 }
 
 .edit:hover {
     background-color: #007500;
+    border: 1px solid #008b00;
 }
 
 .hapus {
     background-color: #cf0000;
+    border: 1px solid #cf0000;
 }
 
 .hapus:hover {
     background-color: #ab0000;
+    border: 1px solid #cf0000;
+    color: white;
 }
 
 .warning {
     background-color: #ffbf00;
+    border: 1px solid #ffbf00;
 }
 
 .done {
@@ -307,6 +361,7 @@ p .fa-envelope {
 
 .warning:hover {
     background-color: #e7ad00;
+    border: 1px solid #ffbf00;
 }
 
 .blue {
@@ -370,6 +425,16 @@ table.table-crud .action {
     background-color: #fff5d8;
 }
 
+.row-green {
+    border: 1px solid #d2ffd2;
+    background-color: #e4ffe4;
+}
+
+.row-blue {
+    border: 1px solid #bad4ff;
+    background-color: #d8e9ff;
+}
+
 /* CRUD PEMESANAN */
 div.container-crud {
     margin: 30px 20px;
@@ -395,6 +460,57 @@ div.container-crud {
     width: 100%;
 }
 
+#modal {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+}
+
+#modal h1 {
+    margin-bottom: 20px;
+}
+
+#modal input,
+#modal select,
+#modal textarea {
+    margin: 0 0 10px 0;
+}
+
+#modal .input-box input,
+#modal .input-box textarea {
+    animation: coolTransition 0.3s;
+}
+
+#modal .bg {
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+}
+
+#modal .wrapper {
+    background-color: var(--secondary-color);
+    border-radius: 15px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    padding: 1.8rem;
+    width: 40%;
+    animation: coolTransition 0.5s;
+}
+
+#modal button {
+    margin: 5px 0;
+}
+
 /* SETTINGS PAGE */
 .settings {
     background-color: white;
@@ -407,7 +523,7 @@ div.container-crud {
     margin: 50px 50px 0px 50px;
 }
 
-.settings .utama > h1 {
+.settings .utama>h1 {
     font-size: 48px;
     font-weight: 300;
 }
@@ -445,7 +561,8 @@ div.container-crud {
     padding: 10px 0px;
 }
 
-.settings table input, .settings table select {
+.settings table input,
+.settings table select {
     width: 100%;
     height: 40px;
     padding: 0px 10px;
@@ -465,10 +582,11 @@ div.container-crud {
 }
 
 /* INPUT BOX */
-.settings input, .settings select {
+.settings input,
+.settings select {
     width: 100%;
     height: 40px;
-    padding: 10px 40px 10px 15px; 
+    padding: 10px 40px 10px 15px;
     border: none;
     border-radius: 5px;
     font-size: 14px;
@@ -496,6 +614,6 @@ div.container-crud {
 
 .settings input:focus {
     border-color: var(--primary-color);
-    box-shadow: 0 0 5px rgba(43, 43, 43, 0.5); 
+    box-shadow: 0 0 5px rgba(43, 43, 43, 0.5);
     outline: none;
 }

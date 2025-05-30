@@ -14,6 +14,9 @@
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="/bengkel-wahyu-putra/assets/fontawesome/css/all.css">
+    
+    <!-- Sweetalert2 -->
+    <script src="/bengkel-wahyu-putra/assets/sweetalert2/sweetalert2.all.min.js"></script>
 
     <title>Pembayaran - Bengkel Wahyu Putra</title>
 </head>
@@ -29,7 +32,13 @@
         <div class="container-crud">
             <section class="daftar-crud">
                 <h1>Data Pembayaran</h1><hr>
-                <a href="kelola/" class="btn-add"><i class="fas fa-plus"></i> Tambah Data</a>
+                <a class="btn-add" onclick='
+                        Swal.fire({
+                            title: "Informasi!",
+                            text: "Tambah Pembayaran hanya bisa dilakukan oleh user",
+                            icon: "info"
+                        })
+                '><i class="fas fa-plus"></i> Tambah Data</a>
         
                 <?php if(isset($_SESSION['eksekusi'])) {?>
                 <div class="success-update">
@@ -46,7 +55,7 @@
         
                 <table class="table-crud">
                     <tr>
-                        <th>Kode Pembayaran</th>
+                        <th>ID Pembayaran</th>
                         <th>No. Pesanan</th>
                         <th>Metode Pembayaran</th>
                         <th>Total Bayar</th>
@@ -57,12 +66,14 @@
                     </tr>
                     <?php while($result = mysqli_fetch_assoc($sql)){?>
                     <tr>
-                        <td><?= $result['kode_pembayaran'] ?></td>
+                        <td><?= $result['id_pembayaran'] ?></td>
                         <td><?= $result['no_pesanan'] ?></td>
-                        <td><?= $result['metode_pembayaran'] ?></td>
-                        <td><?= $result['total_bayar'] ?></td>
+                        <td>
+                            <?= $result['metode_pembayaran'] == 'BCA' ? '<img src="../../../assets/img/bca.png" width="100%">' : '<img src="../../../assets/img/mandiri.png" width="100%">' ?>
+                        </td>
+                        <td><?= number_format($result['total_bayar'], 0, ',', '.') ?></td>
                         <td><?= $result['tgl_bayar'] ?></td>
-                        <td><?= $result['bukti_bayar'] ?></td>
+                        <td style="width: 25%"><img src="../../../uploads/pembayaran/<?= $result['bukti_bayar'] ?>" alt="" width="100%"></td>
                         <td><?= $result['status_bayar'] ?></td>
                         <td class="action">
                             <a href="" class="btn edit"><i class="fas fa-pen-to-square"></i></a>
