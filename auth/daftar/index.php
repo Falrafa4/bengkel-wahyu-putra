@@ -72,7 +72,7 @@
             <em id="validate" class="error"></em>
             <?= $pesan ?>
 
-            <input type="text" name="nama" id="nama" placeholder="Nama Lengkap" required><br>
+            <input type="text" name="nama" id="nama" placeholder="Nama Lengkap" autofocus required><br>
             <input type="email" name="email" id="email" placeholder="Alamat Email" required>
             
             <input type="tel" name="telp" id="telp" placeholder="Nomor Telepon" required>

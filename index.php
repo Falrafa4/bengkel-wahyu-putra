@@ -9,7 +9,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/global.css">
     <link rel="shortcut icon" href="assets/img/logo-wp-circle.png">
     
@@ -50,17 +50,17 @@ session_start();
             <div class="unggul-card">
                 <section class="card">
                     <i class="fas fa-clock"></i>
-                    <h3>Fast Respon</h3>
+                    <h2>Fast Respon</h2>
                     <p>Kami selalu bersedia serta tanggap setiap saat ketika dihubungi.</p>
                 </section>
                 <section class="card">
                     <i class="fas fa-truck-fast"></i>
-                    <h3>Siap Ambil dan Antar</h3>
-                    <p>Kami menyediakan service tambahan bila perlu untuk mengambil dan/atau mengantarkan pesanan.</p>
+                    <h2>Siap Antar ke Lokasi</h2>
+                    <p>Kami menyediakan service tambahan bila perlu untuk mengantarkan pesanan.</p>
                 </section>
                 <section class="card">
                     <i class="fas fa-square-check"></i>
-                    <h3>Cepat dan Andal</h3>
+                    <h2>Cepat dan Andal</h2>
                     <p>Kami mampu mengerjakan desain-desain mulai dari yang dasar hingga yang kompleks dan rumit.</p>
                 </section>
             </div>
@@ -122,7 +122,7 @@ session_start();
             <div class="quote-fill">
                 <p>"Bekerjalah seakan-akan kalian hidup terus. Dan jangan lupa ibadah seakan-akan esuk tiada..."</p><br>
                 <strong>Mu'anam</strong>
-                <p>Owner Bengkel Wahyu Putra</p>
+                <p>Pemilik Bengkel Wahyu Putra</p>
             </div>
         </section>
     </main>

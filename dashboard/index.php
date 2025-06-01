@@ -18,12 +18,22 @@ $stmt->execute();
 $result_riwayat = $stmt->get_result();
 
 // kasih tahu ke pelanggan dengan notif sederhana
-$result = getPenawaran($conn, $_SESSION['data']['id_pelanggan']);
-if ($result->num_rows > 0) {
+$notif = "SELECT *, CONCAT('WP', LPAD(ps.no_pesanan, 5, '0')) AS nomor_pesanan, DATE_FORMAT(pw.tgl_penawaran, '%d-%m-%Y') as tgl_penawaran
+            FROM penawaran pw
+            JOIN pemesanan ps ON ps.no_pesanan = pw.no_pesanan
+            WHERE ps.id_pelanggan = ? AND pw.status_penawaran = 'Diterbitkan'
+            ORDER BY pw.tgl_penawaran DESC;";
+$stmt_notif = $conn->prepare($notif);
+$stmt_notif->bind_param('i', $_SESSION['data']['id_pelanggan']);
+$stmt_notif->execute();
+$result_notif = $stmt_notif->get_result();
+
+// $result = getPenawaran($conn, $_SESSION['data']['id_pelanggan']);
+if ($result_notif->num_rows > 0) {
     $notif = [];
     $notifText = [];
 
-    while ($row = $result->fetch_assoc()) {
+    while ($row = $result_notif->fetch_assoc()) {
         $notifText[] = $row['tgl_penawaran'] . " - Anda mendapatkan surat penawaran untuk <strong>Nomor Pesanan " . $row['nomor_pesanan'] . "</strong>";
         $notif[] = $row;
 

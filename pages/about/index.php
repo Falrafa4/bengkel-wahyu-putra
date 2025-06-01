@@ -59,7 +59,7 @@ session_start();
                     <hr>
                     <p>"Perkenalkan, nama saya Mu'anam, pemilik Bengkel Wahyu Putra yang telah berdiri sejak akhir tahun 2018. Kami bergerak di bidang jasa pembuatan matras/moulding untuk plastik, karet, plat/plong, serta pembuatan sparepart mesin, logo emboss dan berbagai kebutuhan lainnya."</p>
                     <cite>- Mu'anam</cite>
-                    <cite>Owner Bengkel Wahyu Putra</cite>
+                    <cite>Pemilik Bengkel Wahyu Putra</cite>
                 </div>
             </div>
         </section>

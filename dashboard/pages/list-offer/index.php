@@ -119,11 +119,24 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
                                         <i class="fas fa-download"></i> Unduh Surat
                                     </button>
                                 </td>
-                                <td class="action <?= $row['status_penawaran'] == 'Disetujui' ? 'offer-agree' : ($row['status_penawaran'] == 'Negosiasi' ? 'offer-nego' : '') ?>">
+                                <td class="action 
+                                <?php 
+                                if ($row['status_penawaran'] == 'Disetujui') :
+                                    echo 'offer-agree';
+                                elseif ($row['status_penawaran'] == 'Negosiasi' || $row['status_penawaran'] == 'Terbit Baru') :
+                                    echo 'offer-nego';
+                                else :
+                                    echo '';
+                                endif;
+                                //$row['status_penawaran'] == 'Disetujui' ? 'offer-agree' : ($row['status_penawaran'] == 'Negosiasi' ? 'offer-nego' : '')
+                                ?>
+                                ">
                                     <?php if ($row['status_penawaran'] == 'Disetujui') : ?>
                                         <i class="fas fa-check"></i> Penawaran Disetujui
                                     <?php elseif ($row['status_penawaran'] == 'Negosiasi') : ?>
                                         <i class="fas fa-clock"></i> Penawaran Dalam Proses Negosiasi
+                                    <?php elseif ($row['status_penawaran'] == 'Terbit Baru') : ?>
+                                        <i class="fas fa-envelope"></i> Diterbitkan Penawaran Baru
                                     <?php else : ?>
                                         <button class="agree" data-id="<?= $row['id_penawaran'] ?>" data-no="<?= $row['no_pesanan'] ?>" data-nomor="<?= $row['nomor_pesanan'] ?>">
                                             <i class="fas fa-check"></i> Setuju
@@ -136,7 +149,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
                             </tr>
                         <?php endwhile; ?>
 
-                        <?php if ($_SESSION['notif'] == []): ?>
+                        <?php if ($penawaran->num_rows < 1): ?>
                             <tr>
                                 <td colspan="8" class="no-record">Belum Ada Penawaran. Mohon Bersabar Menunggu.</td>
                             </tr>

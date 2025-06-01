@@ -123,7 +123,7 @@
 
             <div class="input-box">
                 <span><i class="fas fa-envelope"></i></span>
-                <input type="email" name="email" id="email" placeholder="Email" required autocomplete="off"><br>
+                <input type="email" name="email" id="email" placeholder="Email" required autocomplete="off" autofocus><br>
             </div>
             <div class="input-box">
                 <span><i class="fas fa-eye-slash" id="eye" onclick="openPass(this)"></i></span>

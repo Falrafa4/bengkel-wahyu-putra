@@ -109,7 +109,7 @@
     <!-- HEADER & BG FOTO END -->
 
     <main>
-        <p>Thanks for your coming. We will go back soon.</p>
+        <p>Thank you for your coming. We will go back soon.</p>
         <a href="/bengkel-wahyu-putra">Go Back to Main Page</a>
     </main>
 

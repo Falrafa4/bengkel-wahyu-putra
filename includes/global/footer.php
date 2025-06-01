@@ -17,10 +17,10 @@
     <section class="footer-bottom">
         <p>&copy; 2024 Bengkel Wahyu Putra. All Rights Reserved</p>
         <div class="footer-sosmed">
-            <a href="mailto:jasabengkelwahyuputra@gmail.com"><i class="fas fa-envelope"></i></a>
-            <a href="http://wa.me/6281216977427"><i class="fab fa-square-whatsapp"></i></a>
-            <a href="#"><i class="fab fa-square-facebook"></i></a>
-            <a href="#"><i class="fab fa-square-instagram"></i></a>
+            <a href="mailto:jasabengkelwahyuputra@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
+            <a href="http://wa.me/6281216977427" target="_blank"><i class="fab fa-square-whatsapp"></i></a>
+            <a href="https://facebook.com/muanam.anam.9883" target="_blank"><i class="fab fa-square-facebook"></i></a>
+            <a href="https://www.instagram.com/muanam8676?igsh=ZWlzZG41d3l2dHZ6" target="_blank"><i class="fab fa-square-instagram"></i></a>
         </div>
     </section>
 </footer>

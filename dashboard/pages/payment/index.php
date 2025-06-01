@@ -148,14 +148,14 @@ $row = $result->fetch_assoc();
 
                         <div class="norek" id="next-bca">
                             <img src="../../../assets/img/bca.png" alt="Bank BCA">
-                            <p>xxxx-xxxx-xxxx-xxx0</p>
-                            <p style="margin-bottom: 15px">An. Mu'anam</p>
+                            <p>0181016859</p>
+                            <p style="margin-bottom: 15px">A.n. MUANAM</p>
                         </div>
 
                         <div class="norek" id="next-mandiri">
                             <img src="../../../assets/img/mandiri.png" alt="Bank BCA">
-                            <p>xxxx-xxxx-xxxx-xxx2</p>
-                            <p style="margin-bottom: 15px">An. Mu'anam</p>
+                            <p>141-00-2199879-4</p>
+                            <p style="margin-bottom: 15px">A.n. MUANAM</p>
                         </div>
                         
                         <!-- <div class="select-img">
@@ -188,7 +188,7 @@ $row = $result->fetch_assoc();
                         <hr>
                         <br>
 
-                        <h1>Rp. 12.000.000</h1>
+                        <h1>Rp. <?= $rp ?></h1>
 
                         <div class="btn" style="margin-top: 20px;">
                             <button type="button" id="back">

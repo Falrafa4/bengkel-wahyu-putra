@@ -144,7 +144,7 @@
                         </div>
                         <div class="input-box">
                             <label for="material">Material <span>*</span></label>
-                            <input type="text" name="material" id="material" placeholder="Cth: Besi" required>
+                            <input type="text" name="material" id="material" placeholder="Cth: Logam" required>
                         </div>
                         <div class="input-box">
                             <label for="jumlah_item">Jumlah Item <span>*</span></label>

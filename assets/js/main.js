@@ -17,7 +17,6 @@ function toggleClick() {
 //SHOW HIDE PASSWORD
 function openPass(icon) {
   const inputPass = icon.parentElement.nextElementSibling;
-  console.log(inputPass);
   // const iconEye = document.getElementById('eye');
   if (inputPass.getAttribute('type') === 'password') {
       inputPass.setAttribute('type', 'text');
