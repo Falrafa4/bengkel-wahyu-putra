@@ -32,13 +32,13 @@
         <div class="container-crud">
             <section class="daftar-crud">
                 <h1>Data Pembayaran</h1><hr>
-                <a class="btn-add" onclick='
+                <!-- <a class="btn-add" onclick='
                         Swal.fire({
                             title: "Informasi!",
                             text: "Tambah Pembayaran hanya bisa dilakukan oleh user",
                             icon: "info"
                         })
-                '><i class="fas fa-plus"></i> Tambah Data</a>
+                '><i class="fas fa-plus"></i> Tambah Data</a> -->
         
                 <?php if(isset($_SESSION['eksekusi'])) {?>
                 <div class="success-update">
@@ -49,7 +49,7 @@
                 ?>
         
                 <?php 
-                    $querySelect = "SELECT * FROM pembayaran;";
+                    $querySelect = "SELECT * FROM pembayaran ORDER BY tgl_bayar DESC;";
                     $sql = mysqli_query($conn, $querySelect);
                 ?>
         
@@ -80,7 +80,7 @@
                         </td>
 
                         <td
-                        <?= $result['status_bayar'] == 'Sedang Dikonfirmasi' ? 'class="row-yellow"' : '' ?>
+                        <?= $result['status_bayar'] == 'Sedang Dikonfirmasi' ? 'class="row-yellow"' : 'class="row-green"' ?>
                         ><?= $result['status_bayar'] ?></td>
                         <td class="action">
                             <a href="./kelola/?id=<?= $result['id_pembayaran'] ?>" class="btn edit"><i class="fas fa-pen-to-square"></i> Edit</a>

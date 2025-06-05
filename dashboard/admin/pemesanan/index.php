@@ -84,6 +84,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/s
                                 echo 'row-blue';
                             } elseif ($result['status_pesanan'] == 'Negosiasi Penawaran') {
                                 echo 'row-orange';
+                            } else {
+                                echo 'row-blue';
                             }
                             ?>
                             "><?= $result['status_pesanan'] ?></td>

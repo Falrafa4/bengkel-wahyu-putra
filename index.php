@@ -70,25 +70,18 @@ session_start();
             <h1>Layanan Kami</h1>
             <div class="roll">
                 <div class="wrapper-roll">
-                    <div class="image-roll bubut">
-                        <img src="assets/img/machineh-2.jpg" alt="Bubut">
+                    <div class="image-roll perbaikan">
+                        <img src="assets/img/product-2.jpg" alt="Jasa Perbaikan">
                         <div class="roll-desc">
-                            <h3>Jasa Bubut</h3>
-                            <p>Layanan Bubut kami mencakup...... <a href="pages/services/index.php#bubut">Lihat Selengkapnya</a></p>
+                            <h3>Jasa Perbaikan</h3>
+                            <p>Layanan Perbaikan kami mencakup...... <a href="pages/services/#bubut">Lihat Selengkapnya</a></p>
                         </div>
                     </div>
-                    <div class="image-roll milling">
-                        <img src="assets/img/machineh-1.jpg" alt="Bubut">
+                    <div class="image-roll produksi">
+                        <img src="assets/img/product-matras-2.jpg" alt="Jasa Produksi Baru">
                         <div class="roll-desc">
-                            <h3>Jasa Milling</h3>
-                            <p>Layanan Milling kami mencakup...... <a href="pages/services/index.php#bubut">Lihat Selengkapnya</a></p>
-                        </div>
-                    </div>
-                    <div class="image-roll edm">
-                        <img src="assets/img/bengkel-2.jpg" alt="Bubut">
-                        <div class="roll-desc">
-                            <h3>Jasa EDM</h3>
-                            <p>Layanan EDM kami mencakup...... <a href="pages/services/index.php#bubut">Lihat Selengkapnya</a></p>
+                            <h3>Jasa Produksi Baru</h3>
+                            <p>Layanan Produksi Baru kami mencakup...... <a href="pages/services/#bubut">Lihat Selengkapnya</a></p>
                         </div>
                     </div>
                 </div>
@@ -136,51 +129,42 @@ session_start();
         const right = document.querySelector('.fa-chevron-right');
         const left = document.querySelector('.fa-chevron-left');
 
-        const bubut = document.querySelector('.bubut');
-        const milling = document.querySelector('.milling');
-        const edm = document.querySelector('.edm');
-
+        const perbaikan = document.querySelector('.perbaikan');
+        const produksi = document.querySelector('.produksi');
+        // const edm = document.querySelector('.edm');
         
-
+        // const zIndexEdm = window.getComputedStyle(edm).zIndex;
+        
         right.addEventListener("click", function(){
-            const zIndexBubut = window.getComputedStyle(bubut).zIndex;
-            const zIndexMilling = window.getComputedStyle(milling).zIndex;
-            const zIndexEdm = window.getComputedStyle(edm).zIndex;
-            if(zIndexBubut === "1") {
-                bubut.style.zIndex = '-2';
-                milling.style.zIndex = '1';
-                edm.style.zIndex = '-1';
+            const zIndexPerbaikan = window.getComputedStyle(perbaikan).zIndex;
+            const zIndexProduksi = window.getComputedStyle(produksi).zIndex;
+
+            if(zIndexPerbaikan === "1") {
+                perbaikan.style.zIndex = '-1';
+                produksi.style.zIndex = '1';
+                // edm.style.zIndex = '-1';
             } 
-            else if(zIndexMilling === "1") {
-                bubut.style.zIndex = '-1';
-                milling.style.zIndex = '-2';
-                edm.style.zIndex = '1';
-            }
-            else if(zIndexEdm === "1") {
-                bubut.style.zIndex = '1';
-                milling.style.zIndex = '-1';
-                edm.style.zIndex = '-2';
+            else if(zIndexProduksi === "1") {
+                perbaikan.style.zIndex = '1';
+                produksi.style.zIndex = '-1';
+                // edm.style.zIndex = '1';
             }
         })
 
         left.addEventListener("click", function(){
-            const zIndexBubut = window.getComputedStyle(bubut).zIndex;
-            const zIndexMilling = window.getComputedStyle(milling).zIndex;
-            const zIndexEdm = window.getComputedStyle(edm).zIndex;
-            if(zIndexBubut === "1") {
-                bubut.style.zIndex = '-2';
-                milling.style.zIndex = '-1';
-                edm.style.zIndex = '1';
+            const zIndexPerbaikan = window.getComputedStyle(perbaikan).zIndex;
+            const zIndexProduksi = window.getComputedStyle(produksi).zIndex;
+
+            if(zIndexPerbaikan === "1") {
+                perbaikan.style.zIndex = '-1';
+                produksi.style.zIndex = '1';
+                console.log('keubah');
+                // edm.style.zIndex = '1';
             } 
-            else if(zIndexMilling === "1") {
-                bubut.style.zIndex = '1';
-                milling.style.zIndex = '-2';
-                edm.style.zIndex = '-1';
-            }
-            else if(zIndexEdm === "1") {
-                bubut.style.zIndex = '-1';
-                milling.style.zIndex = '1';
-                edm.style.zIndex = '-2';
+            else if(zIndexProduksi === "1") {
+                perbaikan.style.zIndex = '1';
+                produksi.style.zIndex = '-1';
+                // edm.style.zIndex = '-1';
             }
         })
     </script>

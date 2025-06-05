@@ -104,6 +104,43 @@ if (isset($_GET['detail'])) {
                                 <th>Status Pesanan</th>
                                 <td><?= $result['status_pesanan'] ?></td>
                             </tr>
+                            <tr>
+                                <th>Keterangan</th>
+                                <td>
+                                    <?php 
+                                    $status = $result['status_pesanan'];
+                                    switch ($status) {
+                                        case 'Menunggu Penawaran':
+                                            echo 'Harap menunggu surat penawaran dari kami';
+                                            break;
+
+                                        case 'Penawaran Diterbitkan':
+                                            echo 'Surat Penawaran telah diterbitkan! Silahkan cek halaman penawaran untuk melihat dan menyetujuinya';
+                                            break;
+
+                                        case 'Negosiasi Penawaran':
+                                            echo 'Negosiasi Anda telah diterima dan kami akan menghubungi Anda untuk melakukan negosiasi penawaran';
+                                            break;
+
+                                        case 'Dalam Proses':
+                                            echo 'Pesanan Anda sedang dikerjakan';
+                                            break;
+
+                                        case 'Menunggu Pembayaran':
+                                            echo 'Harap selesaikan pembayaran pada pesanan Anda';
+                                            break;
+
+                                        case 'Konfirmasi Pembayaran':
+                                            echo 'Pembayaran Anda sedang dikonfirmasi oleh pemilik dalam 1x24 jam';
+                                            break;
+                                        
+                                        default:
+                                            echo 'Pesanan Anda telah selesai dan siap untuk diambil';
+                                            break;
+                                    }
+                                    ?>
+                                </td>
+                            </tr>
                         </table>
                     </div>
                 </div>

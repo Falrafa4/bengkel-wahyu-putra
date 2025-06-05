@@ -5,9 +5,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/s
 require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functions.php";
 
 if (!isset($_GET['no']) || $_GET['no'] == '') {
-    header('Location: ../../');
+    header('Location: ../my-order/');
 }
 
+// Mendapat informasi pesanan
 $stmt = $conn->prepare("SELECT *, CONCAT('WP', LPAD(ps.no_pesanan, 5, '0')) AS nomor_pesanan
 FROM penawaran pw
 JOIN pemesanan ps ON ps.no_pesanan = pw.no_pesanan

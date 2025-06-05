@@ -42,7 +42,7 @@ session_start();
         <div class="card-row">
             <section class="card">
                 <div class="layanan-header">
-                    <img src="../../assets/img/product-2.jpg" alt="product-edm-2">
+                    <img src="../../assets/img/product-2.jpg" alt="Jasa Perbaikan">
                 </div>
                 <div class="layanan-desc">
                     <h2>Jasa Perbaikan</h2>
@@ -53,7 +53,7 @@ session_start();
             </section>
             <section class="card">
                 <div class="layanan-header">
-                    <img src="../../assets/img/product-matras-2.jpg" alt="product-edm-2">
+                    <img src="../../assets/img/product-matras-2.jpg" alt="Jasa Pembuatan Baru">
                 </div>
                 <div class="layanan-desc">
                     <h2>Jasa Pembuatan Baru</h2>

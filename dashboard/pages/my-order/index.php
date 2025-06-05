@@ -117,7 +117,7 @@ if (isset($_POST['search'])) {
                                 <td style="text-align: left;"><?= $row['alamat_lengkap'] ?></td>
                                 <td style="font-weight: bold;
                                 <?php
-                                if ($row['status_pesanan'] == 'Menunggu Penawaran') {
+                                if ($row['status_pesanan'] == 'Menunggu Penawaran' || $row['status_pesanan'] == 'Konfirmasi Pembayaran') {
                                     echo 'background-color: #e4efff';
                                 } elseif ($row['status_pesanan'] == 'Penawaran Diterbitkan') {
                                     echo 'background-color: #ffd670';

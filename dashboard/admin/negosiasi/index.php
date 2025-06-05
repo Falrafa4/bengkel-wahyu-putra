@@ -106,7 +106,7 @@ JOIN pemesanan ps ON ps.no_pesanan = pw.no_pesanan";
                             <td><?= $result['harga_tawaran'] ?? '-' ?></td>
                             <td><?= $result['estimasi_tawaran'] ?? '-' ?></td>
                             <td><?= $result['catatan'] ?? '-' ?></td>
-                            <td class="<?= $result['status_negosiasi'] == 'Menunggu' ? 'row-yellow' : '' ?>"><?= $result['status_negosiasi'] ?></td>
+                            <td class="<?= $result['status_negosiasi'] == 'Menunggu' ? 'row-yellow' : 'row-green' ?>"><?= $result['status_negosiasi'] ?></td>
                             <td class="action">
                                 <a href="./kelola/?edit=<?= $result['id_negosiasi'] ?>" class="btn edit"><i class="fas fa-pen-to-square"></i> Edit</a>
 

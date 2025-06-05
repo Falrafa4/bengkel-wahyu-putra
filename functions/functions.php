@@ -229,11 +229,12 @@ function updateProfil($method, $conn) {
     $email = $method['email'];
     $no_telp = $method['no_telp'];
     $jenis_akun = $method['jenis_akun'];
+    $nama_perusahaan = $method['nama_perusahaan'] ?? '';
 
-    $queryUpdate = "UPDATE pelanggan SET nama_pelanggan = ?, email = ?, no_telp = ?, jenis_akun = ? WHERE id_pelanggan = ?;";
+    $queryUpdate = "UPDATE pelanggan SET nama_pelanggan = ?, email = ?, no_telp = ?, jenis_akun = ?, nama_perusahaan = ? WHERE id_pelanggan = ?;";
     $stmt = $conn->prepare($queryUpdate);
 
-    $stmt->bind_param('ssssi', $nama_pelanggan, $email, $no_telp, $jenis_akun, $id_pelanggan);
+    $stmt->bind_param('sssssi', $nama_pelanggan, $email, $no_telp, $jenis_akun, $nama_perusahaan, $id_pelanggan);
     
     if($stmt->execute()) {
         $querySelect = "SELECT * FROM pelanggan WHERE id_pelanggan = ?";

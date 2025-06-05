@@ -5,17 +5,20 @@
 @font-face {
     font-family: 'Oswald';
     src: url(../fonts/oswald/Oswald-VariableFont_wght.ttf) format('truetype');
+    font-display: swap;
 }
 
 @font-face {
     font-family: 'Roboto';
     src: url(../fonts/roboto/Roboto-VariableFont_wdth\,wght.ttf) format('truetype');
+    font-display: swap;
 }
 
 @font-face {
     font-family: 'Roboto';
     src: url(../fonts/roboto/Roboto-Italic-VariableFont_wdth\,wght.ttf) format('truetype');
     font-style: italic;
+    font-display: swap;
 }
 
 :root {
@@ -84,11 +87,15 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0px 70px;
+    padding: 0 40px 0 70px;
     height: 10vh;
     top: 0;
     position: sticky;
     z-index: 99;
+}
+
+.disabled {
+    color: #adadad !important;
 }
 
 .navbar ul {
@@ -162,21 +169,29 @@ ul li a {
     list-style: none;
 }
 
+.right-bar .user-login {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: white;
+}
+
 /* STYLE NAVBAR END */
 
 /* DROPDOWN NAVBAR */
 .dropdown {
     opacity: 0;
     visibility: none;
-    transform: translateY(-5px);
+    /* transform: translateY(-5px); */
     transition: .3s ease-in-out;
     pointer-events: none;
     position: absolute;
     top: 100%;
-    left: -40px;
+    /* left: -40px; */
     background-color: var(--primary-color);
     box-shadow: 3px -4px 6px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
+    transform: translateX(-40%);
 }
 
 .dropdown a {
@@ -195,7 +210,7 @@ ul li a {
 .profil:hover .dropdown {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
+    /* transform: translateY(0); */
     pointer-events: all;
 }
 

@@ -84,8 +84,8 @@
                         <td><?php if($result['material'] == NULL) echo "-"; else echo $result['material']; ?></td>
                         <td><?= $result['jumlah_item'] ?></td>
                         <td class="action" style="text-align: center">
-                            <a href="../pemesanan/#<?= $result['no_pesanan']-1 ?>" class="btn edit"><i class="fas fa-pen-to-square"></i> Edit</a>
-                            <!-- <a href="" class="btn hapus"><i class="fas fa-trash"></i></a> -->
+                            <!-- <a href="../pemesanan/#<?= $result['no_pesanan']-1 ?>" class="btn edit"><i class="fas fa-pen-to-square"></i> Edit</a> -->
+                            <a href="../pemesanan/#<?= $result['no_pesanan']-1 ?>" class="btn blue"><!-- <i class="fas fa-arrow-right"></i> --> Lihat Pesanan</a>
                         </td>
                     </tr>
                     <?php } ?>

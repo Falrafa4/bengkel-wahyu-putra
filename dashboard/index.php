@@ -21,7 +21,7 @@ $result_riwayat = $stmt->get_result();
 $notif = "SELECT *, CONCAT('WP', LPAD(ps.no_pesanan, 5, '0')) AS nomor_pesanan, DATE_FORMAT(pw.tgl_penawaran, '%d-%m-%Y') as tgl_penawaran
             FROM penawaran pw
             JOIN pemesanan ps ON ps.no_pesanan = pw.no_pesanan
-            WHERE ps.id_pelanggan = ? AND pw.status_penawaran = 'Diterbitkan'
+            WHERE ps.id_pelanggan = ? AND pw.status_penawaran IN ('Diterbitkan', 'Menunggu Pembayaran')
             ORDER BY pw.tgl_penawaran DESC;";
 $stmt_notif = $conn->prepare($notif);
 $stmt_notif->bind_param('i', $_SESSION['data']['id_pelanggan']);

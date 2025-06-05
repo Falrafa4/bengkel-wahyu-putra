@@ -20,10 +20,24 @@
         <?php if(!isset($_SESSION['data'])){ ?>
             <li><a href="/bengkel-wahyu-putra/auth/login/" class="login <?= ($namaFolder == "login") ? 'active' : '' ?>">Login</a></li>
         <?php } else {?>
+
         <li class="profil">
-            <i class="fas fa-user-circle"></i>
+            <?php
+            $nama_pelanggan = $_SESSION['data']['nama_pelanggan'];
+            $arr = explode(' ', $nama_pelanggan);
+            if (count($arr) > 1) {
+                $nama = $arr[1];
+            } else {
+                $nama = $arr[0];
+            }
+            ?>
+            <div class="user-login">
+                <i class="fas fa-user-circle"></i>
+                <p><?= $nama ?></p>
+            </div>
             <div class="dropdown">
                 <ul>
+                    <!-- <li><a class="disabled"></a></li> -->
                     <li><a href="/bengkel-wahyu-putra/dashboard/<?= ($_SESSION['data']['role'] == "Admin") ? 'admin/' : '' ?>">Dashboard</a></li>
                     <li><a href="/bengkel-wahyu-putra/auth/logout.php">Logout</a></li>
                 </ul>

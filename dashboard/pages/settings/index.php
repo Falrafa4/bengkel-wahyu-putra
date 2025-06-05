@@ -51,54 +51,74 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
                 title: "Berhasil!",
                 text: "Data berhasil ubah!"
             }).then(() => {
-                location.href = "../../";
+                location.href = "./";
             });
             </script>';
         } else {
-            echo $sql;
+            echo '<script>
+            Swal.fire({
+                icon: "error",
+                title: "Error!",
+                text: "Terjadi Kesalahan saat Update Profil!"
+            }).then(() => {
+                location.href = "./";
+            });
+            </script>';
         }
     }
 
     // update password
     if (isset($_POST['update_pw'])) {
-        $pw_old = $_POST['pw_old'];
-        $pw_new = $_POST['pw_new'];
-        $repeat_pw = $_POST['repeat_pw'];
-
-        $pw_from_db = getPassword($conn, $email);
-
-        if (password_verify($pw_old, $pw_from_db)) {
-            if (updatePassword($conn, $id_pelanggan, $pw_new)) {
-                echo '
-                    <script>
-                    Swal.fire({
-                        icon: "success",
-                        title: "Berhasil!",
-                        text: "Password berhasil diupdate"
-                    });
-                    </script>
-                    ';
+        if ($_POST['pw_old'] == '') {
+            echo '
+                <script>
+                Swal.fire({
+                    icon: "error",
+                    title: "Input Kosong",
+                    text: "Anda harus mengisi password lama!"
+                });
+                </script>
+                ';
+        } else {
+            $pw_old = $_POST['pw_old'];
+            $pw_new = $_POST['pw_new'];
+            $repeat_pw = $_POST['repeat_pw'];
+    
+            $pw_from_db = getPassword($conn, $_SESSION['data']['email']);
+    
+            if (password_verify($pw_old, $pw_from_db)) {
+                if (updatePassword($conn, $_SESSION['data']['id_pelanggan'], $pw_new)) {
+                    echo '
+                        <script>
+                        Swal.fire({
+                            icon: "success",
+                            title: "Berhasil!",
+                            text: "Password berhasil diupdate"
+                        });
+                        </script>
+                        ';
+                } else {
+                    echo '
+                        <script>
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "Gagal update password. Silakan coba lagi."
+                        });
+                        </script>
+                        ';
+                }
             } else {
                 echo '
                     <script>
                     Swal.fire({
                         icon: "error",
-                        title: "Error",
-                        text: "Gagal update password. Silakan coba lagi."
+                        title: "Password salah!",
+                        text: "Password lama tidak sama dengan yang tersimpan."
                     });
                     </script>
                     ';
             }
-        } else {
-            echo '
-                <script>
-                Swal.fire({
-                    icon: "error",
-                    title: "Password salah!",
-                    text: "Password lama tidak sama dengan yang tersimpan."
-                });
-                </script>
-                ';
         }
     }
     ?>
@@ -113,7 +133,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
         <div class="utama">
             <h1 class="profile-head">Pengaturan</h1>
             <section class="profile">
-                <form action="index.php" method="post">
+                <form action="./" method="post">
                     <table>
                         <tr>
                             <td>
@@ -136,7 +156,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
                         <tr>
                             <td class="info">Jenis Akun</td>
                             <td class="data">
-                                <select name="jenis_akun">
+                                <select name="jenis_akun" id="jenis_akun" <?= $_SESSION['data']['jenis_akun'] == 'Pribadi' ? 'onchange="inputPT()"' : '' ?>>
                                     <option value="Pribadi" <?php if ($_SESSION['data']['jenis_akun'] == "Pribadi") {
                                                                 echo "selected";
                                                             } ?>>Pribadi</option>
@@ -152,6 +172,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
                                 <td class="info">Nama Perusahaan</td>
                                 <td class="data"><input type="text" name="nama_perusahaan" value="<?= $_SESSION['data']['nama_perusahaan'] ?>"></td>
                             </tr>
+                        <?php } else { ?>
+                            <tr id="perusahaan" style="display: none;">
+                                <td class="info">Nama Perusahaan</td>
+                                <td class="data"><input type="text" name="nama_perusahaan" id="inputPerusahaan" required disabled></td>
+                            </tr>
                         <?php } ?>
                         <tr>
                             <td class="button"><button type="submit" name="update_profil"><i class="fas fa-pen-to-square"></i> Update Profil</button></td>
@@ -161,7 +186,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
             </section>
             <section class="password" id="password_section">
                 <h2>Ubah Password</h2>
-                <form action="index.php" method="post" id="updatePwForm">
+                <form action="./#password_section" method="post" id="updatePwForm">
                     <div class="input-box">
                         <label for="pw-old">Password Lama</label>
                         <span><i class="fas fa-eye-slash" onclick="openPass(this)"></i></span>
@@ -252,6 +277,23 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
                 }
             });
         })
+
+        // onchange event untuk input jenis akun
+        function inputPT() {
+            const jenis = document.getElementById('jenis_akun').value;
+            const perusahaan = document.getElementById('perusahaan');
+
+            perusahaan.style.display = 'none';
+
+            if (jenis === 'Perusahaan') {
+                perusahaan.style.display = 'block';
+                document.getElementById('inputPerusahaan').removeAttribute('disabled');
+            } else if (jenis === 'Pribadi') {
+                perusahaan.style.display = 'none';
+                document.getElementById('inputPerusahaan').setAttribute('disabled', false);
+            }
+
+        }
     </script>
 
 </body>

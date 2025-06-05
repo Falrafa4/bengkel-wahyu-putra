@@ -132,27 +132,27 @@ if (isset($_POST['aksi'])) {
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/nav.php"; ?>
 
     <?php
-    // if(!isset($_GET['no'])) {
-    // echo '<script>
-    // Swal.fire({
-    //     icon: "error",
-    //     title: "Error",
-    //     text: "Nomor Pesanan tidak valid!",
-    // }).then((result) => {
-    // if (result.isConfirmed) {
-    //     window.location.href = "../";
-    // }
-    // });
-    // </script>';
-    // die();
-    // }
+    if(!isset($_GET['no'])) {
+    echo '<script>
+    Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Nomor Pesanan tidak valid!",
+    }).then((result) => {
+    if (result.isConfirmed) {
+        window.location.href = "../";
+    }
+    });
+    </script>';
+    die();
+    }
     ?>
 
     <main>
         <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/admin/aside.php"; ?>
 
         <section class="content">
-            <form action="./?" method="POST" enctype="multipart/form-data">
+            <form action="./?no=<?= $_GET['no'] ?>" method="POST" enctype="multipart/form-data">
                 <h1>
                     <?= isset($_GET['edit']) ? "Edit Penawaran" : "Buat Penawaran" ?>
                 </h1>

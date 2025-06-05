@@ -270,7 +270,9 @@ textarea {
     cursor: pointer;
 }
 
-input:focus, select:focus, textarea:focus {
+input:focus,
+select:focus,
+textarea:focus {
     border-color: var(--primary-color);
     box-shadow: 0 0 5px rgba(43, 43, 43, 0.5);
     outline: none;
@@ -279,6 +281,7 @@ input:focus, select:focus, textarea:focus {
 input[type='radio']:focus {
     outline: none;
     box-shadow: none;
+
     .input-box .radio-box {
         background-color: red;
         border: 1px solid rgba(0, 0, 0, 0.1);
@@ -378,8 +381,7 @@ form button:hover,
 }
 
 /* STYLE FOR DAFTAR PESANAN PAGE */
-.daftarPesanan .utama h1,
-.detailPesanan .utama h1 {
+.utama h1 {
     font-size: 40px;
     font-weight: 300;
 }
@@ -550,6 +552,61 @@ form button:hover,
     width: 30%;
 }
 
+/* STYLE FOR BANTUAN */
+.accordion {
+    background-color: #434343;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+.acc-active, .accordion:hover {
+    background-color: #5c5c5c;
+}
+
+.accordion:after {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: '\f078';
+    float: right;
+    margin-left: 5px;
+}
+
+.acc-active:after {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: '\f077';
+}
+
+.panel {
+    padding: 0px 12px;
+    background-color: #F9F9F9;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s;
+}
+
+.panel p {
+    padding: 10px 0;
+}
+
+.panel ol {
+    padding-left: 30px;
+}
+
+.panel ul {
+    list-style-type: disc;
+    li {
+        margin-left: 15px;
+    }
+}
+
 /* STYLE DAFTAR PENAWARAN */
 .offer table td {
     padding: 20px;
@@ -582,7 +639,9 @@ form button:hover,
     margin-bottom: 20px;
 }
 
-#modal input, #modal select, #modal textarea {
+#modal input,
+#modal select,
+#modal textarea {
     margin: 0 0 10px 0;
 }
 
@@ -620,7 +679,9 @@ form button:hover,
     text-align: center;
 }
 
-.pembayaran .fas {font-size: 14px;}
+.pembayaran .fas {
+    font-size: 14px;
+}
 
 .pembayaran form {
     width: 50%;
@@ -628,7 +689,7 @@ form button:hover,
     box-shadow: 2px 4px 15px rgba(0, 0, 0, 0.25);
 }
 
-.pembayaran > h1 {
+.pembayaran>h1 {
     font-family: 'Oswald', serif;
     font-weight: 500;
     font-size: 48px;
@@ -695,6 +756,7 @@ button.hapus:hover {
 
 .offer-agree {
     background-color: #e4ffe4;
+
     i {
         font-size: 1rem;
     }
@@ -702,6 +764,7 @@ button.hapus:hover {
 
 .offer-nego {
     background-color: #e4efff;
+
     i {
         font-size: 1rem;
     }
