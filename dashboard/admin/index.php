@@ -33,7 +33,7 @@
                 <h1>Dashboard Admin</h1>
                 <hr>
                 <h3>Selamat Datang, <?php echo $_SESSION['data']['nama_pelanggan']; ?>!</h3>
-                <p style="font-style: italic;">Halaman ini adalah halaman khusus para admin. Jika anda bukan admin, selamat Anda dapat membobol sistem kami :)</p><br>
+                <p style="font-style: italic;">Halaman ini diperuntukkan khusus bagi administrator. Jika Anda bukan administrator, akses Anda tidak diizinkan.</p><br>
             </section>
             <section class="informasi">
                 <?php 
@@ -92,6 +92,6 @@
         </div>
     </main>
     
-    <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/script.js"></script>
 </body>
 </html>

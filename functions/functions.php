@@ -14,10 +14,10 @@ function insertPelanggan($conn, $password, $nama_pelanggan, $email, $no_telp, $j
     return $result;
 }
 
-function updatePelanggan($conn, $nama_pelanggan, $email, $no_telp, $jenis_akun, $role, $id_pelanggan) {
-    $query = "UPDATE pelanggan SET nama_pelanggan = ?, email = ?, no_telp = ?, jenis_akun = ?, role = ? WHERE id_pelanggan = ?";
+function updatePelanggan($conn, $nama_pelanggan, $email, $no_telp, $jenis_akun, $nama_perusahaan, $role, $id_pelanggan) {
+    $query = "UPDATE pelanggan SET nama_pelanggan = ?, email = ?, no_telp = ?, jenis_akun = ?, nama_perusahaan = ?, role = ? WHERE id_pelanggan = ?";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param('sssssi', $nama_pelanggan, $email, $no_telp, $jenis_akun, $role, $id_pelanggan);
+    $stmt->bind_param('ssssssi', $nama_pelanggan, $email, $no_telp, $jenis_akun, $nama_perusahaan, $role, $id_pelanggan);
     
     $result = $stmt->execute();
     $stmt->close();
@@ -229,7 +229,7 @@ function updateProfil($method, $conn) {
     $email = $method['email'];
     $no_telp = $method['no_telp'];
     $jenis_akun = $method['jenis_akun'];
-    $nama_perusahaan = $method['nama_perusahaan'] ?? '';
+    $nama_perusahaan = $method['nama_perusahaan'] ?? null;
 
     $queryUpdate = "UPDATE pelanggan SET nama_pelanggan = ?, email = ?, no_telp = ?, jenis_akun = ?, nama_perusahaan = ? WHERE id_pelanggan = ?;";
     $stmt = $conn->prepare($queryUpdate);

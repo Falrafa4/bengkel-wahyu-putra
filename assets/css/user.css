@@ -349,7 +349,8 @@ input[type='radio']:focus {
     width: 300px;
 }
 
-.form-pesanan button {
+.form-pesanan button,
+.btn-primary {
     background-color: #2b2b2b;
     border: 1px solid #2b2b2b;
     color: white;
@@ -366,7 +367,8 @@ table a:hover,
 .no-order a:hover,
 table button:hover,
 form button:hover,
-.detailPesanan .utama a:hover {
+.detailPesanan .utama a:hover,
+.btn-primary:hover {
     background-color: transparent;
     color: #2b2b2b;
     border: 1px solid #2b2b2b;
@@ -553,7 +555,15 @@ form button:hover,
 }
 
 /* STYLE FOR BANTUAN */
+.container-acc {
+    background-color: #434343;
+    border-radius: 5px;
+    margin: 10px 0 30px 0;
+    box-shadow: 2px 4px 15px rgba(0, 0, 0, 0.25);
+}
+
 .accordion {
+    border-radius: inherit;
     background-color: #434343;
     color: white;
     cursor: pointer;
@@ -590,6 +600,14 @@ form button:hover,
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.5s;
+
+    .fas {
+        font-size: 12px;
+    }
+}
+
+.panel:last-of-type {
+    border-radius: 0 0 5px 5px;
 }
 
 .panel p {

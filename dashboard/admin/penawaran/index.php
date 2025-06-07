@@ -77,7 +77,7 @@ if (isset($_GET['hapus'])) {
                 ?>
 
                 <?php
-                $querySelect = "SELECT * FROM penawaran";
+                $querySelect = "SELECT * FROM penawaran ORDER BY id_penawaran DESC";
                 $sql = mysqli_query($conn, $querySelect);
                 ?>
 
@@ -109,7 +109,7 @@ if (isset($_GET['hapus'])) {
                                 $status = "<i class='fas fa-check'></i> Disetujui";
                                 echo 'row-green';
                             } elseif ($result['status_penawaran'] == 'Terbit Baru') {
-                                $status = "<i class='fas fa-envelope'></i> Terbit Baru";
+                                $status = "<i class='fas fa-envelope'></i> Terbit Baru (Pasca Negosiasi)";
                                 echo 'row-blue';
                             }
                             else {
@@ -117,18 +117,19 @@ if (isset($_GET['hapus'])) {
                                 echo 'row-blue';
                             }
                             ?>
-                            " <?php //echo $result['status_penawaran'] == 'Disetujui' ? 'colspan="2"' : ''; 
-                                ?> style="text-align: center;"><?= $status ?></td>
+                            " style="text-align: center; width: 15%"><?= $status ?></td>
 
                             <?php if ($result['status_penawaran'] != in_array($result['status_penawaran'], ['Disetujui', 'Terbit Baru'])) : ?>
                                 <td class="action">
-                                    <a href="kelola/?no=<?= $result['no_pesanan'] ?>&edit=1" class="btn edit"><i class="fas fa-pen-to-square"></i></a>
+                                    <a href="kelola/?id=<?= $result['id_penawaran'] ?>&edit=1" class="btn edit"><i class="fas fa-pen-to-square"></i></a>
                                     <a href="./?hapus=<?= $result['id_penawaran'] ?>&no=<?= $result['no_pesanan'] ?>" class="btn hapus"><i class="fas fa-trash"></i></a>
                                 </td>
 
-                            <?php else :
-                                echo '<td style="text-align: center;"> - </td>';
-                            endif;
+                            <?php else : ?>
+                                <td style="text-align: center;">
+                                    <a href="kelola/?id=<?= $result['id_penawaran'] ?>&edit=1 " class="btn edit"><i class="fas fa-pen-to-square"></i> Edit</a>
+                                </td>
+                            <?php endif;
                             ?>
                         </tr>
                     <?php } ?>
@@ -142,7 +143,7 @@ if (isset($_GET['hapus'])) {
         </div>
     </main>
 
-    <script src="/bengkel-wahyu-putra/assets/js/main.js"></script>
+    <script src="/bengkel-wahyu-putra/assets/js/script.js"></script>
     <script>
         document.getElementById('addOffer').addEventListener('click', function(e) {
             e.preventDefault();

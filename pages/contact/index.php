@@ -88,6 +88,6 @@ if(isset($_POST['submit_pesan'])){
     <!-- FOOTER -->
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/footer.php"; ?>
     <!-- FOOTER END -->
-    <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/script.js"></script>
 </body>
 </html>

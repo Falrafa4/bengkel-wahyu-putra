@@ -104,7 +104,7 @@
         </form>
     </main>
 
-    <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/script.js"></script>
 
     <script> 
         //Script For Validate Form DAFTAR
@@ -155,20 +155,6 @@
                 msgPass.style.color = "red";
             }
         })
-
-        // onchange event untuk input jenis akun
-        function inputPT() {
-            const jenis = document.getElementById('jenis_akun').value;
-            const perusahaan = document.getElementById('perusahaan');
-
-            perusahaan.style.display = 'none';
-
-            if (jenis === 'Perusahaan') {
-                perusahaan.style.display = 'block';
-            } else if (jenis === 'Pribadi') {
-                perusahaan.style.display = 'none';
-            }
-        }
     </script>
 </body>
 </html>

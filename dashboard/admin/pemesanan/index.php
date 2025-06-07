@@ -106,7 +106,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/s
         </div>
     </main>
 
-    <script src="/bengkel-wahyu-putra/assets/js/main.js"></script>
+    <script src="/bengkel-wahyu-putra/assets/js/script.js"></script>
     <script>
         document.querySelectorAll('.btn.hapus').forEach(button => {
             button.addEventListener('click', function(e) {

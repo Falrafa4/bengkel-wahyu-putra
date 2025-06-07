@@ -149,7 +149,7 @@ if (isset($_POST['aksi'])) {
         </section>
     </main>
 
-    <script src="/bengkel-wahyu-putra/assets/js/main.js"></script>
+    <script src="/bengkel-wahyu-putra/assets/js/script.js"></script>
 </body>
 
 </html>

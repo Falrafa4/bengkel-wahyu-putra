@@ -92,7 +92,7 @@ if (isset($_POST['aksi'])) {
                 <input type="hidden" name="id_service" value="<?= $id_service ?>" id="id_service">
                 <div class="input-box">
                     <label for="jalan">Nama Service </label>
-                    <input type="text" disabled name="nama_service" id="jalan" placeholder="Ex: Bubut" value="<?= $nama_service ?>" required>
+                    <input type="text" readonly name="nama_service" id="jalan" placeholder="Ex: Bubut" value="<?= $nama_service ?>" required>
                 </div>
                 <div class="input-box">
                     <label for="gambar_jasa">Gambar Jasa </label>
@@ -118,7 +118,7 @@ if (isset($_POST['aksi'])) {
         </section>
     </main>
 
-    <script src="/bengkel-wahyu-putra/assets/js/main.js"></script>
+    <script src="/bengkel-wahyu-putra/assets/js/script.js"></script>
 </body>
 
 </html>

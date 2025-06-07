@@ -1,95 +1,100 @@
-<?php 
-    session_start();
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/session_admin.php";
-    
-    if(isset($_POST['aksi']) || isset($_GET['ubah'])) {
-        require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functions.php";
-    }
+<?php
+session_start();
+require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/session_admin.php";
 
-    $id_pelanggan = '';
-    $nama_pelanggan = '';
-    $email = '';
-    $no_telp = '';
-    $jenis_akun = '';
-    $role = '';
-    $pesan = '';
+if (isset($_POST['aksi']) || isset($_GET['ubah'])) {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functions.php";
+}
 
-    if(isset($_GET['ubah'])){
-        $id_pelanggan = $_GET['ubah'];
+$id_pelanggan = '';
+$nama_pelanggan = '';
+$email = '';
+$no_telp = '';
+$jenis_akun = '';
+$nama_perusahaan = '';
+$role = '';
+$pesan = '';
 
-        //query SELECT untuk memasukkan data ke dalam form => untuk diedit
-        $query = "SELECT * FROM pelanggan WHERE id_pelanggan = '$id_pelanggan';";
-        $sql = mysqli_query($conn, $query);
-        $result = mysqli_fetch_assoc($sql);
+if (isset($_GET['ubah'])) {
+    $id_pelanggan = $_GET['ubah'];
 
-        //data di bawah akan diletakkan pada tiap input-an
-        $id_pelanggan = $result['id_pelanggan'];
-        $email = $result['email'];
-        $nama_pelanggan = $result['nama_pelanggan'];
-        $no_telp = $result['no_telp'];
-        $jenis_akun = $result['jenis_akun'];
-        $role = $result['role'];
-    }
+    //query SELECT untuk memasukkan data ke dalam form => untuk diedit
+    $query = "SELECT * FROM pelanggan WHERE id_pelanggan = '$id_pelanggan';";
+    $sql = mysqli_query($conn, $query);
+    $result = mysqli_fetch_assoc($sql);
 
-    if(isset($_POST['aksi'])) {
-        // CREATE DATA
-        if($_POST['aksi'] == 'add'){
-            $password = $_POST['pass_pelanggan'];
-            $nama_pelanggan =$_POST['nama_pelanggan'];
-            $email = $_POST['email'];
-            $no_telp = $_POST['no_telp'];
-            $jenis_akun = $_POST['jenis_akun'];
-            $role = $_POST['role'];
+    //data di bawah akan diletakkan pada tiap input-an
+    $id_pelanggan = $result['id_pelanggan'];
+    $email = $result['email'];
+    $nama_pelanggan = $result['nama_pelanggan'];
+    $no_telp = $result['no_telp'];
+    $jenis_akun = $result['jenis_akun'];
+    $nama_perusahaan = $result['nama_perusahaan'] ?? null;
+    $role = $result['role'];
+}
 
-            if(empty($password) || empty($nama_pelanggan) || empty($email) || empty($no_telp)) {
-                $pesan = "Data ada yang kosong! Harap diisi!";
-            }
+if (isset($_POST['aksi'])) {
+    // CREATE DATA
+    if ($_POST['aksi'] == 'add') {
+        $password = $_POST['pass_pelanggan'];
+        $nama_pelanggan = $_POST['nama_pelanggan'];
+        $email = $_POST['email'];
+        $no_telp = $_POST['no_telp'];
+        $jenis_akun = $_POST['jenis_akun'];
+        $nama_perusahaan = $_POST['nama_perusahaan'] ?? null;
+        $role = $_POST['role'];
 
-            if(empty($pesan)) {
-                if(insertPelanggan($conn, $password, $nama_pelanggan, $email, $no_telp, $jenis_akun, $role)) {
-                    $_SESSION['eksekusi'] = "Data Berhasil Ditambahkan!";
-                    header("location: ../");
-                } else {
-                    echo $stmt->execute();
-                }
-            }
+        if (empty($password) || empty($nama_pelanggan) || empty($email) || empty($no_telp)) {
+            $pesan = "Data ada yang kosong! Harap diisi!";
         }
 
-        // UPDATE DATA
-        if($_POST['aksi'] == 'edit') {
-            $id_pelanggan = $_POST['id_pelanggan'];
-            $nama_pelanggan = $_POST['nama_pelanggan'];
-            $email = $_POST['email'];
-            $no_telp = $_POST['no_telp'];
-            $jenis_akun = $_POST['jenis_akun'];
-            $role = $_POST['role'];
-
-            if(isset($_POST['pass_pelanggan'])) {
-                $password = $_POST['pass_pelanggan'];
-                if(!updatePassword($conn, $id_pelanggan, $password)) {
-                    die('Terdapat kesalahan. Coba lagi nanti!');
-                }
-            }
-
-            if(updatePelanggan($conn, $nama_pelanggan, $email, $no_telp, $jenis_akun, $role, $id_pelanggan)) {
-                $_SESSION['eksekusi'] = "Data Berhasil Diubah!";
+        if (empty($pesan)) {
+            if (insertPelanggan($conn, $password, $nama_pelanggan, $email, $no_telp, $jenis_akun, $nama_perusahaan, $role)) {
+                $_SESSION['eksekusi'] = "Data Berhasil Ditambahkan!";
                 header("location: ../");
             } else {
-                die('Terjadi kesalahan saat update data :(');
+                echo $stmt->execute();
             }
         }
     }
+
+    // UPDATE DATA
+    if ($_POST['aksi'] == 'edit') {
+        $id_pelanggan = $_POST['id_pelanggan'];
+        $nama_pelanggan = $_POST['nama_pelanggan'];
+        $email = $_POST['email'];
+        $no_telp = $_POST['no_telp'];
+        $jenis_akun = $_POST['jenis_akun'];
+        $nama_perusahaan = $_POST['nama_perusahaan'] ?? null;
+        $role = $_POST['role'];
+
+        if (isset($_POST['pass_pelanggan'])) {
+            $password = $_POST['pass_pelanggan'];
+            if (!updatePassword($conn, $id_pelanggan, $password)) {
+                die('Terdapat kesalahan. Coba lagi nanti!');
+            }
+        }
+
+        if (updatePelanggan($conn, $nama_pelanggan, $email, $no_telp, $jenis_akun, $nama_perusahaan, $role, $id_pelanggan)) {
+            $_SESSION['eksekusi'] = "Data Berhasil Diubah!";
+            header("location: ../");
+        } else {
+            die('Terjadi kesalahan saat update data :(');
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../../../assets/css/global.css">
     <link rel="stylesheet" href="../../../../assets/css/kelola.css">
     <link rel="shortcut icon" href="../../../../assets/img/logo-wp-circle.png">
-    
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="/bengkel-wahyu-putra/assets/fontawesome/css/all.css">
 
@@ -107,11 +112,15 @@
             <form action="index.php" method="POST">
                 <h1>
                     <?= isset($_GET['ubah']) ? "Edit Data Pelanggan" : "Tambah Data Pelanggan" ?>
-                </h1><hr>
+                </h1>
+                <hr>
                 <span style="color: red; font-style:italic;"><?= $pesan ?></span>
-    
+
                 <input type="hidden" value="<?= $id_pelanggan ?>" name="id_pelanggan">
                 <div class="input-box">
+                    <?php 
+                    $nama_pelanggan = $result['nama_pelanggan'] ?? '';
+                    ?>
                     <label for="nama">Nama Pelanggan </label>
                     <input type="text" name="nama_pelanggan" id="nama" placeholder="Ex: Rafa Asad" value="<?= $nama_pelanggan ?>" required>
                 </div>
@@ -122,7 +131,9 @@
                 <div class="input-box">
                     <label for="pass_user"><?= isset($_GET['ubah']) ? "Change Password (Optional)" : "New Password" ?></label>
                     <span><i class="fas fa-eye-slash" id="eye" onclick="openPass(eye)"></i></span>
-                    <input type="password" name="pass_pelanggan" id="pass_user" <?php if(!isset($_GET['ubah'])) {echo "required";} ?>>
+                    <input type="password" name="pass_pelanggan" id="pass_user" <?php if (!isset($_GET['ubah'])) {
+                                                                                    echo "required";
+                                                                                } ?>>
                 </div>
                 <div class="input-box">
                     <label for="notelp">No. Telepon </label>
@@ -130,25 +141,37 @@
                 </div>
                 <div class="input-box">
                     <label for="jenis_akun">Jenis Akun </label>
-                    <select name="jenis_akun" id="jenis_akun" required>
-                        <option value="Pribadi" <?php if($jenis_akun == 'Pribadi') {echo "selected";}?>>Pribadi</option>
-                        <option value="Perusahaan" <?php if($jenis_akun == 'Perusahaan') {echo "selected";}?>>Perusahaan</option>
+                    <select name="jenis_akun" id="jenis_akun" onchange="inputPT()" required>
+                        <option value="Pribadi" <?php if ($jenis_akun == 'Pribadi') {
+                                                    echo "selected";
+                                                } ?>>Pribadi</option>
+                        <option value="Perusahaan" <?php if ($jenis_akun == 'Perusahaan') {
+                                                        echo "selected";
+                                                    } ?>>Perusahaan</option>
                     </select>
+                </div>
+                <div class="input-box" id="perusahaan" style="display: none;">
+                    <label for="inputPerusahaan">Nama Perusahaan</label>
+                    <input type="text" name="nama_perusahaan" id="inputPerusahaan" value="<?= $nama_perusahaan ?>" required disabled>
                 </div>
                 <div class="input-box">
                     <label for="role">Role </label>
                     <select name="role" id="role" required>
-                        <option value="User" <?php if($role == 'User') {echo "selected";}?>>User</option>
-                        <option value="Admin" <?php if($role == 'Admin') {echo "selected";}?>>Admin</option>
+                        <option value="User" <?php if ($role == 'User') {
+                                                    echo "selected";
+                                                } ?>>User</option>
+                        <option value="Admin" <?php if ($role == 'Admin') {
+                                                    echo "selected";
+                                                } ?>>Admin</option>
                     </select>
                 </div>
-                <?php 
-                if(isset($_GET['ubah'])){ ?>
+                <?php
+                if (isset($_GET['ubah'])) { ?>
                     <button type="submit" name="aksi" value="edit" class="btn-kelola update">
                         <i class="fa-solid fa-floppy-disk"></i>
                         Simpan Perubahan
                     </button>
-                <?php } else {?>
+                <?php } else { ?>
                     <button type="submit" name="aksi" value="add" class="btn-kelola update">
                         <i class="fa-solid fa-floppy-disk"></i>
                         Tambahkan
@@ -162,6 +185,16 @@
         </section>
     </main>
 
-    <script src="/bengkel-wahyu-putra/assets/js/main.js"></script>
+    <script src="/bengkel-wahyu-putra/assets/js/script.js"></script>
+    <script>
+        const jenis = document.getElementById('jenis_akun').value;
+        const perusahaan = document.getElementById('perusahaan');
+
+        if (jenis === 'Perusahaan') {
+            perusahaan.style.display = 'flex';
+            document.getElementById('inputPerusahaan').removeAttribute('disabled');
+        }
+    </script>
 </body>
+
 </html>

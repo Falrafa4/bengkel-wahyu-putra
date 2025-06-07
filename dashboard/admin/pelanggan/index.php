@@ -63,8 +63,11 @@ if (isset($_GET['hapus'])) {
                     <?php while ($result = mysqli_fetch_assoc($sql)) { ?>
                         <div class="card">
                             <h2><?= $result['nama_pelanggan']; ?></h2>
-                            <p><i class="fas fa-phone"></i> <?= $result['no_telp']; ?></p>
-                            <p><i class="fas fa-envelope"></i> <?= $result['email']; ?></p>
+                            <p><i class="fas fa-phone fa-sm"></i> <?= $result['no_telp']; ?></p>
+                            <p><i class="fas fa-envelope fa-sm"></i> <?= $result['email']; ?></p>
+                            <?php if($result['jenis_akun'] == 'Perusahaan') : ?>
+                                <p><i class="fas fa-industry fa-sm"></i> <?= $result['nama_perusahaan']; ?></p>
+                            <?php endif; ?>
                             <em class="role <?= $result['role']; ?>"><?= $result['role']; ?></em>
                             <em class="type <?= $result['jenis_akun']; ?>"><?= $result['jenis_akun']; ?></em>
 
@@ -106,7 +109,7 @@ if (isset($_GET['hapus'])) {
     </main>
 
     <script src="https://kit.fontawesome.com/ed13b1bb03.js" crossorigin="anonymous"></script>
-    <script src="/bengkel-wahyu-putra/assets/js/main.js"></script>
+    <script src="/bengkel-wahyu-putra/assets/js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>

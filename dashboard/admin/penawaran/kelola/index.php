@@ -12,13 +12,13 @@ $tgl_penawaran = '';
 $status_penawaran = '';
 $pesan = '';
 
-if (isset($_GET['edit'])) {
-    $no_pesanan = $_GET['no'];
+if (isset($_GET['edit']) || isset($_GET['status'])) {
+    $id_penawaran = $_GET['id'];
 
     //query SELECT untuk memasukkan data ke dalam form => untuk diedit
-    $query = "SELECT * FROM penawaran WHERE no_pesanan = ?;";
+    $query = "SELECT * FROM penawaran WHERE id_penawaran = ?;";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param('i', $no_pesanan);
+    $stmt->bind_param('i', $id_penawaran);
     $stmt->execute();
     $result = $stmt->get_result();
     $result = $result->fetch_assoc();
@@ -66,6 +66,8 @@ if (isset($_POST['aksi'])) {
 
     // UPDATE DATA
     if ($_POST['aksi'] == 'edit') {
+        $status_penawaran = $_POST['status_penawaran'];
+
         $stmt = $conn->prepare("SELECT * FROM penawaran WHERE id_penawaran = ?");
         $stmt->bind_param('i', $id_penawaran);
         $stmt->execute();
@@ -99,12 +101,25 @@ if (isset($_POST['aksi'])) {
             }
         }
 
-        if (updatePenawaran($conn, $no_pesanan, $surat_baru, $harga, $id_penawaran)) {
+        if (updatePenawaran($conn, $no_pesanan, $surat_baru, $harga, $id_penawaran) && updateStatusPenawaran($conn, $status_penawaran, $id_penawaran)) {
             $_SESSION['eksekusi'] = "Penawaran Berhasil Diedit!";
             header("Location: ../");
         } else {
             die("Gagal mengubah data penawaran :(");
         }
+    }
+}
+
+if (isset($_POST['edit_status'])) {
+    $id_penawaran = $_POST['id_penawaran'];
+    $status_penawaran = $_POST['status_penawaran'];
+    // var_dump($_POST);
+    // die();
+    if (updateStatusPenawaran($conn, $status_penawaran, $id_penawaran)) {
+        $_SESSION['eksekusi'] = "Status Penawaran Berhasil Diubah!";
+        header("location: ../");
+    } else {
+        die("Gagal mengubah status");
     }
 }
 ?>
@@ -131,62 +146,95 @@ if (isset($_POST['aksi'])) {
     <!-- NAVBAR -->
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/nav.php"; ?>
 
-    <?php
-    if(!isset($_GET['no'])) {
-    echo '<script>
-    Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Nomor Pesanan tidak valid!",
-    }).then((result) => {
-    if (result.isConfirmed) {
-        window.location.href = "../";
-    }
-    });
-    </script>';
-    die();
-    }
-    ?>
-
     <main>
         <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/admin/aside.php"; ?>
 
         <section class="content">
-            <form action="./?no=<?= $_GET['no'] ?>" method="POST" enctype="multipart/form-data">
-                <h1>
-                    <?= isset($_GET['edit']) ? "Edit Penawaran" : "Buat Penawaran" ?>
-                </h1>
-                <hr>
-                <span style="color: red; font-style:italic;"><?= $pesan ?></span>
 
-                <input type="hidden" name="id_penawaran" value="<?= $id_penawaran ?>" id="id_penawaran">
-                <input type="hidden" name="no_pesanan" value="<?= $no_pesanan ?>" id="no_pesanan">
-                <div class="input-box">
-                    <label for="nama">No Pesanan </label>
-                    <select name="no_pesanan" id="no_pesanan">
-                        <?php $result = $conn->query("SELECT * FROM pemesanan");
-                        while ($row = $result->fetch_assoc()) {
-                        ?>
-                            <option value="<?= $row['no_pesanan'] ?>" <?= ($no_pesanan == $row['no_pesanan'] || (isset($_GET['no']) && $_GET['no'] == $row['no_pesanan'])) ? 'selected' : '' ?>>
-                                <?= $row['no_pesanan'] ?>
-                            </option>
-                        <?php } ?>
-                    </select>
-                </div>
-                <div class="input-box">
-                    <label for="harga">
-                        Tulis Harga<br>
-                        <em>Harga dari surat</em>
-                    </label>
-                    <input type="number" name="harga" id="harga" accept=".pdf, .jpg, .jpeg, .png" value="<?= $harga ?>" required>
-                </div>
-                <div class="input-box">
-                    <label for="surat_penawaran">Surat Penawaran </label>
-                    <input type="file" name="surat_penawaran" id="surat_penawaran" accept=".pdf, .jpg, .jpeg, .png" <?= isset($_GET['edit']) ? '' : 'required' ?>>
-                </div>
+            <?php if (isset($_GET['no'])) : ?>
+                <form action="./?no=<?= $_GET['no'] ?>" method="POST" enctype="multipart/form-data">
+                    <h1>Buat Penawaran</h1>
+                    <hr>
+                    <span style="color: red; font-style:italic;"><?= $pesan ?></span>
 
-                <?php
-                if (isset($_GET['edit'])) { ?>
+                    <input type="hidden" name="id_penawaran" value="<?= $id_penawaran ?>" id="id_penawaran">
+                    <div class="input-box">
+                        <label for="nama">No Pesanan </label>
+                        <select name="no_pesanan" id="no_pesanan">
+                            <?php $result = $conn->query("SELECT * FROM pemesanan");
+                            while ($row = $result->fetch_assoc()) {
+                            ?>
+                                <option value="<?= $row['no_pesanan'] ?>" <?= ($no_pesanan == $row['no_pesanan'] || (isset($_GET['no']) && $_GET['no'] == $row['no_pesanan'])) ? 'selected' : '' ?>>
+                                    <?= $row['no_pesanan'] ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="input-box">
+                        <label for="harga">
+                            Tulis Harga<br>
+                            <em>Harga dari surat</em>
+                        </label>
+                        <input type="number" name="harga" id="harga" accept=".pdf, .jpg, .jpeg, .png" value="<?= $harga ?>" required>
+                    </div>
+                    <div class="input-box">
+                        <label for="surat_penawaran">Surat Penawaran </label>
+                        <input type="file" name="surat_penawaran" id="surat_penawaran" accept=".pdf, .jpg, .jpeg, .png" required>
+                    </div>
+
+                    <button type="submit" name="aksi" value="add" class="btn-kelola update">
+                        <i class="fa-solid fa-floppy-disk"></i>
+                        Tambahkan
+                    </button>
+                    <a href="../../pemesanan/#<?= $_GET['no'] - 1 ?>" class="btn-kelola back">
+                        <i class="fas fa-reply"></i>
+                        Batal
+                    </a>
+                </form>
+
+            <?php elseif (isset($_GET['id']) && isset($_GET['edit'])) : ?>
+                <form action="./?id=<?= $_GET['id'] ?>&edit=1" method="POST" enctype="multipart/form-data">
+                    <h1>Edit Penawaran</h1>
+                    <hr>
+                    <span style="color: red; font-style:italic;"><?= $pesan ?></span>
+
+                    <div class="input-box">
+                        <label for="id_penawaran">ID Penawaran</label>
+                        <input type="text" name="id_penawaran" id="id_penawaran" value="<?= $id_penawaran ?>" readonly>
+                    </div>
+                    <div class="input-box">
+                        <label for="nama">No Pesanan </label>
+                        <select name="no_pesanan" id="no_pesanan">
+                            <?php $result = $conn->query("SELECT * FROM pemesanan");
+                            while ($row = $result->fetch_assoc()) {
+                            ?>
+                                <option value="<?= $row['no_pesanan'] ?>" <?= ($no_pesanan == $row['no_pesanan'] || (isset($_GET['no']) && $_GET['no'] == $row['no_pesanan'])) ? 'selected' : '' ?>>
+                                    <?= $row['no_pesanan'] ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="input-box">
+                        <label for="harga">
+                            Tulis Harga<br>
+                            <em>Harga dari surat</em>
+                        </label>
+                        <input type="number" name="harga" id="harga" accept=".pdf, .jpg, .jpeg, .png" value="<?= $harga ?>" required>
+                    </div>
+                    <div class="input-box">
+                        <label for="surat_penawaran">Surat Penawaran </label>
+                        <input type="file" name="surat_penawaran" id="surat_penawaran" accept=".pdf, .jpg, .jpeg, .png">
+                    </div>
+                    <div class="input-box">
+                        <label for="status_penawaran">Status Penawaran</label>
+                        <select name="status_penawaran" id="status_penawaran">
+                            <option value="1" <?= $status_penawaran == 'Diterbitkan' ? 'selected' : '' ?>>Diterbitkan</option>
+                            <option value="2" <?= $status_penawaran == 'Negosiasi' ? 'selected' : '' ?>>Negosiasi</option>
+                            <option value="3" <?= $status_penawaran == 'Disetujui' ? 'selected' : '' ?>>Disetujui</option>
+                            <option value="4" <?= $status_penawaran == 'Terbit Baru' ? 'selected' : '' ?>>Terbit Baru (Setelah Negosiasi)</option>
+                        </select>
+                    </div>
+
                     <button type="submit" name="aksi" value="edit" class="btn-kelola update">
                         <i class="fa-solid fa-floppy-disk"></i>
                         Simpan Perubahan
@@ -195,22 +243,60 @@ if (isset($_POST['aksi'])) {
                         <i class="fas fa-reply"></i>
                         Batal
                     </a>
-                <?php } else { ?>
-                    <button type="submit" name="aksi" value="add" class="btn-kelola update">
+                </form>
+
+            <?php elseif (isset($_GET['id']) && isset($_GET['status'])) : ?>
+                <form action="./?id=<?= $_GET['id'] ?>&status=1" method="post">
+                    <h1>Edit Status Penawaran</h1>
+                    <hr>
+                    <div class="input-box">
+                        <label for="id_penawaran">ID Penawaran</label>
+                        <input type="text" name="id_penawaran" id="id_penawaran" value="<?= $id_penawaran ?>" readonly>
+                    </div>
+                    <div class="input-box">
+                        <label for="nama">No Pesanan </label>
+                        <input type="text" name="no_pesanan" id="no_pesanan" value="<?= $no_pesanan ?>" readonly>
+                    </div>
+                    <div class="input-box">
+                        <label for="status_penawaran">Status Penawaran</label>
+                        <select name="status_penawaran" id="status_penawaran">
+                            <option value="1" <?= $status_penawaran == 'Diterbitkan' ? 'selected' : '' ?>>Diterbitkan</option>
+                            <option value="2" <?= $status_penawaran == 'Negosiasi' ? 'selected' : '' ?>>Negosiasi</option>
+                            <option value="3" <?= $status_penawaran == 'Disetujui' ? 'selected' : '' ?>>Disetujui</option>
+                            <option value="4" <?= $status_penawaran == 'Terbit Baru' ? 'selected' : '' ?>>Terbit Baru (Setelah Negosiasi)</option>
+                        </select>
+                    </div>
+                    <button type="submit" name="edit_status" class="btn-kelola update">
                         <i class="fa-solid fa-floppy-disk"></i>
-                        Tambahkan
+                        Simpan Perubahan
                     </button>
-                    <a href="../../pemesanan/" class="btn-kelola back">
+                    <a href="../" class="btn-kelola back">
                         <i class="fas fa-reply"></i>
                         Batal
                     </a>
-                <?php } ?>
+                </form>
 
-            </form>
+            <?php
+            else :
+                echo '<script>
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "ID Penawaran/No Pesanan dan status tidak valid!",
+        }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "../";
+        }
+        });
+        </script>';
+                die();
+            endif;
+            ?>
+
         </section>
     </main>
 
-    <script src="/bengkel-wahyu-putra/assets/js/main.js"></script>
+    <script src="/bengkel-wahyu-putra/assets/js/script.js"></script>
 </body>
 
 </html>

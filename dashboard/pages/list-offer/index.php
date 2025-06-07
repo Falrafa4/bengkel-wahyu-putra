@@ -192,7 +192,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
         </section>
     </main>
 
-    <script src="../../../assets/js/main.js"></script>
+    <script src="../../../assets/js/script.js"></script>
     <script>
         // download surat
         function download(url) {

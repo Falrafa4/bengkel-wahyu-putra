@@ -28,9 +28,8 @@
 
         <div class="container-crud">
             <section class="daftar-crud">
-                <h1>Daftar Services</h1>
+                <h1>Daftar Layanan</h1>
                 <hr>
-                <!-- <a href="kelola/" class="btn-add"><i class="fas fa-plus"></i> Tambah Data</a> -->
         
                 <?php if(isset($_SESSION['eksekusi'])) {?>
                 <div class="success-update">
@@ -70,7 +69,7 @@
         </div>
     </main>
 
-    <script src="/bengkel-wahyu-putra/assets/js/main.js"></script>
+    <script src="/bengkel-wahyu-putra/assets/js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
 

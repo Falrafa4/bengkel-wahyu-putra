@@ -147,7 +147,7 @@ JOIN pemesanan ps ON ps.no_pesanan = pw.no_pesanan";
         </div>
     </main>
 
-    <script src="/bengkel-wahyu-putra/assets/js/main.js"></script>
+    <script src="/bengkel-wahyu-putra/assets/js/script.js"></script>
     <script>
         // untuk menampilkan modal
         function modalAktif(idNegosiasi, noPesanan, idPenawaran) {

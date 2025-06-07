@@ -201,7 +201,7 @@
         </section>
     </main>
 
-    <script src="../../../assets/js/main.js"></script>
+    <script src="../../../assets/js/script.js"></script>
     <script>
         const form1 = document.getElementById('form1');
         const form2 = document.getElementById('form2');

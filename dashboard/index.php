@@ -169,7 +169,7 @@ if ($result_notif->num_rows > 0) {
         </section>
     </main>
 
-    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/script.js"></script>
     <script>
         const notifText = document.querySelectorAll('.notif-text');
         notifText.forEach(notif => {

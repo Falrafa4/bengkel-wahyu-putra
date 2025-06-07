@@ -207,7 +207,7 @@ $row = $result->fetch_assoc();
         </section>
     </main>
 
-    <script src="../../../assets/js/main.js"></script>
+    <script src="../../../assets/js/script.js"></script>
     <script>
         let bank;
         const input = document.querySelectorAll("input[type='radio']");

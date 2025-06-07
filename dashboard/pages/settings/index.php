@@ -83,9 +83,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
             $pw_old = $_POST['pw_old'];
             $pw_new = $_POST['pw_new'];
             $repeat_pw = $_POST['repeat_pw'];
-    
+
             $pw_from_db = getPassword($conn, $_SESSION['data']['email']);
-    
+
             if (password_verify($pw_old, $pw_from_db)) {
                 if (updatePassword($conn, $_SESSION['data']['id_pelanggan'], $pw_new)) {
                     echo '
@@ -156,7 +156,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
                         <tr>
                             <td class="info">Jenis Akun</td>
                             <td class="data">
-                                <select name="jenis_akun" id="jenis_akun" <?= $_SESSION['data']['jenis_akun'] == 'Pribadi' ? 'onchange="inputPT()"' : '' ?>>
+                                <select name="jenis_akun" id="jenis_akun" onchange="inputPT()">
                                     <option value="Pribadi" <?php if ($_SESSION['data']['jenis_akun'] == "Pribadi") {
                                                                 echo "selected";
                                                             } ?>>Pribadi</option>
@@ -168,16 +168,16 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
                         </tr>
                         <?php
                         if ($_SESSION['data']['jenis_akun'] == 'Perusahaan') { ?>
-                            <tr>
+                            <!-- <tr>
                                 <td class="info">Nama Perusahaan</td>
                                 <td class="data"><input type="text" name="nama_perusahaan" value="<?= $_SESSION['data']['nama_perusahaan'] ?>"></td>
-                            </tr>
+                            </tr> -->
                         <?php } else { ?>
-                            <tr id="perusahaan" style="display: none;">
-                                <td class="info">Nama Perusahaan</td>
-                                <td class="data"><input type="text" name="nama_perusahaan" id="inputPerusahaan" required disabled></td>
-                            </tr>
-                        <?php } ?>
+                            <?php } ?>
+                        <tr id="perusahaan" style="display: none;">
+                            <td class="info">Nama Perusahaan</td>
+                            <td class="data"><input type="text" name="nama_perusahaan" id="inputPerusahaan" value="<?= $_SESSION['data']['nama_perusahaan'] ?? null ?>" required disabled></td>
+                        </tr>
                         <tr>
                             <td class="button"><button type="submit" name="update_profil"><i class="fas fa-pen-to-square"></i> Update Profil</button></td>
                         </tr>
@@ -215,7 +215,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
         </div>
     </main>
 
-    <script src="../../../assets/js/main.js"></script>
+    <script src="../../../assets/js/script.js"></script>
     <script>
         const pw_old = document.getElementById('pw-old');
         const pw_new = document.getElementById('pw-new');
@@ -282,8 +282,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
         function inputPT() {
             const jenis = document.getElementById('jenis_akun').value;
             const perusahaan = document.getElementById('perusahaan');
-
             perusahaan.style.display = 'none';
+            console.log(jenis);
 
             if (jenis === 'Perusahaan') {
                 perusahaan.style.display = 'block';
@@ -292,7 +292,14 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
                 perusahaan.style.display = 'none';
                 document.getElementById('inputPerusahaan').setAttribute('disabled', false);
             }
+        }
 
+        const jenis = document.getElementById('jenis_akun').value;
+        const perusahaan = document.getElementById('perusahaan');
+
+        if (jenis === 'Perusahaan') {
+            perusahaan.style.display = 'block';
+            document.getElementById('inputPerusahaan').removeAttribute('disabled');
         }
     </script>
 
