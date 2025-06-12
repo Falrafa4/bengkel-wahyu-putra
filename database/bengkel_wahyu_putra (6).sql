@@ -3,9 +3,10 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 05, 2025 at 01:37 AM
+-- Generation Time: Jun 13, 2025 at 01:11 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
+-- DATABASE NAME: bengkel_wahyu_putra
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -43,7 +44,8 @@ CREATE TABLE `negosiasi_penawaran` (
 --
 
 INSERT INTO `negosiasi_penawaran` (`id_negosiasi`, `id_penawaran`, `waktu_negosiasi`, `jenis_negosiasi`, `harga_tawaran`, `estimasi_tawaran`, `catatan`, `status_negosiasi`) VALUES
-(1, 2, '2025-05-21 20:16:22', 'Lainnya', NULL, NULL, 'Jangan sampai terlalu lama hingga 6 bulan', 'Diterbitkan Penawaran Baru');
+(1, 2, '2025-05-21 20:16:22', 'Lainnya', NULL, NULL, 'Jangan sampai terlalu lama hingga 6 bulan', 'Diterbitkan Penawaran Baru'),
+(2, 8, '2025-06-10 07:39:58', 'Harga', 10000000, NULL, 'kalau bisa harganya direndahkan', 'Diterbitkan Penawaran Baru');
 
 -- --------------------------------------------------------
 
@@ -70,13 +72,14 @@ CREATE TABLE `pelanggan` (
 INSERT INTO `pelanggan` (`id_pelanggan`, `password`, `nama_pelanggan`, `email`, `tgl_daftar`, `no_telp`, `jenis_akun`, `nama_perusahaan`, `role`) VALUES
 (1, '$2y$10$Md82Ex9bBZDhofzBkItCPOPr6clHR6i7Bu6SwZRPX06EsCJaK18U2', 'Administrator', 'admin@gmail.com', '2025-02-03 11:04:56', '081234567890', 'Pribadi', NULL, 'Admin'),
 (2, '$2y$10$BL7yEN8QoLjl2zRcNizyi.pxWoiPudZP/6pxWvuLorD6pvoOoyr02', 'Budi Santosoo', 'budi1@gmail.com', '2025-01-14 14:52:27', '081234567890', 'Pribadi', NULL, 'User'),
-(3, '$2y$10$RfzpfnsIFP9x22ATQ3ycSOfmRiAO.IOuNAbaPGEQaCKaEbqpYc5BG', 'Muhammad Naufal Rafa Al As\'ad', 'falrafa@gmail.com', '2025-01-08 10:13:37', '081234567890', 'Pribadi', '', 'User'),
+(3, '$2y$10$RfzpfnsIFP9x22ATQ3ycSOfmRiAO.IOuNAbaPGEQaCKaEbqpYc5BG', 'Muhammad Naufal Rafa Al As\'ad', 'falrafa@gmail.com', '2025-01-08 10:13:37', '081234567890', 'Pribadi', NULL, 'User'),
 (4, '$2y$10$RfXeERISlbh/VF36WtIL5eAYbkn6HDGTehwdixLOWXa6qG9.TYE.O', 'Mu\'anam', 'muanamanam21@gmail.com', '2025-02-11 09:48:00', '081234567891', 'Pribadi', NULL, 'User'),
 (5, '$2y$10$0ZmQXomMvKqbYUOKXmlFVOnzgezl/9SEGjtX4aaSyd56sBsnJ/d0O', 'Dafa', 'dafafahri@gmail.com', '2025-01-14 14:58:29', '081234567890', 'Perusahaan', 'PT. Bahagia', 'User'),
-(6, '$2y$10$6gJc5vUD4AcfXBH6I5otauLUGNSBHbF7RQIZiz00ykOJr7uvVvTdi', 'Naufal Rafa', 'rafaasad9@gmail.com', '2025-04-08 20:01:52', '081201192', 'Perusahaan', 'PT. Karya Usaha', 'User'),
+(6, '$2y$10$nQJlccGkeE17G3BDGV0ROefu9nRW9LtV9.A/h0hny0gWEM2uHmMXi', 'Naufal Rafa', 'rafaasad9@gmail.com', '2025-04-08 20:01:52', '081201192', 'Pribadi', NULL, 'User'),
 (7, '$2y$10$yW6hhmn5A1SDLvoTK5kwM.ktZXerUNhTELSxCW8Ubu3Gir/7ZgIcW', 'Gibran Rakabuming Raka', 'fufufafa@gmail.com', '2025-04-10 20:05:28', '089125547981', 'Perusahaan', 'PT. Indonesia', 'User'),
 (9, '$2y$10$x0MTrtvS6XuW8OdnsSz0neFFk6jgrFD4IDHG5GJCxPfPITKJx0ECO', 'Nabil Aswangga Hugobama', 'Bamaground@gmail.com', '2025-05-19 09:22:00', '08973440335', 'Pribadi', NULL, 'User'),
-(11, '$2y$10$Lw.tWVJ4F1aRC73r/rQs5eul8ky2qwrhZpFBVwTYqBHZ55yJC5iEe', 'Muhamad Dafa Al Fachri', 'dafafachri17@gmail.com', '2025-05-30 13:33:34', '089012229988', 'Perusahaan', 'PT. Sejahtera', 'User');
+(11, '$2y$10$Lw.tWVJ4F1aRC73r/rQs5eul8ky2qwrhZpFBVwTYqBHZ55yJC5iEe', 'Muhamad Dafa Al Fachri', 'dafafachri17@gmail.com', '2025-05-30 13:33:34', '089012229988', 'Perusahaan', 'PT. Sejahtera', 'User'),
+(12, '$2y$10$/m7S4kgdVuNgHJpMgLpX3O6Im/IJtvovHvk.RKmTGHLZR7nELYzPi', 'Muhamad Dafa Al Fachri', 'dafa@gmail.com', '2025-06-10 07:36:07', '081234567890', 'Pribadi', '', 'User');
 
 -- --------------------------------------------------------
 
@@ -102,7 +105,8 @@ INSERT INTO `pembayaran` (`id_pembayaran`, `no_pesanan`, `metode_pembayaran`, `t
 (1, 11, 'BCA', 15000000, '2025-05-29 19:58:22', 'bukti_11_683859eecc631.png', 'Lunas'),
 (2, 13, 'BCA', 10000000, '2025-05-29 20:10:19', 'bukti_13_68385cbba7aab.jpg', 'Lunas'),
 (3, 7, 'Mandiri', 3400000, '2025-05-30 21:19:08', 'bukti_7_6839be5caaa60.png', 'Lunas'),
-(4, 3, 'Mandiri', 15050000, '2025-06-02 17:21:17', 'bukti_3_683d7b1dda6ec.png', 'Lunas');
+(4, 3, 'Mandiri', 15050000, '2025-06-02 17:21:17', 'bukti_3_683d7b1dda6ec.png', 'Lunas'),
+(5, 15, 'Mandiri', 10000000, '2025-06-10 07:44:23', 'bukti_15_68477fe7510a9.jpg', 'Lunas');
 
 -- --------------------------------------------------------
 
@@ -121,6 +125,7 @@ CREATE TABLE `pemesanan` (
   `kode_pos` char(5) NOT NULL,
   `detail` varchar(50) DEFAULT NULL,
   `id_service` int(11) NOT NULL,
+  `estimasi` date DEFAULT NULL,
   `status_pesanan` enum('Menunggu Penawaran','Penawaran Diterbitkan','Negosiasi Penawaran','Dalam Proses','Menunggu Pembayaran','Konfirmasi Pembayaran','Selesai') NOT NULL DEFAULT 'Menunggu Penawaran'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -128,21 +133,24 @@ CREATE TABLE `pemesanan` (
 -- Dumping data for table `pemesanan`
 --
 
-INSERT INTO `pemesanan` (`no_pesanan`, `id_pelanggan`, `waktu_pemesanan`, `nama_jalan`, `kecamatan`, `kabupaten_kota`, `provinsi`, `kode_pos`, `detail`, `id_service`, `status_pesanan`) VALUES
-(1, 7, '2025-03-14 00:00:00', 'Jl. S. Parman Waru', 'Waru', 'Sidoarjo', 'Jawa Timur', '61256', 'Depan warung biru', 1, 'Menunggu Penawaran'),
-(2, 2, '2025-03-14 00:01:00', 'Perumahan', 'Waru', 'Sidoarjo', 'Jawa Timur', '61256', 'Depan warung biru', 1, 'Menunggu Penawaran'),
-(3, 3, '2025-03-16 06:00:00', 'Jl. Jenggolo', 'Sidoarjo', 'Sidoarjo', 'Jawa Timur', '61256', NULL, 1, 'Konfirmasi Pembayaran'),
-(4, 4, '2025-03-16 07:00:00', 'Kavling Mentari III', 'Waru', 'Sidoarjo', 'Jawa Timur', '61256', 'Sebelah toko sembako', 2, 'Menunggu Penawaran'),
-(5, 5, '2025-03-16 08:00:00', 'Jl. Berbek III A no. 43', 'Waru', 'Sidoarjo', 'Jawa Timur', '61256', 'Rumah tingkat', 2, 'Menunggu Penawaran'),
-(6, 4, '2025-03-18 16:43:17', 'Jl. Lingkar Timur', 'Buduran', 'Sidoarjo', 'Jawa Timur', '61252', NULL, 1, 'Menunggu Penawaran'),
-(7, 3, '2025-04-02 20:32:29', 'Jalan abc', 'b', 'c', 'd', '12345', 'e', 1, 'Selesai'),
-(8, 3, '2025-04-02 20:35:32', 'Jalan Layang', 'Layang', 'c', 'd', '12345', 'e', 1, 'Menunggu Penawaran'),
-(9, 6, '2025-04-08 20:03:44', 'Jl. sidoarjo', 'Waru', 'Sidoarjo', 'Jawa Timur', '61256', 'Depan tikungan', 1, 'Menunggu Penawaran'),
-(10, 7, '2025-04-17 11:14:39', 'Jl. sidoarjo', 'Waru', 'Sidoarjo', 'Jawa Timur', '12345', 'Depan tikungan', 2, 'Menunggu Penawaran'),
-(11, 3, '2025-05-03 14:26:43', 'Perumahan Waru', 'Waru', 'Sidoarjo', 'Jawa Timur', '61251', 'Blok A6 No. 6', 2, 'Selesai'),
-(12, 2, '2025-05-13 20:23:54', 'Jalan Pecantingan', 'Sidoarjo', 'Sidoarjo', 'Jawa Timur', '12345', 'Tempat di sekolah', 1, 'Penawaran Diterbitkan'),
-(13, 3, '2025-05-29 20:01:52', 'Perumahan Grand Indah Land Jaya Regency Mansion Graha', 'Waru', 'Sidoarjo', 'Jawa Timur', '61215', '-', 2, 'Selesai'),
-(14, 11, '2025-05-30 14:05:40', 'Juanda Mansion E/21', 'Sedati', 'Sidoarjo', 'Jawa Timur', '61253', 'Sedati Pedalaman', 2, 'Menunggu Penawaran');
+INSERT INTO `pemesanan` (`no_pesanan`, `id_pelanggan`, `waktu_pemesanan`, `nama_jalan`, `kecamatan`, `kabupaten_kota`, `provinsi`, `kode_pos`, `detail`, `id_service`, `estimasi`, `status_pesanan`) VALUES
+(1, 7, '2025-03-14 00:00:00', 'Jl. S. Parman Waru', 'Waru', 'Sidoarjo', 'Jawa Timur', '61256', 'Depan warung biru', 1, NULL, 'Penawaran Diterbitkan'),
+(2, 2, '2025-03-14 00:01:00', 'Perumahan', 'Waru', 'Sidoarjo', 'Jawa Timur', '61256', 'Depan warung biru', 1, NULL, 'Menunggu Penawaran'),
+(3, 3, '2025-03-16 06:00:00', 'Jl. Jenggolo', 'Sidoarjo', 'Sidoarjo', 'Jawa Timur', '61256', NULL, 1, '2025-06-11', 'Selesai'),
+(4, 4, '2025-03-16 07:00:00', 'Kavling Mentari III', 'Waru', 'Sidoarjo', 'Jawa Timur', '61256', 'Sebelah toko sembako', 2, NULL, 'Menunggu Penawaran'),
+(5, 5, '2025-03-16 08:00:00', 'Jl. Berbek III A no. 43', 'Waru', 'Sidoarjo', 'Jawa Timur', '61256', 'Rumah tingkat', 2, NULL, 'Menunggu Penawaran'),
+(6, 4, '2025-03-18 16:43:17', 'Jl. Lingkar Timur', 'Buduran', 'Sidoarjo', 'Jawa Timur', '61252', NULL, 1, NULL, 'Menunggu Penawaran'),
+(7, 3, '2025-04-02 20:32:29', 'Jalan abc', 'b', 'c', 'd', '12345', 'e', 1, '2025-06-11', 'Menunggu Pembayaran'),
+(8, 3, '2025-04-02 20:35:32', 'Jalan Layang', 'Layang', 'c', 'd', '12345', 'e', 1, NULL, 'Penawaran Diterbitkan'),
+(9, 6, '2025-04-08 20:03:44', 'Jl. sidoarjo', 'Waru', 'Sidoarjo', 'Jawa Timur', '61256', 'Depan tikungan', 1, NULL, 'Menunggu Penawaran'),
+(10, 7, '2025-04-17 11:14:39', 'Jl. sidoarjo', 'Waru', 'Sidoarjo', 'Jawa Timur', '12345', 'Depan tikungan', 2, NULL, 'Menunggu Penawaran'),
+(11, 3, '2025-05-03 14:26:43', 'Perumahan Waru', 'Waru', 'Sidoarjo', 'Jawa Timur', '61251', 'Blok A6 No. 6', 2, '2025-06-11', 'Selesai'),
+(12, 2, '2025-05-13 20:23:54', 'Jalan Pecantingan', 'Sidoarjo', 'Sidoarjo', 'Jawa Timur', '12345', 'Tempat di sekolah', 1, NULL, 'Penawaran Diterbitkan'),
+(13, 3, '2025-05-29 20:01:52', 'Perumahan Grand Indah Land Jaya Regency Mansion Graha', 'Waru', 'Sidoarjo', 'Jawa Timur', '61215', '-', 2, NULL, 'Menunggu Penawaran'),
+(14, 11, '2025-05-30 14:05:40', 'Juanda Mansion E/21', 'Sedati', 'Sidoarjo', 'Jawa Timur', '61253', 'Sedati Pedalaman', 2, NULL, 'Menunggu Penawaran'),
+(15, 12, '2025-06-10 07:38:06', 'Perumahan Grand Indah Land Jaya Regency Mansion Graha', 'Waru', 'Sidoarjo', 'Jawa Timur', '61215', 'Depan warung biru', 2, '2025-06-11', 'Selesai'),
+(16, 3, '2025-06-11 09:42:46', 'TES JALAN', 'TES KECAMATAN', 'TES KOTA', 'JAWA', '12345', 'HALOOO', 1, '2025-07-11', 'Dalam Proses'),
+(17, 7, '2025-06-12 06:56:54', 'Jl. S. Parman Waru', 'Waru', 'Sidoarjo', 'Jawa Timur', '61215', 'Blok A6 No. 6', 2, NULL, 'Menunggu Penawaran');
 
 -- --------------------------------------------------------
 
@@ -169,15 +177,18 @@ INSERT INTO `pemesanan_item` (`id_item`, `no_pesanan`, `nama_item`, `desain_gamb
 (3, 3, 'Logo Galon', '3.jpg', 'Nonlogam', 1),
 (4, 4, 'Roda gigi', '4.jpg', 'Besi', 4),
 (5, 5, 'Cetakan sapu', '5.jpg', 'Besi/Aluminium', 3),
-(6, 6, 'Ambatubut', '6.png', 'Besi', 1),
+(6, 6, 'Bubut Besi', '6.png', 'Besi', 1),
 (7, 7, 'diamond', '7.pdf', 'Alam', 5),
-(8, 8, 'Ambatubut', '8.png', 'Besi', 1),
-(9, 9, 'Ambatuling', '9.png', 'Besi', 3),
+(8, 8, 'Bubut Besi', '8.png', 'Besi', 1),
+(9, 9, 'miling', '9.png', 'Besi', 3),
 (10, 10, 'Potong EDM', '10.pdf', 'Aluminium', 1),
 (11, 11, 'Testing', '11.jpg', 'Logam', 2),
 (12, 12, 'Logo ALQADIRI', '12.jpg', 'Logam', 2),
 (13, 13, 'Matras 30mm', '13.pdf', 'Aluminium', 1),
-(14, 14, 'Embos Alfamaret', '14.jpg', 'Logam', 2);
+(14, 14, 'Embos Alfamaret', '14.jpg', 'Logam', 2),
+(15, 15, 'Sparepart Mesin', '15.pdf', 'Besi', 5),
+(16, 16, 'TES PENAWARAN', '16.jpg', 'TES MATERIAL', 1),
+(17, 17, '<img src=\"https://www.google.c', '17.jpg', '<img src=\"https://ww', 3);
 
 -- --------------------------------------------------------
 
@@ -189,7 +200,8 @@ CREATE TABLE `penawaran` (
   `id_penawaran` int(11) NOT NULL,
   `no_pesanan` int(11) NOT NULL,
   `surat_penawaran` varchar(500) NOT NULL,
-  `harga` int(11) NOT NULL,
+  `harga_penawaran` int(11) NOT NULL,
+  `estimasi_penawaran` date NOT NULL,
   `tgl_penawaran` date NOT NULL DEFAULT curdate(),
   `waktu_penawaran` time NOT NULL DEFAULT curtime(),
   `status_penawaran` enum('Diterbitkan','Negosiasi','Disetujui','Terbit Baru') NOT NULL DEFAULT 'Diterbitkan'
@@ -199,13 +211,18 @@ CREATE TABLE `penawaran` (
 -- Dumping data for table `penawaran`
 --
 
-INSERT INTO `penawaran` (`id_penawaran`, `no_pesanan`, `surat_penawaran`, `harga`, `tgl_penawaran`, `waktu_penawaran`, `status_penawaran`) VALUES
-(1, 3, 'spwp_1748600650.jpg', 15050000, '2025-05-01', '20:10:31', 'Disetujui'),
-(2, 7, 'spwp_1748080432.pdf', 5000000, '2025-05-01', '20:10:31', 'Terbit Baru'),
-(3, 11, '1747623324.jpg', 15000000, '2025-05-18', '20:10:31', 'Disetujui'),
-(4, 12, 'spwp_1748080192.pdf', 22000000, '2025-05-19', '20:10:31', 'Diterbitkan'),
-(5, 13, '1748523756.jpg', 10000000, '2025-05-29', '20:02:36', 'Disetujui'),
-(7, 7, 'spwp_1748612502.pdf', 3400000, '2025-05-30', '20:41:42', 'Disetujui');
+INSERT INTO `penawaran` (`id_penawaran`, `no_pesanan`, `surat_penawaran`, `harga_penawaran`, `estimasi_penawaran`, `tgl_penawaran`, `waktu_penawaran`, `status_penawaran`) VALUES
+(1, 3, 'spwp_1748600650.jpg', 15050000, '2025-06-10', '2025-05-30', '20:10:31', 'Disetujui'),
+(2, 7, 'spwp_1748080432.pdf', 5000000, '2025-06-10', '2025-05-30', '20:10:31', 'Terbit Baru'),
+(3, 11, '1747623324.jpg', 15000000, '2025-06-10', '2025-05-30', '20:10:31', 'Disetujui'),
+(4, 12, 'spwp_1748080192.pdf', 22000000, '2025-06-10', '2025-05-30', '20:10:31', 'Diterbitkan'),
+(5, 13, '1748523756.jpg', 10000000, '2025-06-10', '2025-06-10', '20:02:36', 'Disetujui'),
+(7, 7, 'spwp_1748612502.pdf', 3400000, '2025-06-10', '2025-06-10', '20:41:42', 'Disetujui'),
+(8, 15, 'spwp_1749515947.jpg', 12000000, '2025-06-10', '2025-06-10', '07:39:07', 'Terbit Baru'),
+(9, 15, 'spwp_1749516033.jpg', 10000000, '2025-06-10', '2025-06-10', '07:40:33', 'Disetujui'),
+(10, 8, 'spwp_1749523557.pdf', 30000000, '2025-06-10', '2025-06-10', '09:45:57', 'Diterbitkan'),
+(11, 1, 'spwp_1749564877.jpg', 10000000, '2025-06-17', '2025-06-10', '21:14:37', 'Diterbitkan'),
+(12, 16, 'spwp_1749610368.jpg', 36000000, '2025-07-11', '2025-06-11', '09:52:48', 'Disetujui');
 
 -- --------------------------------------------------------
 
@@ -287,37 +304,37 @@ ALTER TABLE `service`
 -- AUTO_INCREMENT for table `negosiasi_penawaran`
 --
 ALTER TABLE `negosiasi_penawaran`
-  MODIFY `id_negosiasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_negosiasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `pelanggan`
 --
 ALTER TABLE `pelanggan`
-  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  MODIFY `no_pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `no_pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `pemesanan_item`
 --
 ALTER TABLE `pemesanan_item`
-  MODIFY `id_item` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_item` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `penawaran`
 --
 ALTER TABLE `penawaran`
-  MODIFY `id_penawaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_penawaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `service`
