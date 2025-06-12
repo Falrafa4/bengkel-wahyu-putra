@@ -29,25 +29,30 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
     <!-- NAVBAR END -->
 
     <?php
-    if (isset($_GET['id']) && isset($_GET['no'])) {
+    if (isset($_GET['id']) && isset($_GET['no']) && isset($_GET['estimasi'])) {
         // Acc pesanan dengan mengubah status penawaran dan pesanan
         $id_penawaran = $_GET['id'];
         $no_pesanan = $_GET['no'];
+        $estimasi = $_GET['estimasi'];
 
         if (updateStatusPenawaran($conn, 3, $id_penawaran)) {
-            if(updateStatusPesanan($conn, $no_pesanan, 4)) {
-                echo '<script>Swal.fire({
-                    title: "Berhasil!",
-                    text: "Surat Penawaran diterima! Terima kasih atas kepercayaan Anda",
-                    icon: "success",
-                    confirmButtonText: "OK"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = "./";
-                    }
-                });</script>';
+            if (addEstimasi($conn, $no_pesanan, $estimasi)) {
+                if(updateStatusPesanan($conn, $no_pesanan, 4)) {
+                    echo '<script>Swal.fire({
+                        title: "Berhasil!",
+                        text: "Surat Penawaran diterima! Terima kasih atas kepercayaan Anda",
+                        icon: "success",
+                        confirmButtonText: "OK"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "./";
+                        }
+                    });</script>';
+                } else {
+                    die("Gagal mengubah status pesanan.");
+                }
             } else {
-                die("Gagal mengubah status pesanan.");
+                die("Gagal mengupdate estimasi waktu");
             }
         } else {
             die("Gagal mengubah status penawaran");
@@ -99,9 +104,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
                     <thead>
                         <tr>
                             <th style="width: 10%;">No Pesanan</th>
-                            <th style="width: 15%;">Status Penawaran</th>
-                            <th style="width: 15%;">Tanggal Terbit</th>
-                            <th>Surat Penawaran</th>
+                            <th>Status</th>
+                            <th>Tgl Terbit</th>
+                            <th>Harga Tawaran</th>
+                            <th>Estimasi Tawaran</th>
+                            <th style="width: 25%;">Surat Penawaran</th>
                             <th style="width: 20%;">Aksi</th>
                         </tr>
                     </thead>
@@ -113,6 +120,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
                                 <td><a href="../my-order/detail/?detail=<?= $row['no_pesanan'] ?>"><?= $row['nomor_pesanan'] ?></a></td>
                                 <td><?= $row['status_penawaran'] ?></td>
                                 <td><?= $row['tgl_penawaran'] ?></td>
+                                <td>Rp<?= number_format($row['harga_penawaran'], 0, ',', '.') ?></td>
+                                <td><?= date('d M Y', strtotime($row['estimasi_penawaran'])) ?></td>
                                 <td>
                                     <iframe src="../../../uploads/penawaran/<?= $row['surat_penawaran'] ?>" frameborder="0" width="100%"></iframe>
                                     <button onclick="download('../../../uploads/penawaran/<?= $row['surat_penawaran'] ?>')">
@@ -138,7 +147,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
                                     <?php elseif ($row['status_penawaran'] == 'Terbit Baru') : ?>
                                         <i class="fas fa-envelope"></i> Diterbitkan Penawaran Baru
                                     <?php else : ?>
-                                        <button class="agree" data-id="<?= $row['id_penawaran'] ?>" data-no="<?= $row['no_pesanan'] ?>" data-nomor="<?= $row['nomor_pesanan'] ?>">
+                                        <button class="agree" data-id="<?= $row['id_penawaran'] ?>" data-no="<?= $row['no_pesanan'] ?>" data-estimasi="<?= $row['estimasi_penawaran'] ?>" data-nomor="<?= $row['nomor_pesanan'] ?>">
                                             <i class="fas fa-check"></i> Setuju
                                         </button>
                                         <button type="button" class="warning nego" data-no="<?= $row['no_pesanan'] ?>" onclick="modalAktif('<?= $row['nomor_pesanan'] ?>','<?= $row['id_penawaran'] ?>','<?= $row['no_pesanan'] ?>')">
@@ -225,7 +234,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
         document.querySelectorAll('.agree').forEach(agree => {
             const idPenawaran = agree.dataset.id;
             const noPesanan = agree.dataset.no;
+            const estimasi = agree.dataset.estimasi;
             const nomor = agree.dataset.nomor;
+
+            console.log(estimasi);
             agree.addEventListener('click', function() {
                 Swal.fire({
                     title: "Konfirmasi",
@@ -238,7 +250,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
                     cancelButtonText: "Batal"
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = './?id=' + encodeURIComponent(idPenawaran) + '&no=' + encodeURIComponent(noPesanan);
+                        window.location.href = './?id=' + encodeURIComponent(idPenawaran) + '&no=' + encodeURIComponent(noPesanan) + '&estimasi=' + encodeURIComponent(estimasi);
                     }
                 });
             });

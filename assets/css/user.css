@@ -85,8 +85,8 @@ main {
     border-radius: 5px;
 }
 
-.notif-text:hover {
-    cursor: pointer;
+.notif-text a {
+    color: black;
 }
 
 .riwayat-notif {
@@ -426,7 +426,7 @@ form button:hover,
 }
 
 .daftarPesanan table tr:hover {
-    background-color: #e8e8e8;
+    background-color: #f5f5f5;
 }
 
 .daftarPesanan table .fas {
@@ -627,7 +627,7 @@ form button:hover,
 
 /* STYLE DAFTAR PENAWARAN */
 .offer table td {
-    padding: 20px;
+    padding: 10px;
 }
 
 .offer button {

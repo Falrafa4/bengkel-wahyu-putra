@@ -21,7 +21,7 @@ $result_riwayat = $stmt->get_result();
 $notif = "SELECT *, CONCAT('WP', LPAD(ps.no_pesanan, 5, '0')) AS nomor_pesanan, DATE_FORMAT(pw.tgl_penawaran, '%d-%m-%Y') as tgl_penawaran
             FROM penawaran pw
             JOIN pemesanan ps ON ps.no_pesanan = pw.no_pesanan
-            WHERE ps.id_pelanggan = ? AND pw.status_penawaran IN ('Diterbitkan', 'Menunggu Pembayaran')
+            WHERE ps.id_pelanggan = ? AND (pw.status_penawaran = 'Diterbitkan' OR ps.status_pesanan = 'Menunggu Pembayaran') AND NOT pw.status_penawaran = 'Terbit Baru'
             ORDER BY pw.tgl_penawaran DESC;";
 $stmt_notif = $conn->prepare($notif);
 $stmt_notif->bind_param('i', $_SESSION['data']['id_pelanggan']);
@@ -34,7 +34,19 @@ if ($result_notif->num_rows > 0) {
     $notifText = [];
 
     while ($row = $result_notif->fetch_assoc()) {
-        $notifText[] = $row['tgl_penawaran'] . " - Anda mendapatkan surat penawaran untuk <strong>Nomor Pesanan " . $row['nomor_pesanan'] . "</strong>";
+        switch ($row['status_pesanan']) {
+            case 'Penawaran Diterbitkan':
+                $notifText[] = "<p class='notif-text'><i class='fas fa-envelope fa-sm'></i> <a href='pages/list-offer/'> {$row['tgl_penawaran']} - Anda mendapatkan surat penawaran untuk <strong>Nomor Pesanan {$row['nomor_pesanan']}</strong></a></p>";
+                break;
+
+            case 'Menunggu Pembayaran':
+                $notifText[] = "<p class='notif-text'><i class='fas fa-receipt fa-sm'></i> <a href='pages/my-order/#" . $row['no_pesanan'] . "'> {$row['tgl_penawaran']} - <strong>Nomor Pesanan {$row['nomor_pesanan']}</strong> telah selesai dikerjakan. Harap segera membayar untuk menyelesaikan pesanan!</a></p>";
+                break;
+            
+            default:
+                $notifText[] = "<p class='notif-text'>{$row['tgl_penawaran']} - Pesanan dengan status {$row['status_pesanan']}</p>";
+                break;
+        }
         $notif[] = $row;
 
         $_SESSION['notif'] = $row;
@@ -43,8 +55,6 @@ if ($result_notif->num_rows > 0) {
     $notifText = [];
     $_SESSION['notif'] = [];
 }
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -153,10 +163,10 @@ if ($result_notif->num_rows > 0) {
                     </div>
                 </div>
                 <div class="notif">
-                    <h2>Notifikasi Penawaran</h2>
+                    <h2>Notifikasi</h2>
                     <hr>
                     <?php foreach ($notifText as $notif) : ?>
-                        <p class="notif-text"><?= $notif ?></p>
+                        <?= $notif ?>
                     <?php endforeach;
 
                     if ($notifText == []): ?>
@@ -171,12 +181,12 @@ if ($result_notif->num_rows > 0) {
 
     <script src="../assets/js/script.js"></script>
     <script>
-        const notifText = document.querySelectorAll('.notif-text');
-        notifText.forEach(notif => {
-            notif.addEventListener('click', function() {
-                window.location.href = "pages/list-offer/";
-            })
-        });
+        // const notifText = document.querySelectorAll('.notif-text');
+        // notifText.forEach(notif => {
+        //     notif.addEventListener('click', function() {
+        //         window.location.href = "pages/list-offer/";
+        //     })
+        // });
     </script>
 </body>
 

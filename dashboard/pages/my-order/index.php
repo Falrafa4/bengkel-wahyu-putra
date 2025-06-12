@@ -9,7 +9,8 @@ $query = "SELECT *, CONCAT('WP', LPAD(p.no_pesanan, 5, '0')) AS nomor_pesanan, p
     ON p.id_service = s.id_service
     JOIN pemesanan_item pi
     ON p.no_pesanan = pi.no_pesanan
-    WHERE id_pelanggan = ?;";
+    WHERE id_pelanggan = ?
+    ORDER BY p.no_pesanan DESC;";
 
 $stmt = $conn->prepare($query);
 $stmt->bind_param('i', $_SESSION['data']['id_pelanggan']);
@@ -33,7 +34,8 @@ if (isset($_POST['search'])) {
     FROM pemesanan p
     JOIN service s ON p.id_service = s.id_service
     JOIN pemesanan_item pi ON p.no_pesanan = pi.no_pesanan
-    WHERE id_pelanggan = ? AND (CONCAT_WS(' ', p.no_pesanan, pi.nama_item, p.nama_jalan, p.kecamatan, p.kabupaten_kota, p.provinsi, p.kode_pos, p.status_pesanan)LIKE ?);";
+    WHERE id_pelanggan = ? AND (CONCAT_WS(' ', p.no_pesanan, pi.nama_item, p.nama_jalan, p.kecamatan, p.kabupaten_kota, p.provinsi, p.kode_pos, p.status_pesanan) LIKE ?)
+    ORDER BY p.no_pesanan DESC;";
 
     $stmt = $conn->prepare($query);
     $stmt->bind_param('is', $_SESSION['data']['id_pelanggan'], $keyword);
@@ -93,6 +95,7 @@ if (isset($_POST['search'])) {
                             <th style="width: 10%">Nama Item</th>
                             <th style="width: 30%;">Desain Gambar</th>
                             <th>Alamat</th>
+                            <th>Estimasi</th>
                             <th style="width: 10%;">Status</th>
                             <th style="width: 10%;">Aksi</th>
                         </tr>
@@ -100,7 +103,7 @@ if (isset($_POST['search'])) {
                     <tbody>
                         <?php foreach ($pesanan as $row) { ?>
                             <tr>
-                                <td><?= $row['nomor_pesanan'] ?></td>
+                                <td id="<?= $row['no_pesanan'] ?>"><?= $row['nomor_pesanan'] ?></td>
                                 <td><?= $row['nama_item'] ?></td>
                                 <td>
                                     <?php
@@ -115,6 +118,19 @@ if (isset($_POST['search'])) {
                                     <?php } ?>
                                 </td>
                                 <td style="text-align: left;"><?= $row['alamat_lengkap'] ?></td>
+                                <td>
+                                    <?php 
+                                    if(!is_null($row['estimasi'])) {
+                                        echo date('d M Y', strtotime($row['estimasi']));
+                                    } elseif($row['status_pesanan'] == 'Menunggu Penawaran') {
+                                        echo '<em>Menunggu Penawaran</em>';
+                                    } elseif($row['status_pesanan'] == 'Penawaran Diterbitkan') {
+                                        echo '<em>Menunggu Persetujuan</em>';
+                                    } elseif($row['status_pesanan'] == 'Negosiasi Penawaran') {
+                                        echo '<em>-</em>';
+                                    }
+                                    ?>
+                                </td>
                                 <td style="font-weight: bold;
                                 <?php
                                 if ($row['status_pesanan'] == 'Menunggu Penawaran' || $row['status_pesanan'] == 'Konfirmasi Pembayaran') {

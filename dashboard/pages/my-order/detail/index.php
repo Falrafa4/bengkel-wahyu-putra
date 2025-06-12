@@ -105,6 +105,10 @@ if (isset($_GET['detail'])) {
                                 <td><?= $result['status_pesanan'] ?></td>
                             </tr>
                             <tr>
+                                <th>Estimasi Selesai</th>
+                                <td><?= date('d M Y', strtotime($result['estimasi'])) ?></td>
+                            </tr>
+                            <tr>
                                 <th>Keterangan</th>
                                 <td>
                                     <?php 

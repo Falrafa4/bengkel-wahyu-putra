@@ -6,8 +6,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
 
 $id_penawaran = '';
 $no_pesanan = '';
-$harga = '';
-$estimasi = '';
+$harga_penawaran = '';
+$estimasi_penawaran = '';
 $tgl_penawaran = '';
 $status_penawaran = '';
 $pesan = '';
@@ -26,8 +26,8 @@ if (isset($_GET['edit']) || isset($_GET['status'])) {
     //data di bawah akan diletakkan pada tiap input-an
     $id_penawaran = $result['id_penawaran'];
     $no_pesanan = $result['no_pesanan'];
-    $harga = $result['harga'];
-    // $estimasi = $result['estimasi'];
+    $harga_penawaran = $result['harga_penawaran'];
+    $estimasi_penawaran = $result['estimasi_penawaran'];
     $tgl_penawaran = $result['tgl_penawaran'];
     $status_penawaran = $result['status_penawaran'];
 }
@@ -35,7 +35,8 @@ if (isset($_GET['edit']) || isset($_GET['status'])) {
 if (isset($_POST['aksi'])) {
     $id_penawaran = $_POST['id_penawaran'];
     $no_pesanan = $_POST['no_pesanan'];
-    $harga = $_POST['harga'];
+    $harga_penawaran = $_POST['harga_penawaran'];
+    $estimasi_penawaran = $_POST['estimasi_penawaran'];
     $surat_penawaran = $_FILES['surat_penawaran']['name'];
 
     // CREATE DATA
@@ -53,7 +54,7 @@ if (isset($_POST['aksi'])) {
 
             move_uploaded_file($from, $to);
 
-            if (insertPenawaran($conn, $no_pesanan, $harga, $surat_penawaran)) {
+            if (insertPenawaran($conn, $no_pesanan, $harga_penawaran, $estimasi_penawaran, $surat_penawaran)) {
                 if (updateStatusPesanan($conn, $no_pesanan, 2)) {
                     $_SESSION['eksekusi'] = "Penawaran Berhasil Diterbitkan!";
                     header("location: ../");
@@ -101,7 +102,7 @@ if (isset($_POST['aksi'])) {
             }
         }
 
-        if (updatePenawaran($conn, $no_pesanan, $surat_baru, $harga, $id_penawaran) && updateStatusPenawaran($conn, $status_penawaran, $id_penawaran)) {
+        if (updatePenawaran($conn, $no_pesanan, $surat_baru, $harga_penawaran, $id_penawaran) && updateStatusPenawaran($conn, $status_penawaran, $id_penawaran)) {
             $_SESSION['eksekusi'] = "Penawaran Berhasil Diedit!";
             header("Location: ../");
         } else {
@@ -171,11 +172,14 @@ if (isset($_POST['edit_status'])) {
                         </select>
                     </div>
                     <div class="input-box">
-                        <label for="harga">
-                            Tulis Harga<br>
-                            <em>Harga dari surat</em>
+                        <label for="harga_penawaran">
+                            Harga Penawaran
                         </label>
-                        <input type="number" name="harga" id="harga" accept=".pdf, .jpg, .jpeg, .png" value="<?= $harga ?>" required>
+                        <input type="number" name="harga_penawaran" id="harga_penawaran" accept=".pdf, .jpg, .jpeg, .png" value="<?= $harga_penawaran ?>" required>
+                    </div>
+                    <div class="input-box">
+                        <label for="estimasi_penawaran">Estimasi </label>
+                        <input type="date" name="estimasi_penawaran" id="estimasi_penawaran" required>
                     </div>
                     <div class="input-box">
                         <label for="surat_penawaran">Surat Penawaran </label>
@@ -215,11 +219,16 @@ if (isset($_POST['edit_status'])) {
                         </select>
                     </div>
                     <div class="input-box">
-                        <label for="harga">
-                            Tulis Harga<br>
-                            <em>Harga dari surat</em>
+                        <label for="harga_penawaran">
+                            Harga Penawaran
                         </label>
-                        <input type="number" name="harga" id="harga" accept=".pdf, .jpg, .jpeg, .png" value="<?= $harga ?>" required>
+                        <input type="number" name="harga_penawaran" id="harga_penawaran" accept=".pdf, .jpg, .jpeg, .png" value="<?= $harga_penawaran ?>" required>
+                    </div>
+                    <div class="input-box">
+                        <label for="estimasi_penawaran">
+                            Estimasi Penawaran
+                        </label>
+                        <input type="date" name="estimasi_penawaran" id="estimasi_penawaran" accept=".pdf, .jpg, .jpeg, .png" value="<?= $estimasi_penawaran ?>" required>
                     </div>
                     <div class="input-box">
                         <label for="surat_penawaran">Surat Penawaran </label>

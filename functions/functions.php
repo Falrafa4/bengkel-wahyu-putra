@@ -76,6 +76,16 @@ function deletePemesanan($conn, $no_pesanan) {
     return $result;
 }
 
+function addEstimasi($conn, $no_pesanan, $estimasi) {
+    $query = 'UPDATE pemesanan SET estimasi = ? WHERE no_pesanan = ?';
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('si', $estimasi, $no_pesanan);
+
+    $result = $stmt->execute();
+    $stmt->close();
+    return $result;
+}
+
 // PEMESANAN ITEM
 function insertPemesananItem($conn, $no_pesanan, $nama_item, $desain_gambar, $material, $jumlah_item) {
     $query = 'INSERT INTO pemesanan_item (no_pesanan, nama_item, desain_gambar, material, jumlah_item)
@@ -104,10 +114,10 @@ function getPenawaran($conn, $id_pelanggan) {
     return $result;
 }
 
-function insertPenawaran($conn, $no_pesanan, $harga, $surat_penawaran) {
-    $query = 'INSERT INTO penawaran (no_pesanan, harga, surat_penawaran) VALUES (?, ?, ?)';
+function insertPenawaran($conn, $no_pesanan, $harga, $estimasi, $surat_penawaran) {
+    $query = 'INSERT INTO penawaran (no_pesanan, harga_penawaran, estimasi_penawaran, surat_penawaran) VALUES (?, ?, ?, ?)';
     $stmt = $conn->prepare($query);
-    $stmt->bind_param('iis', $no_pesanan, $harga, $surat_penawaran);
+    $stmt->bind_param('iiss', $no_pesanan, $harga, $estimasi, $surat_penawaran);
     
     $result = $stmt->execute();
     $stmt->close();
