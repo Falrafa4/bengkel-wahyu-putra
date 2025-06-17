@@ -139,7 +139,10 @@ if (isset($_POST['aksi'])) {
                             <option <?php if($result['status_pesanan'] == 'Menunggu Pembayaran') echo 'selected'; ?> value="5">
                                 Menunggu Pembayaran
                             </option>
-                            <option <?php if($result['status_pesanan'] == 'Selesai') echo 'selected'; ?> value="6">
+                            <option <?php if($result['status_pesanan'] == 'Konfirmasi Pembayaran') echo 'selected'; ?> value="6">
+                                Konfirmasi Pembayaran
+                            </option>
+                            <option <?php if($result['status_pesanan'] == 'Selesai') echo 'selected'; ?> value="7">
                                 Selesai
                             </option>
                         </select>

@@ -131,10 +131,10 @@ $row = $result->fetch_assoc();
 
                         <strong style="font-size: 20px;">Total Bayar</strong>
                         <?php
-                        $rp = number_format($row['harga'], 0, ',', '.')
+                        $rp = number_format($row['harga_penawaran'], 0, ',', '.')
                         ?>
                         <h1>Rp<?= $rp ?></h1>
-                        <input type="hidden" value="<?= $row['harga'] ?>" name="total_bayar" id="total_bayar">
+                        <input type="hidden" value="<?= $row['harga_penawaran'] ?>" name="total_bayar" id="total_bayar">
 
                         <div class="btn" style="margin-top: 20px;">
                             <button type="button" id="next">

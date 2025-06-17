@@ -124,10 +124,10 @@ function insertPenawaran($conn, $no_pesanan, $harga, $estimasi, $surat_penawaran
     return $result;
 }
 
-function updatePenawaran($conn, $no_pesanan, $surat_penawaran, $harga, $id_penawaran) {
-    $query = 'UPDATE penawaran SET no_pesanan = ?, surat_penawaran = ?, harga = ? WHERE id_penawaran = ?';
+function updatePenawaran($conn, $no_pesanan, $surat_penawaran, $harga, $estimasi, $id_penawaran) {
+    $query = 'UPDATE penawaran SET no_pesanan = ?, surat_penawaran = ?, harga_penawaran = ?, estimasi_penawaran = ? WHERE id_penawaran = ?';
     $stmt = $conn->prepare($query);
-    $stmt->bind_param('isii', $no_pesanan, $surat_penawaran, $harga, $id_penawaran);
+    $stmt->bind_param('isisi', $no_pesanan, $surat_penawaran, $harga, $estimasi, $id_penawaran);
 
     $result = $stmt->execute();
     $stmt->close();

@@ -102,7 +102,7 @@ if (isset($_POST['aksi'])) {
             }
         }
 
-        if (updatePenawaran($conn, $no_pesanan, $surat_baru, $harga_penawaran, $id_penawaran) && updateStatusPenawaran($conn, $status_penawaran, $id_penawaran)) {
+        if (updatePenawaran($conn, $no_pesanan, $surat_baru, $harga_penawaran, $estimasi_penawaran, $id_penawaran) && updateStatusPenawaran($conn, $status_penawaran, $id_penawaran)) {
             $_SESSION['eksekusi'] = "Penawaran Berhasil Diedit!";
             header("Location: ../");
         } else {

@@ -10,6 +10,7 @@ if (isset($_POST['negosiasi'])) {
     $id_penawaran = $_POST['id_penawaran'];
     $no_pesanan = $_POST['no_pesanan'];
     $harga = $_POST['harga'];
+    $estimasi = $_POST['estimasi'];
     $surat_penawaran = $_FILES['surat_penawaran']['name'];
 
     if (empty($harga) || empty($surat_penawaran)) {
@@ -25,7 +26,7 @@ if (isset($_POST['negosiasi'])) {
 
         move_uploaded_file($from, $to);
 
-        if (insertPenawaran($conn, $no_pesanan, $harga, $surat_penawaran)) {
+        if (insertPenawaran($conn, $no_pesanan, $harga, $estimasi, $surat_penawaran)) {
             if (updateStatusPesanan($conn, $no_pesanan, 2) && updateStatusNegosiasi($conn, $id_negosiasi, 2) && updateStatusPenawaran($conn, 4, $id_penawaran)) {
                 $_SESSION['eksekusi'] = "Penawaran Berhasil Diterbitkan!";
                 // header("location: ./");
@@ -100,15 +101,19 @@ JOIN pemesanan ps ON ps.no_pesanan = pw.no_pesanan";
                     <?php while ($result = mysqli_fetch_assoc($sql)) { ?>
                         <tr>
                             <td style="text-align: center;"><?= $result['no_pesanan'] ?></td>
-                            <td style="text-align: center;"><?= $result['id_penawaran'] ?></td>
+                            <td style="text-align: center;">
+                                <a class="btn primary" href="../penawaran/#<?= $result['id_penawaran']+1 ?>">
+                                    <?= $result['id_penawaran'] ?>
+                                </a>
+                            </td>
                             <td><?= $result['waktu_negosiasi'] ?></td>
                             <td><?= $result['jenis_negosiasi'] ?></td>
-                            <td><?= $result['harga_tawaran'] ?? '-' ?></td>
+                            <td><?= number_format($result['harga_tawaran'], 0, ',', '.') ?? '-' ?></td>
                             <td><?= $result['estimasi_tawaran'] ?? '-' ?></td>
                             <td><?= $result['catatan'] ?? '-' ?></td>
                             <td class="<?= $result['status_negosiasi'] == 'Menunggu' ? 'row-yellow' : 'row-green' ?>"><?= $result['status_negosiasi'] ?></td>
                             <td class="action">
-                                <a href="./kelola/?edit=<?= $result['id_negosiasi'] ?>" class="btn edit"><i class="fas fa-pen-to-square"></i> Edit</a>
+                                <a href="./kelola/?edit=<?= $result['id_negosiasi'] ?>" class="btn edit" style="display: block; margin-bottom: 5px;"><i class="fas fa-pen-to-square"></i> Edit</a>
 
                                 <?php if($result['status_negosiasi'] == "Menunggu") : ?>
                                 <a class="btn warning" style="display: block; width: fit-content;" onclick="modalAktif(<?= $result['id_negosiasi'] ?>, <?= $result['no_pesanan'] ?>, <?= $result['id_penawaran'] ?>)"><i class="fas fa-envelope"></i> Buat Surat Baru</a>
@@ -132,7 +137,8 @@ JOIN pemesanan ps ON ps.no_pesanan = pw.no_pesanan";
                         <input type="hidden" name="id_penawaran" id="id_penawaran">
                         <input type="hidden" readonly name="no_pesanan" id="no_pesanan">
 
-                        <input type="number" name="harga" id="harga" placeholder="Harga (Dari surat penawaran)">
+                        <input type="number" name="harga" id="harga" placeholder="Harga Penawaran">
+                        <input type="date" name="estimasi" id="estimasi" placeholder="Estimasi Penawaran">
 
                         <div class="input-box">
                             <label for="surat_penawaran" style="margin-bottom: 10px;">Pilih Surat Baru</label>

@@ -87,16 +87,16 @@ if (isset($_GET['hapus'])) {
                         <th>No Pesanan</th>
                         <th>Surat Penawaran</th>
                         <th>Harga</th>
-                        <th>Estimasi</th>
-                        <th>Tgl Penawaran</th>
+                        <th style="width: 15%">Estimasi</th>
+                        <th style="width: 15%">Tgl Penawaran</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
                     <?php while ($result = mysqli_fetch_assoc($sql)) { ?>
                         <tr>
-                            <td><?= $result['id_penawaran'] ?></td>
+                            <td id="<?= $result['id_penawaran'] ?>"><?= $result['id_penawaran'] ?></td>
                             <td><?= $result['no_pesanan'] ?></td>
-                            <td><iframe src="../../../uploads/penawaran/<?= $result['surat_penawaran'] ?>"></iframe></td>
+                            <td><iframe width="250" src="../../../uploads/penawaran/<?= $result['surat_penawaran'] ?>"></iframe></td>
                             <td><?= number_format($result['harga_penawaran'], 0, ',', '.') ?></td>
                             <td><?= $result['estimasi_penawaran'] ?></td>
                             <td><?= $result['tgl_penawaran'] ?></td>

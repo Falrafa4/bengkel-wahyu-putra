@@ -185,7 +185,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
                             </select>
                         </div>
                         <div class="input-box">
-                            <input type="number" name="harga_tawaran" id="harga" placeholder="Harga Tawaran (Isi dengan angka)" style="display: none;">
+                            <input type="number" min="100000" name="harga_tawaran" id="harga" placeholder="Harga Tawaran (Isi dengan angka)" style="display: none;">
                         </div>
                         <div class="input-box">
                             <input type="text" name="estimasi_tawaran" id="estimasi" placeholder="Estimasi Tawaran" style="display: none;">

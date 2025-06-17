@@ -89,12 +89,12 @@
 
             <div class="input-box">
                 <span><i class="fas fa-eye-slash" onclick="openPass(this)"></i></span>
-                <input type="password" minlength="8" name="pass" id="pass" placeholder="Buat Password" required>
+                <input type="password" minlength="6" name="pass" id="pass" placeholder="Buat Password" required>
             </div>
             
             <div class="input-box">
                 <span><i class="fas fa-eye-slash" onclick="openPass(this)"></i></span>
-                <input type="password" name="ulangi_pass" id="ulangi_pass" placeholder="Ulangi Password" required>
+                <input type="password" minlength="6" name="ulangi_pass" id="ulangi_pass" placeholder="Ulangi Password" required>
             </div>
             <p class="msgPass" style="font-size: 14px; margin: 0px 0px 10px 0px; font-style: italic;"></p>
 
