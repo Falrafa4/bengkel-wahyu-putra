@@ -3,7 +3,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-if(!isset($_SESSION['data']['role']) || $_SESSION['data']['role'] !== 'Admin'){
-    header("location: /bengkel-wahyu-putra/auth/login/");
+if (!isset($_SESSION['data']['role']) || $_SESSION['data']['role'] !== 'Admin') {
+    header("location: /auth/login/");
     exit();
 }

@@ -37,7 +37,7 @@ if (isset($_POST['submit_pesanan'])) {
         $desain_gambar = $no_pesanan . '.' . $ekstensi;
 
         $from = $_FILES['desain_gambar']['tmp_name'];
-        $to = $_SERVER['DOCUMENT_ROOT'] . '/bengkel-wahyu-putra/uploads/desain/' . $desain_gambar;
+        $to = $_SERVER['DOCUMENT_ROOT'] . '/uploads/desain/' . $desain_gambar;
 
         move_uploaded_file($from, $to);
 

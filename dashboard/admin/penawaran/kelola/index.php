@@ -50,7 +50,7 @@ if (isset($_POST['aksi'])) {
             $surat_penawaran = 'spwp_' . time() . '.' . $ekstensi;
 
             $from = $_FILES['surat_penawaran']['tmp_name'];
-            $to = $_SERVER['DOCUMENT_ROOT'] . '/bengkel-wahyu-putra/uploads/penawaran/' . $surat_penawaran;
+            $to = $_SERVER['DOCUMENT_ROOT'] . '/uploads/penawaran/' . $surat_penawaran;
 
             move_uploaded_file($from, $to);
 
@@ -79,7 +79,7 @@ if (isset($_POST['aksi'])) {
         if ($_FILES['surat_penawaran']['name'] == '') {
             $surat_baru = $data['surat_penawaran'];
         } else {
-            $path_lama = $_SERVER['DOCUMENT_ROOT'] . '/bengkel-wahyu-putra/uploads/penawaran/' . $data['surat_penawaran'];
+            $path_lama = $_SERVER['DOCUMENT_ROOT'] . '/uploads/penawaran/' . $data['surat_penawaran'];
             if (file_exists($path_lama)) {
                 unlink($path_lama);
             }
@@ -95,7 +95,7 @@ if (isset($_POST['aksi'])) {
             $surat_baru = 'spwp_' . time() . '.' . $ekstensi;
 
             $from = $_FILES['surat_penawaran']['tmp_name'];
-            $to = $_SERVER['DOCUMENT_ROOT'] . '/bengkel-wahyu-putra/uploads/penawaran/' . $surat_baru;
+            $to = $_SERVER['DOCUMENT_ROOT'] . '/uploads/penawaran/' . $surat_baru;
 
             if (!move_uploaded_file($from, $to)) {
                 die("Gagal mengunggah file penawaran baru.");

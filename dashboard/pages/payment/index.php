@@ -57,7 +57,7 @@ $row = $result->fetch_assoc();
 
         if (insertPembayaran($conn, $no_pesanan, $metode, $total_bayar, $bukti_bayar)) {
             $from = $_FILES['bukti']['tmp_name'];
-            $to = $_SERVER['DOCUMENT_ROOT'] . '/bengkel-wahyu-putra/uploads/pembayaran/' . $bukti_bayar;
+            $to = $_SERVER['DOCUMENT_ROOT'] . '/uploads/pembayaran/' . $bukti_bayar;
 
             if (move_uploaded_file($from, $to) && updateStatusPesanan($conn, $no_pesanan, 6)) {
                 echo "<script>

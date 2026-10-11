@@ -45,7 +45,7 @@ if (isset($_POST['aksi'])) {
             $gambar_jasa = $_FILES['gambar_jasa']['name'];
 
             $from = $_FILES['gambar_jasa']['tmp_name'];
-            $to = $_SERVER['DOCUMENT_ROOT'] . '/bengkel-wahyu-putra/assets/img/' . $gambar_jasa;
+            $to = $_SERVER['DOCUMENT_ROOT'] . '/assets/img/' . $gambar_jasa;
 
             move_uploaded_file($from, $to);
 

@@ -16,7 +16,7 @@ if (isset($_GET['hapus'])) {
     $data = $result->fetch_assoc();
 
     if (deletePenawaran($conn, $id_penawaran)) {
-        $path_lama = $_SERVER['DOCUMENT_ROOT'] . '/bengkel-wahyu-putra/uploads/penawaran/' . $data['surat_penawaran'];
+        $path_lama = $_SERVER['DOCUMENT_ROOT'] . '/uploads/penawaran/' . $data['surat_penawaran'];
         if (file_exists($path_lama)) {
             unlink($path_lama);
         }

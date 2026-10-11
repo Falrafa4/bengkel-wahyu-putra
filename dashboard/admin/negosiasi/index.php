@@ -22,7 +22,7 @@ if (isset($_POST['negosiasi'])) {
         $surat_penawaran = 'spwp_' . time() . '.' . $ekstensi;
 
         $from = $_FILES['surat_penawaran']['tmp_name'];
-        $to = $_SERVER['DOCUMENT_ROOT'] . '/bengkel-wahyu-putra/uploads/penawaran/' . $surat_penawaran;
+        $to = $_SERVER['DOCUMENT_ROOT'] . '/uploads/penawaran/' . $surat_penawaran;
 
         move_uploaded_file($from, $to);
 
