@@ -3,6 +3,7 @@ session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,9 +16,10 @@ session_start();
 
     <title>About Us - Bengkel Wahyu Putra</title>
 </head>
+
 <body>
     <!-- NAVBAR -->
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/nav.php"; ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/nav.php"; ?>
     <!-- NAVBAR END -->
 
     <!-- HEADER & BG FOTO -->
@@ -66,8 +68,9 @@ session_start();
     </main>
 
     <!-- FOOTER -->
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/footer.php"; ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/footer.php"; ?>
     <!-- FOOTER END -->
     <script src="../../assets/js/script.js"></script>
 </body>
+
 </html>

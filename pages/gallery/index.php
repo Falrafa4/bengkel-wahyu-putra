@@ -1,27 +1,30 @@
-<?php 
+<?php
 session_start();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../assets/css/global.css">
     <link rel="stylesheet" href="../../assets/css/gallery.css">
     <link rel="shortcut icon" href="../../assets/img/logo-wp-circle.png">
-    
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../../assets/fontawesome/css/all.css">
 
     <title>Gallery - Bengkel Wahyu Putra</title>
 </head>
+
 <body>
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/nav.php"; ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/nav.php"; ?>
 
     <!-- HEADER & BG FOTO -->
     <header>
-        <h1>GALLERY KAMI</h1><hr>
+        <h1>GALLERY KAMI</h1>
+        <hr>
         <p>Berikut ini adalah galeri dari bengkel kami. Temukan hasil kerja terbaik dari kami untuk Anda.</p>
     </header>
     <!-- HEADER & BG FOTO END -->
@@ -48,7 +51,7 @@ session_start();
         </div>
     </main>
 
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/footer.php"; ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/footer.php"; ?>
     <script src="../../assets/js/script.js"></script>
 
     <script>
@@ -65,4 +68,5 @@ session_start();
         }
     </script>
 </body>
+
 </html>

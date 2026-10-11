@@ -1,9 +1,9 @@
 <?php
 //inisialisasi session
 session_start();
-require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/session_user.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functions.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/koneksi.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/session_user.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php";
 
 $query = "SELECT p.*, s.nama_service, pi.nama_item, CONCAT('WP', LPAD(p.no_pesanan, 5, '0')) AS nomor_pesanan
     FROM pemesanan p
@@ -42,7 +42,7 @@ if ($result_notif->num_rows > 0) {
             case 'Menunggu Pembayaran':
                 $notifText[] = "<p class='notif-text'><i class='fas fa-receipt fa-sm'></i> <a href='pages/my-order/#" . $row['no_pesanan'] . "'> {$row['tgl_penawaran']} - <strong>Nomor Pesanan {$row['nomor_pesanan']}</strong> telah selesai dikerjakan. Harap segera membayar untuk menyelesaikan pesanan!</a></p>";
                 break;
-            
+
             default:
                 $notifText[] = "<p class='notif-text'>{$row['tgl_penawaran']} - Pesanan dengan status {$row['status_pesanan']}</p>";
                 break;
@@ -74,11 +74,11 @@ if ($result_notif->num_rows > 0) {
 
 <body>
     <!-- NAVBAR -->
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/nav.php"; ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/nav.php"; ?>
     <!-- NAVBAR END -->
 
     <main class="home">
-        <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/user/aside.php"; ?>
+        <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/user/aside.php"; ?>
 
         <section class="utama">
             <h2>Selamat Datang,</h2>

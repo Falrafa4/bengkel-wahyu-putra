@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/koneksi.php";
 session_start();
 
 $id_pelanggan = $_SESSION['data']['id_pelanggan'];

@@ -1,8 +1,8 @@
 <?php
 session_start();
-require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/session_admin.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functions.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/koneksi.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/session_admin.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php";
 
 if (isset($_POST['konfirmasi'])) {
     $id_pembayaran = $_POST['id_pembayaran'];
@@ -26,26 +26,26 @@ if (isset($_POST['konfirmasi'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/bengkel-wahyu-putra/assets/css/global.css">
-    <link rel="stylesheet" href="/bengkel-wahyu-putra/assets/css/admin.css">
-    <link rel="shortcut icon" href="/bengkel-wahyu-putra/assets/img/logo-wp-circle.png">
+    <link rel="stylesheet" href="/assets/css/global.css">
+    <link rel="stylesheet" href="/assets/css/admin.css">
+    <link rel="shortcut icon" href="/assets/img/logo-wp-circle.png">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="/bengkel-wahyu-putra/assets/fontawesome/css/all.css">
+    <link rel="stylesheet" href="/assets/fontawesome/css/all.css">
 
     <!-- Sweetalert2 -->
-    <script src="/bengkel-wahyu-putra/assets/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="/assets/sweetalert2/sweetalert2.all.min.js"></script>
 
     <title>Pembayaran - Bengkel Wahyu Putra</title>
 </head>
 
 <body>
     <!-- NAVBAR -->
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/nav.php"; ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/nav.php"; ?>
     <!-- NAVBAR END -->
 
     <main>
-        <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/admin/aside.php"; ?>
+        <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/admin/aside.php"; ?>
 
         <div class="container-crud">
             <section class="daftar-crud">
@@ -118,7 +118,7 @@ if (isset($_POST['konfirmasi'])) {
         </div>
     </main>
 
-    <script src="/bengkel-wahyu-putra/assets/js/script.js"></script>
+    <script src="/assets/js/script.js"></script>
 </body>
 
 </html>

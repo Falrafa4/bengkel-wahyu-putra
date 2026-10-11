@@ -1,10 +1,10 @@
 <?php
 session_start();
-require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/session_admin.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/koneksi.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/session_admin.php";
 
 if (isset($_GET['hapus'])) {
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functions.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php";
     $id_pelanggan = $_GET['hapus'];
 
     if (deletePelanggan($conn, $id_pelanggan)) {
@@ -22,23 +22,23 @@ if (isset($_GET['hapus'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/bengkel-wahyu-putra/assets/css/global.css">
-    <link rel="stylesheet" href="/bengkel-wahyu-putra/assets/css/admin.css">
-    <link rel="shortcut icon" href="/bengkel-wahyu-putra/assets/img/logo-wp-circle.png">
+    <link rel="stylesheet" href="/assets/css/global.css">
+    <link rel="stylesheet" href="/assets/css/admin.css">
+    <link rel="shortcut icon" href="/assets/img/logo-wp-circle.png">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="/bengkel-wahyu-putra/assets/fontawesome/css/all.css">
+    <link rel="stylesheet" href="/assets/fontawesome/css/all.css">
 
     <title>Pelanggan - Bengkel Wahyu Putra</title>
 </head>
 
 <body>
     <!-- NAVBAR -->
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/nav.php"; ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/nav.php"; ?>
     <!-- NAVBAR END -->
 
     <main>
-        <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/admin/aside.php"; ?>
+        <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/admin/aside.php"; ?>
 
         <div class="utama">
             <section class="daftar-crud">
@@ -65,7 +65,7 @@ if (isset($_GET['hapus'])) {
                             <h2><?= $result['nama_pelanggan']; ?></h2>
                             <p><i class="fas fa-phone fa-sm"></i> <?= $result['no_telp']; ?></p>
                             <p><i class="fas fa-envelope fa-sm"></i> <?= $result['email']; ?></p>
-                            <?php if($result['jenis_akun'] == 'Perusahaan') : ?>
+                            <?php if ($result['jenis_akun'] == 'Perusahaan') : ?>
                                 <p><i class="fas fa-industry fa-sm"></i> <?= $result['nama_perusahaan']; ?></p>
                             <?php endif; ?>
                             <em class="role <?= $result['role']; ?>"><?= $result['role']; ?></em>
@@ -109,7 +109,7 @@ if (isset($_GET['hapus'])) {
     </main>
 
     <script src="https://kit.fontawesome.com/ed13b1bb03.js" crossorigin="anonymous"></script>
-    <script src="/bengkel-wahyu-putra/assets/js/script.js"></script>
+    <script src="/assets/js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>

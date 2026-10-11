@@ -1,7 +1,7 @@
-<?php 
+<?php
 session_start();
 
-if(isset($_POST['submit_pesan'])){
+if (isset($_POST['submit_pesan'])) {
     $nama = $_POST['nama'];
     $asal = $_POST['asal'];
     $pesan = $_POST['pesan'];
@@ -13,32 +13,35 @@ if(isset($_POST['submit_pesan'])){
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../assets/css/global.css">
     <link rel="stylesheet" href="../../assets/css/contact.css">
     <link rel="shortcut icon" href="../../assets/img/logo-wp-circle.png">
-    
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../../assets/fontawesome/css/all.css">
 
     <title>Contact Us - Bengkel Wahyu Putra</title>
 </head>
+
 <body>
-    <?php if(isset($url)) { ?>
+    <?php if (isset($url)) { ?>
         <script>
             window.open('<?= $url ?>', '_blank');
         </script>
     <?php } ?>
 
     <!-- NAVBAR -->
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/nav.php"; ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/nav.php"; ?>
     <!-- NAVBAR END -->
 
     <!-- HEADER & BG FOTO -->
     <header>
-        <h1>CONTACT US</h1><hr>
+        <h1>CONTACT US</h1>
+        <hr>
         <p>Kami siap membantu Anda! Hubungi kami untuk informasi lebih lanjut atau pemesanan jasa.</p>
     </header>
     <!-- HEADER & BG FOTO END -->
@@ -49,14 +52,14 @@ if(isset($_POST['submit_pesan'])){
                 <form action="./" method="POST">
                     <h2>Kirimkan Pesan Kepada Kami!</h2>
                     <p>Ada pertanyaan atau saran? Isi formulir di bawah, dan kami akan segera merespons pesan Anda.</p>
-        
+
                     <input type="text" name="nama" id="nama" placeholder="Nama" required> <br><br>
                     <input type="text" name="asal" id="asal" placeholder="Asal Kota" required><br><br>
                     <textarea name="pesan" id="pesan" placeholder="Tulis Pesan" required></textarea><br>
                     <input type="submit" name="submit_pesan" value="Kirim Pesan">
                 </form>
             </div>
-    
+
             <section class="contact-info">
                 <h2>Informasi Kontak</h2>
                 <div class="contact-info-desc">
@@ -86,8 +89,9 @@ if(isset($_POST['submit_pesan'])){
     </main>
 
     <!-- FOOTER -->
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/footer.php"; ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/footer.php"; ?>
     <!-- FOOTER END -->
     <script src="../../assets/js/script.js"></script>
 </body>
+
 </html>

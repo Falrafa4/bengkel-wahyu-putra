@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/session_user.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/koneksi.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/session_user.php";
 
 // $nama_service;
 // $nama_item;
@@ -53,11 +53,11 @@ if (isset($_GET['detail'])) {
 
 <body>
     <!-- NAVBAR -->
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/nav.php"; ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/nav.php"; ?>
     <!-- NAVBAR END -->
 
     <main class="detailPesanan">
-        <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/user/aside.php"; ?>
+        <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/user/aside.php"; ?>
 
         <section class="utama">
             <div class="main-content">
@@ -111,7 +111,7 @@ if (isset($_GET['detail'])) {
                             <tr>
                                 <th>Keterangan</th>
                                 <td>
-                                    <?php 
+                                    <?php
                                     $status = $result['status_pesanan'];
                                     switch ($status) {
                                         case 'Menunggu Penawaran':
@@ -137,7 +137,7 @@ if (isset($_GET['detail'])) {
                                         case 'Konfirmasi Pembayaran':
                                             echo 'Pembayaran Anda sedang dikonfirmasi oleh pemilik dalam 1x24 jam';
                                             break;
-                                        
+
                                         default:
                                             echo 'Pesanan Anda telah selesai dan siap untuk diambil';
                                             break;

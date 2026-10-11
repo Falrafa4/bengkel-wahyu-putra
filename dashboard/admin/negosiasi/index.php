@@ -1,8 +1,8 @@
 <?php
 session_start();
-require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/session_admin.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functions.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/koneksi.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/session_admin.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php";
 
 $pesan = '';
 if (isset($_POST['negosiasi'])) {
@@ -30,7 +30,7 @@ if (isset($_POST['negosiasi'])) {
             if (updateStatusPesanan($conn, $no_pesanan, 2) && updateStatusNegosiasi($conn, $id_negosiasi, 2) && updateStatusPenawaran($conn, 4, $id_penawaran)) {
                 $_SESSION['eksekusi'] = "Penawaran Berhasil Diterbitkan!";
                 // header("location: ./");
-            } else {    
+            } else {
                 die("Gagal mengupdate status pesanan atau negosiasi :(");
             }
         } else {
@@ -45,23 +45,23 @@ if (isset($_POST['negosiasi'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/bengkel-wahyu-putra/assets/css/global.css">
-    <link rel="stylesheet" href="/bengkel-wahyu-putra/assets/css/admin.css">
-    <link rel="shortcut icon" href="/bengkel-wahyu-putra/assets/img/logo-wp-circle.png">
+    <link rel="stylesheet" href="/assets/css/global.css">
+    <link rel="stylesheet" href="/assets/css/admin.css">
+    <link rel="shortcut icon" href="/assets/img/logo-wp-circle.png">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="/bengkel-wahyu-putra/assets/fontawesome/css/all.css">
+    <link rel="stylesheet" href="/assets/fontawesome/css/all.css">
 
     <title>Penawaran - Bengkel Wahyu Putra</title>
 </head>
 
 <body>
     <!-- NAVBAR -->
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/nav.php"; ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/nav.php"; ?>
     <!-- NAVBAR END -->
 
     <main>
-        <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/admin/aside.php"; ?>
+        <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/admin/aside.php"; ?>
 
         <div class="container-crud">
             <section class="daftar-crud">
@@ -102,7 +102,7 @@ JOIN pemesanan ps ON ps.no_pesanan = pw.no_pesanan";
                         <tr>
                             <td style="text-align: center;"><?= $result['no_pesanan'] ?></td>
                             <td style="text-align: center;">
-                                <a class="btn primary" href="../penawaran/#<?= $result['id_penawaran']+1 ?>">
+                                <a class="btn primary" href="../penawaran/#<?= $result['id_penawaran'] + 1 ?>">
                                     <?= $result['id_penawaran'] ?>
                                 </a>
                             </td>
@@ -115,8 +115,8 @@ JOIN pemesanan ps ON ps.no_pesanan = pw.no_pesanan";
                             <td class="action">
                                 <a href="./kelola/?edit=<?= $result['id_negosiasi'] ?>" class="btn edit" style="display: block; margin-bottom: 5px;"><i class="fas fa-pen-to-square"></i> Edit</a>
 
-                                <?php if($result['status_negosiasi'] == "Menunggu") : ?>
-                                <a class="btn warning" style="display: block; width: fit-content;" onclick="modalAktif(<?= $result['id_negosiasi'] ?>, <?= $result['no_pesanan'] ?>, <?= $result['id_penawaran'] ?>)"><i class="fas fa-envelope"></i> Buat Surat Baru</a>
+                                <?php if ($result['status_negosiasi'] == "Menunggu") : ?>
+                                    <a class="btn warning" style="display: block; width: fit-content;" onclick="modalAktif(<?= $result['id_negosiasi'] ?>, <?= $result['no_pesanan'] ?>, <?= $result['id_penawaran'] ?>)"><i class="fas fa-envelope"></i> Buat Surat Baru</a>
                                 <?php endif; ?>
                             </td>
                         </tr>
@@ -153,7 +153,7 @@ JOIN pemesanan ps ON ps.no_pesanan = pw.no_pesanan";
         </div>
     </main>
 
-    <script src="/bengkel-wahyu-putra/assets/js/script.js"></script>
+    <script src="/assets/js/script.js"></script>
     <script>
         // untuk menampilkan modal
         function modalAktif(idNegosiasi, noPesanan, idPenawaran) {

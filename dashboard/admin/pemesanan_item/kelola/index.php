@@ -1,10 +1,10 @@
 <?php
 session_start();
-require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/session_admin.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/koneksi.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/session_admin.php";
 
 if (isset($_POST['aksi']) || isset($_GET['ubah'])) {
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functions.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php";
 }
 
 $id_item = '';
@@ -82,17 +82,17 @@ if (isset($_POST['aksi'])) {
     <link rel="shortcut icon" href="../../../../assets/img/logo-wp-circle.png">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="/bengkel-wahyu-putra/assets/fontawesome/css/all.css">
+    <link rel="stylesheet" href="/assets/fontawesome/css/all.css">
 
     <title>Kelola Pemesanan Item - Bengkel Wahyu Putra</title>
 </head>
 
 <body>
     <!-- NAVBAR -->
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/nav.php"; ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/nav.php"; ?>
 
     <main>
-        <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/admin/aside.php"; ?>
+        <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/admin/aside.php"; ?>
 
         <section class="content">
             <form action="./" method="POST">
@@ -149,7 +149,7 @@ if (isset($_POST['aksi'])) {
         </section>
     </main>
 
-    <script src="/bengkel-wahyu-putra/assets/js/script.js"></script>
+    <script src="/assets/js/script.js"></script>
 </body>
 
 </html>

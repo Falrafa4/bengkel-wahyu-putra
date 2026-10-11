@@ -1,10 +1,10 @@
 <?php
 session_start();
-require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/session_admin.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/koneksi.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/session_admin.php";
 
 if (isset($_POST['aksi']) || isset($_GET['ubah'])) {
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functions.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php";
 }
 
 $id_pelanggan = '';
@@ -23,7 +23,7 @@ if (isset($_POST['aksi'])) {
         $nama_item = $_POST['nama_item'];
         $material = $_POST['material'];
         $jumlah_item = $_POST['jumlah_item'];
-    
+
         $nama_jalan = $_POST['nama_jalan'];
         $kecamatan = $_POST['kecamatan'];
         $kabupaten_kota = $_POST['kabupaten_kota'];
@@ -84,17 +84,17 @@ if (isset($_POST['aksi'])) {
     <link rel="shortcut icon" href="../../../../assets/img/logo-wp-circle.png">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="/bengkel-wahyu-putra/assets/fontawesome/css/all.css">
+    <link rel="stylesheet" href="/assets/fontawesome/css/all.css">
 
     <title>Kelola - Bengkel Wahyu Putra</title>
 </head>
 
 <body>
     <!-- NAVBAR -->
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/nav.php"; ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/nav.php"; ?>
 
     <main>
-        <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/admin/aside.php"; ?>
+        <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/admin/aside.php"; ?>
 
         <section class="content">
             <?php if (isset($_GET['ubah'])) {
@@ -124,25 +124,25 @@ if (isset($_POST['aksi'])) {
                     <div class="input-box">
                         <label for="status">Status Pemesanan</label>
                         <select name="status_pesanan" id="status_pesanan">
-                            <option <?php if($result['status_pesanan'] == 'Menunggu Penawaran') echo 'selected'; ?> value="1">
+                            <option <?php if ($result['status_pesanan'] == 'Menunggu Penawaran') echo 'selected'; ?> value="1">
                                 Menunggu Penawaran
                             </option>
-                            <option <?php if($result['status_pesanan'] == 'Penawaran Diterbitkan') echo 'selected'; ?> value="2">
+                            <option <?php if ($result['status_pesanan'] == 'Penawaran Diterbitkan') echo 'selected'; ?> value="2">
                                 Penawaran Diterbitkan
                             </option>
-                            <option <?php if($result['status_pesanan'] == 'Negosiasi Penawaran') echo 'selected'; ?> value="3">
+                            <option <?php if ($result['status_pesanan'] == 'Negosiasi Penawaran') echo 'selected'; ?> value="3">
                                 Negosiasi Penawaran
                             </option>
-                            <option <?php if($result['status_pesanan'] == 'Dalam Proses') echo 'selected'; ?> value="4">
+                            <option <?php if ($result['status_pesanan'] == 'Dalam Proses') echo 'selected'; ?> value="4">
                                 Dalam Proses
                             </option>
-                            <option <?php if($result['status_pesanan'] == 'Menunggu Pembayaran') echo 'selected'; ?> value="5">
+                            <option <?php if ($result['status_pesanan'] == 'Menunggu Pembayaran') echo 'selected'; ?> value="5">
                                 Menunggu Pembayaran
                             </option>
-                            <option <?php if($result['status_pesanan'] == 'Konfirmasi Pembayaran') echo 'selected'; ?> value="6">
+                            <option <?php if ($result['status_pesanan'] == 'Konfirmasi Pembayaran') echo 'selected'; ?> value="6">
                                 Konfirmasi Pembayaran
                             </option>
-                            <option <?php if($result['status_pesanan'] == 'Selesai') echo 'selected'; ?> value="7">
+                            <option <?php if ($result['status_pesanan'] == 'Selesai') echo 'selected'; ?> value="7">
                                 Selesai
                             </option>
                         </select>
@@ -251,7 +251,7 @@ if (isset($_POST['aksi'])) {
         </section>
     </main>
 
-    <script src="/bengkel-wahyu-putra/assets/js/script.js"></script>
+    <script src="/assets/js/script.js"></script>
     <script>
         let jumlahItem = document.getElementById('jumlah_item');
         jumlahItem.oninput = () => {

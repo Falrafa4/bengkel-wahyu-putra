@@ -1,8 +1,8 @@
 <?php
 session_start();
-require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/session_user.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functions.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/koneksi.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/session_user.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,22 +10,22 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../assets/css/global.css">
-    <link rel="stylesheet" href="../../../assets/css/user.css">
-    <link rel="shortcut icon" href="../../../assets/img/logo-wp-circle.png">
+    <link rel="stylesheet" href="../../assets/css/global.css">
+    <link rel="stylesheet" href="../../assets/css/user.css">
+    <link rel="shortcut icon" href="../../assets/img/logo-wp-circle.png">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="../../../assets/fontawesome/css/all.css">
+    <link rel="stylesheet" href="../../assets/fontawesome/css/all.css">
 
     <!-- Sweetalert2 -->
-    <script src="../../../assets/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="../../assets/sweetalert2/sweetalert2.all.min.js"></script>
 
     <title>Daftar Pesanan - Bengkel Wahyu Putra</title>
 </head>
 
 <body>
     <!-- NAVBAR -->
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/nav.php"; ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/nav.php"; ?>
     <!-- NAVBAR END -->
 
     <?php
@@ -37,7 +37,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
 
         if (updateStatusPenawaran($conn, 3, $id_penawaran)) {
             if (addEstimasi($conn, $no_pesanan, $estimasi)) {
-                if(updateStatusPesanan($conn, $no_pesanan, 4)) {
+                if (updateStatusPesanan($conn, $no_pesanan, 4)) {
                     echo '<script>Swal.fire({
                         title: "Berhasil!",
                         text: "Surat Penawaran diterima! Terima kasih atas kepercayaan Anda",
@@ -68,8 +68,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
         $catatan = !empty($_POST['catatan']) ? $_POST['catatan'] : null;
 
         if (insertNegosiasi($conn, $id_penawaran, $jenis_negosiasi, $harga_tawaran, $estimasi_tawaran, $catatan)) {
-            if(updateStatusPenawaran($conn, 2, $id_penawaran)) {
-                if(updateStatusPesanan($conn, $no_pesanan, 3)) {
+            if (updateStatusPenawaran($conn, 2, $id_penawaran)) {
+                if (updateStatusPesanan($conn, $no_pesanan, 3)) {
                     echo '<script>Swal.fire({
                         title: "Berhasil!",
                         text: "Pengajuan negosiasi sukses dikirim. Harap menunggu surat terbaru dari kami. Terima kasih",
@@ -93,7 +93,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
     ?>
 
     <main class="daftarPesanan offer">
-        <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/user/aside.php"; ?>
+        <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/user/aside.php"; ?>
 
         <section class="utama">
             <div class="main-content">
@@ -123,13 +123,13 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
                                 <td>Rp<?= number_format($row['harga_penawaran'], 0, ',', '.') ?></td>
                                 <td><?= date('d M Y', strtotime($row['estimasi_penawaran'])) ?></td>
                                 <td>
-                                    <iframe src="../../../uploads/penawaran/<?= $row['surat_penawaran'] ?>" frameborder="0" width="100%"></iframe>
-                                    <button onclick="download('../../../uploads/penawaran/<?= $row['surat_penawaran'] ?>')">
+                                    <iframe src="../../uploads/penawaran/<?= $row['surat_penawaran'] ?>" frameborder="0" width="100%"></iframe>
+                                    <button onclick="download('../../uploads/penawaran/<?= $row['surat_penawaran'] ?>')">
                                         <i class="fas fa-download"></i> Unduh Surat
                                     </button>
                                 </td>
                                 <td class="action 
-                                <?php 
+                                <?php
                                 if ($row['status_penawaran'] == 'Disetujui') :
                                     echo 'offer-agree';
                                 elseif ($row['status_penawaran'] == 'Negosiasi' || $row['status_penawaran'] == 'Terbit Baru') :
@@ -201,7 +201,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
         </section>
     </main>
 
-    <script src="../../../assets/js/script.js"></script>
+    <script src="../../assets/js/script.js"></script>
     <script>
         // download surat
         function download(url) {

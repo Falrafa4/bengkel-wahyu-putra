@@ -1,8 +1,8 @@
 <?php
 session_start();
-require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/session_user.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functions.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/koneksi.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/session_user.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php";
 
 if (!isset($_GET['no']) || $_GET['no'] == '') {
     header('Location: ../my-order/');
@@ -41,7 +41,7 @@ $row = $result->fetch_assoc();
 
 <body>
     <!-- NAVBAR -->
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/nav.php"; ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/nav.php"; ?>
     <!-- NAVBAR END -->
 
     <?php
@@ -96,7 +96,7 @@ $row = $result->fetch_assoc();
     ?>
 
     <main>
-        <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/user/aside.php"; ?>
+        <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/user/aside.php"; ?>
 
         <section class="utama pembayaran">
             <h1>Pembayaran</h1>
@@ -158,7 +158,7 @@ $row = $result->fetch_assoc();
                             <p>141-00-2199879-4</p>
                             <p style="margin-bottom: 15px">A.n. MUANAM</p>
                         </div>
-                        
+
                         <!-- <div class="select-img">
                             <div class="img-area">
 
@@ -171,7 +171,7 @@ $row = $result->fetch_assoc();
                             <i class="fas fa-upload" style="font-size: 14px;"></i>
                             <label for="bukti">Upload Bukti Pembayaran</label>
                         </div>
-                        
+
                         <input type="file" name="bukti" id="bukti" required hidden onchange="loadFile(event)">
 
                         <script>

@@ -20,7 +20,7 @@ session_start();
 
 <body>
     <!-- NAVBAR -->
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/nav.php"; ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/nav.php"; ?>
     <!-- NAVBAR END -->
 
     <!-- HEADER & BG FOTO -->
@@ -108,7 +108,7 @@ session_start();
     </main>
 
     <!-- FOOTER -->
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/footer.php" ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/footer.php" ?>
     <!-- FOOTER END -->
     <script src="../../assets/js/script.js"></script>
 </body>

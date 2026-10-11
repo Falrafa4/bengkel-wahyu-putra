@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/session_user.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/koneksi.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/session_user.php";
 
 $query = "SELECT *, CONCAT('WP', LPAD(p.no_pesanan, 5, '0')) AS nomor_pesanan, p.waktu_pemesanan, CONCAT(p.nama_jalan,', ',p.kecamatan,', ',p.kabupaten_kota,', ',p.provinsi,' ',p.kode_pos) AS alamat_lengkap
     FROM pemesanan p
@@ -59,23 +59,23 @@ if (isset($_POST['search'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../assets/css/global.css">
-    <link rel="stylesheet" href="../../../assets/css/user.css">
-    <link rel="shortcut icon" href="../../../assets/img/logo-wp-circle.png">
+    <link rel="stylesheet" href="../../assets/css/global.css">
+    <link rel="stylesheet" href="../../assets/css/user.css">
+    <link rel="shortcut icon" href="../../assets/img/logo-wp-circle.png">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="../../../assets/fontawesome/css/all.css">
+    <link rel="stylesheet" href="../../assets/fontawesome/css/all.css">
 
     <title>Daftar Pesanan - Bengkel Wahyu Putra</title>
 </head>
 
 <body>
     <!-- NAVBAR -->
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/nav.php"; ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/nav.php"; ?>
     <!-- NAVBAR END -->
 
     <main class="daftarPesanan">
-        <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/user/aside.php"; ?>
+        <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/user/aside.php"; ?>
 
         <section class="utama">
             <div class="main-content">
@@ -111,22 +111,22 @@ if (isset($_POST['search'])) {
                                     $ekstensi = $split[count($split) - 1];
 
                                     if ($ekstensi == 'pdf') { ?>
-                                        <iframe src="../../../uploads/desain/<?= $row['desain_gambar'] ?>" width="100%" height="200px"></iframe>
+                                        <iframe src="../../uploads/desain/<?= $row['desain_gambar'] ?>" width="100%" height="200px"></iframe>
                                     <?php } else {
                                     ?>
-                                        <img src="../../../uploads/desain/<?= $row['desain_gambar'] ?>" alt="" style="width: 100%;">
+                                        <img src="../../uploads/desain/<?= $row['desain_gambar'] ?>" alt="" style="width: 100%;">
                                     <?php } ?>
                                 </td>
                                 <td style="text-align: left;"><?= $row['alamat_lengkap'] ?></td>
                                 <td>
-                                    <?php 
-                                    if(!is_null($row['estimasi'])) {
+                                    <?php
+                                    if (!is_null($row['estimasi'])) {
                                         echo date('d M Y', strtotime($row['estimasi']));
-                                    } elseif($row['status_pesanan'] == 'Menunggu Penawaran') {
+                                    } elseif ($row['status_pesanan'] == 'Menunggu Penawaran') {
                                         echo '<em>Menunggu Penawaran</em>';
-                                    } elseif($row['status_pesanan'] == 'Penawaran Diterbitkan') {
+                                    } elseif ($row['status_pesanan'] == 'Penawaran Diterbitkan') {
                                         echo '<em>Menunggu Persetujuan</em>';
-                                    } elseif($row['status_pesanan'] == 'Negosiasi Penawaran') {
+                                    } elseif ($row['status_pesanan'] == 'Negosiasi Penawaran') {
                                         echo '<em>-</em>';
                                     }
                                     ?>
@@ -178,12 +178,12 @@ if (isset($_POST['search'])) {
                         <?php } ?>
                     </tbody>
                 </table>
-                <!-- <iframe src="../../../uploads/desain/test.pdf" width="600" height="400"></iframe> -->
+                <!-- <iframe src="../../uploads/desain/test.pdf" width="600" height="400"></iframe> -->
             </div>
         </section>
     </main>
 
-    <script src="../../../assets/js/script.js"></script>
+    <script src="../../assets/js/script.js"></script>
 </body>
 
 </html>

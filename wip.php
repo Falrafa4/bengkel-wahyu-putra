@@ -110,7 +110,7 @@
 
     <main>
         <p>Thank you for your coming. We will go back soon.</p>
-        <a href="/bengkel-wahyu-putra">Go Back to Main Page</a>
+        <a href="/">Go Back to Main Page</a>
     </main>
 
     <!-- FOOTER -->

@@ -1,12 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.1deb3
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jun 13, 2025 at 01:11 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
--- DATABASE NAME: bengkel_wahyu_putra
+-- Host: localhost:3306
+-- Generation Time: Oct 11, 2026 at 12:29 PM
+-- Server version: 8.0.46-0ubuntu0.24.04.4
+-- PHP Version: 8.4.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,14 +28,14 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `negosiasi_penawaran` (
-  `id_negosiasi` int(11) NOT NULL,
-  `id_penawaran` int(11) NOT NULL,
-  `waktu_negosiasi` datetime NOT NULL DEFAULT current_timestamp(),
-  `jenis_negosiasi` enum('Harga','Estimasi','Harga & Estimasi','Lainnya') NOT NULL,
-  `harga_tawaran` int(11) DEFAULT NULL,
-  `estimasi_tawaran` varchar(50) DEFAULT NULL,
-  `catatan` text DEFAULT NULL,
-  `status_negosiasi` enum('Menunggu','Diterbitkan Penawaran Baru') NOT NULL DEFAULT 'Menunggu'
+  `id_negosiasi` int NOT NULL,
+  `id_penawaran` int NOT NULL,
+  `waktu_negosiasi` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `jenis_negosiasi` enum('Harga','Estimasi','Harga & Estimasi','Lainnya') COLLATE utf8mb4_general_ci NOT NULL,
+  `harga_tawaran` int DEFAULT NULL,
+  `estimasi_tawaran` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `catatan` text COLLATE utf8mb4_general_ci,
+  `status_negosiasi` enum('Menunggu','Diterbitkan Penawaran Baru') COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Menunggu'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -54,15 +53,15 @@ INSERT INTO `negosiasi_penawaran` (`id_negosiasi`, `id_penawaran`, `waktu_negosi
 --
 
 CREATE TABLE `pelanggan` (
-  `id_pelanggan` int(11) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `nama_pelanggan` varchar(50) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `tgl_daftar` datetime NOT NULL DEFAULT current_timestamp(),
-  `no_telp` char(12) NOT NULL,
-  `jenis_akun` enum('Pribadi','Perusahaan') DEFAULT NULL,
-  `nama_perusahaan` varchar(500) DEFAULT NULL,
-  `role` enum('Admin','User') NOT NULL DEFAULT 'User'
+  `id_pelanggan` int NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `nama_pelanggan` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `tgl_daftar` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `no_telp` char(12) COLLATE utf8mb4_general_ci NOT NULL,
+  `jenis_akun` enum('Pribadi','Perusahaan') COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `nama_perusahaan` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `role` enum('Admin','User') COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'User'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -79,7 +78,8 @@ INSERT INTO `pelanggan` (`id_pelanggan`, `password`, `nama_pelanggan`, `email`, 
 (7, '$2y$10$yW6hhmn5A1SDLvoTK5kwM.ktZXerUNhTELSxCW8Ubu3Gir/7ZgIcW', 'Gibran Rakabuming Raka', 'fufufafa@gmail.com', '2025-04-10 20:05:28', '089125547981', 'Perusahaan', 'PT. Indonesia', 'User'),
 (9, '$2y$10$x0MTrtvS6XuW8OdnsSz0neFFk6jgrFD4IDHG5GJCxPfPITKJx0ECO', 'Nabil Aswangga Hugobama', 'Bamaground@gmail.com', '2025-05-19 09:22:00', '08973440335', 'Pribadi', NULL, 'User'),
 (11, '$2y$10$Lw.tWVJ4F1aRC73r/rQs5eul8ky2qwrhZpFBVwTYqBHZ55yJC5iEe', 'Muhamad Dafa Al Fachri', 'dafafachri17@gmail.com', '2025-05-30 13:33:34', '089012229988', 'Perusahaan', 'PT. Sejahtera', 'User'),
-(12, '$2y$10$/m7S4kgdVuNgHJpMgLpX3O6Im/IJtvovHvk.RKmTGHLZR7nELYzPi', 'Muhamad Dafa Al Fachri', 'dafa@gmail.com', '2025-06-10 07:36:07', '081234567890', 'Pribadi', '', 'User');
+(12, '$2y$10$/m7S4kgdVuNgHJpMgLpX3O6Im/IJtvovHvk.RKmTGHLZR7nELYzPi', 'Muhamad Dafa Al Fachri', 'dafa@gmail.com', '2025-06-10 07:36:07', '081234567890', 'Pribadi', '', 'User'),
+(13, '$2y$12$x0/PjBOAl8Fcm1ruX4zd.OBolWWRLR7e3eKKYGRVUlLl0mwAyBH/W', 'Fall', 'fallfour@gmail.com', '2026-10-11 19:22:09', '082335241416', 'Pribadi', '', 'User');
 
 -- --------------------------------------------------------
 
@@ -88,13 +88,13 @@ INSERT INTO `pelanggan` (`id_pelanggan`, `password`, `nama_pelanggan`, `email`, 
 --
 
 CREATE TABLE `pembayaran` (
-  `id_pembayaran` int(11) NOT NULL,
-  `no_pesanan` int(11) NOT NULL,
-  `metode_pembayaran` enum('BCA','Mandiri') NOT NULL,
-  `total_bayar` int(11) NOT NULL,
-  `tgl_bayar` datetime NOT NULL DEFAULT current_timestamp(),
-  `bukti_bayar` varchar(255) NOT NULL,
-  `status_bayar` enum('Sedang Dikonfirmasi','Lunas') NOT NULL
+  `id_pembayaran` int NOT NULL,
+  `no_pesanan` int NOT NULL,
+  `metode_pembayaran` enum('BCA','Mandiri') COLLATE utf8mb4_general_ci NOT NULL,
+  `total_bayar` int NOT NULL,
+  `tgl_bayar` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `bukti_bayar` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `status_bayar` enum('Sedang Dikonfirmasi','Lunas') COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -115,18 +115,18 @@ INSERT INTO `pembayaran` (`id_pembayaran`, `no_pesanan`, `metode_pembayaran`, `t
 --
 
 CREATE TABLE `pemesanan` (
-  `no_pesanan` int(11) NOT NULL,
-  `id_pelanggan` int(11) NOT NULL,
-  `waktu_pemesanan` datetime NOT NULL DEFAULT current_timestamp(),
-  `nama_jalan` varchar(100) NOT NULL,
-  `kecamatan` varchar(50) NOT NULL,
-  `kabupaten_kota` varchar(50) NOT NULL,
-  `provinsi` varchar(30) NOT NULL,
-  `kode_pos` char(5) NOT NULL,
-  `detail` varchar(50) DEFAULT NULL,
-  `id_service` int(11) NOT NULL,
+  `no_pesanan` int NOT NULL,
+  `id_pelanggan` int NOT NULL,
+  `waktu_pemesanan` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `nama_jalan` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `kecamatan` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `kabupaten_kota` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `provinsi` varchar(30) COLLATE utf8mb4_general_ci NOT NULL,
+  `kode_pos` char(5) COLLATE utf8mb4_general_ci NOT NULL,
+  `detail` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `id_service` int NOT NULL,
   `estimasi` date DEFAULT NULL,
-  `status_pesanan` enum('Menunggu Penawaran','Penawaran Diterbitkan','Negosiasi Penawaran','Dalam Proses','Menunggu Pembayaran','Konfirmasi Pembayaran','Selesai') NOT NULL DEFAULT 'Menunggu Penawaran'
+  `status_pesanan` enum('Menunggu Penawaran','Penawaran Diterbitkan','Negosiasi Penawaran','Dalam Proses','Menunggu Pembayaran','Konfirmasi Pembayaran','Selesai') COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Menunggu Penawaran'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -159,12 +159,12 @@ INSERT INTO `pemesanan` (`no_pesanan`, `id_pelanggan`, `waktu_pemesanan`, `nama_
 --
 
 CREATE TABLE `pemesanan_item` (
-  `id_item` int(11) NOT NULL,
-  `no_pesanan` int(11) NOT NULL,
-  `nama_item` varchar(30) NOT NULL,
-  `desain_gambar` varchar(255) NOT NULL,
-  `material` varchar(20) NOT NULL,
-  `jumlah_item` int(11) NOT NULL
+  `id_item` int NOT NULL,
+  `no_pesanan` int NOT NULL,
+  `nama_item` varchar(30) COLLATE utf8mb4_general_ci NOT NULL,
+  `desain_gambar` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `material` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `jumlah_item` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -197,14 +197,14 @@ INSERT INTO `pemesanan_item` (`id_item`, `no_pesanan`, `nama_item`, `desain_gamb
 --
 
 CREATE TABLE `penawaran` (
-  `id_penawaran` int(11) NOT NULL,
-  `no_pesanan` int(11) NOT NULL,
-  `surat_penawaran` varchar(500) NOT NULL,
-  `harga_penawaran` int(11) NOT NULL,
+  `id_penawaran` int NOT NULL,
+  `no_pesanan` int NOT NULL,
+  `surat_penawaran` varchar(500) COLLATE utf8mb4_general_ci NOT NULL,
+  `harga_penawaran` int NOT NULL,
   `estimasi_penawaran` date NOT NULL,
-  `tgl_penawaran` date NOT NULL DEFAULT curdate(),
-  `waktu_penawaran` time NOT NULL DEFAULT curtime(),
-  `status_penawaran` enum('Diterbitkan','Negosiasi','Disetujui','Terbit Baru') NOT NULL DEFAULT 'Diterbitkan'
+  `tgl_penawaran` date NOT NULL,
+  `waktu_penawaran` time NOT NULL,
+  `status_penawaran` enum('Diterbitkan','Negosiasi','Disetujui','Terbit Baru') COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Diterbitkan'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -231,9 +231,9 @@ INSERT INTO `penawaran` (`id_penawaran`, `no_pesanan`, `surat_penawaran`, `harga
 --
 
 CREATE TABLE `service` (
-  `id_service` int(11) NOT NULL,
-  `nama_service` varchar(50) NOT NULL,
-  `gambar_jasa` varchar(100) DEFAULT NULL
+  `id_service` int NOT NULL,
+  `nama_service` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `gambar_jasa` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -304,43 +304,43 @@ ALTER TABLE `service`
 -- AUTO_INCREMENT for table `negosiasi_penawaran`
 --
 ALTER TABLE `negosiasi_penawaran`
-  MODIFY `id_negosiasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_negosiasi` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `pelanggan`
 --
 ALTER TABLE `pelanggan`
-  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_pelanggan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_pembayaran` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  MODIFY `no_pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `no_pesanan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `pemesanan_item`
 --
 ALTER TABLE `pemesanan_item`
-  MODIFY `id_item` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_item` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `penawaran`
 --
 ALTER TABLE `penawaran`
-  MODIFY `id_penawaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_penawaran` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `service`
 --
 ALTER TABLE `service`
-  MODIFY `id_service` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_service` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables

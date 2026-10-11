@@ -1,26 +1,28 @@
-<?php 
-    session_start();
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functions.php";
-    $pesan = '';
+<?php
+session_start();
+require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/koneksi.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php";
+$pesan = '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../assets/css/global.css">
     <link rel="stylesheet" href="../../assets/css/login.css">
     <link rel="shortcut icon" href="../../assets/img/logo-wp-circle.png">
-                
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../../assets/fontawesome/css/all.css">
 
     <title>Lupa Password - Bengkel Wahyu Putra</title>
 </head>
+
 <body>
     <!-- NAVBAR -->
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/nav.php"; ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/nav.php"; ?>
     <!-- NAVBAR END -->
     <main>
         <form action="./" method="post">
@@ -40,4 +42,5 @@
 
     <script src="../../assets/js/script.js"></script>
 </body>
+
 </html>

@@ -1,9 +1,9 @@
 <?php
 //inisialisasi session
 session_start();
-require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/session_user.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functions.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/koneksi.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/session_user.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php";
 
 // $id_pelanggan = '';
 // $nama_pelanggan = '';
@@ -27,15 +27,15 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../assets/css/global.css">
-    <link rel="stylesheet" href="../../../assets/css/user.css">
-    <link rel="shortcut icon" href="../../../assets/img/logo-wp-circle.png">
+    <link rel="stylesheet" href="../../assets/css/global.css">
+    <link rel="stylesheet" href="../../assets/css/user.css">
+    <link rel="shortcut icon" href="../../assets/img/logo-wp-circle.png">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="../../../assets/fontawesome/css/all.css">
+    <link rel="stylesheet" href="../../assets/fontawesome/css/all.css">
 
     <!-- Sweetalert2 -->
-    <script src="../../../assets/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="../../assets/sweetalert2/sweetalert2.all.min.js"></script>
 
     <title>Profil - Bengkel Wahyu Putra</title>
 </head>
@@ -124,11 +124,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
     ?>
 
     <!-- NAVBAR -->
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/nav.php"; ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/nav.php"; ?>
     <!-- NAVBAR END -->
 
     <main class="settings">
-        <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/user/aside.php"; ?>
+        <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/user/aside.php"; ?>
 
         <div class="utama">
             <h1 class="profile-head">Pengaturan</h1>
@@ -173,7 +173,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
                                 <td class="data"><input type="text" name="nama_perusahaan" value="<?= $_SESSION['data']['nama_perusahaan'] ?>"></td>
                             </tr> -->
                         <?php } else { ?>
-                            <?php } ?>
+                        <?php } ?>
                         <tr id="perusahaan" style="display: none;">
                             <td class="info">Nama Perusahaan</td>
                             <td class="data"><input type="text" name="nama_perusahaan" id="inputPerusahaan" value="<?= $_SESSION['data']['nama_perusahaan'] ?? null ?>" required disabled></td>
@@ -215,7 +215,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
         </div>
     </main>
 
-    <script src="../../../assets/js/script.js"></script>
+    <script src="../../assets/js/script.js"></script>
     <script>
         const pw_old = document.getElementById('pw-old');
         const pw_new = document.getElementById('pw-new');
@@ -270,7 +270,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functio
                         confirmButtonText: 'Lanjut'
                     });
                     if (email === "<?= $_SESSION['data']['email']; ?>") {
-                        window.location.href = '../../../auth/hapus_akun.php';
+                        window.location.href = '../../auth/hapus_akun.php';
                     } else {
                         Swal.fire("Gagal", "Email tidak cocok!", "error");
                     }

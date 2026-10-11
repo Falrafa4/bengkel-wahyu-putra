@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/session_user.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/koneksi.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/session_user.php";
 
 ?>
 <!DOCTYPE html>
@@ -10,12 +10,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/s
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../assets/css/global.css">
-    <link rel="stylesheet" href="../../../assets/css/user.css">
-    <link rel="shortcut icon" href="../../../assets/img/logo-wp-circle.png">
+    <link rel="stylesheet" href="../../assets/css/global.css">
+    <link rel="stylesheet" href="../../assets/css/user.css">
+    <link rel="shortcut icon" href="../../assets/img/logo-wp-circle.png">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="../../../assets/fontawesome/css/all.css">
+    <link rel="stylesheet" href="../../assets/fontawesome/css/all.css">
 
     <title>Bantuan - Bengkel Wahyu Putra</title>
 
@@ -28,11 +28,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/s
 
 <body>
     <!-- NAVBAR -->
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/nav.php"; ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/nav.php"; ?>
     <!-- NAVBAR END -->
 
     <main class="bantuan">
-        <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/user/aside.php"; ?>
+        <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/user/aside.php"; ?>
 
         <section class="utama">
             <div class="main-content">
@@ -42,7 +42,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/s
 
                 <section class="faq">
                     <h2 style="margin-top: 20px">Pertanyaan Umum (FAQ)</h2>
-                    <div class="container-acc">             
+                    <div class="container-acc">
                         <button class="accordion">Apa Saja Jenis Layanan Yang Tersedia?</button>
                         <div class="panel">
                             <p>Saat ini, kami menyediakan dua layanan sebagai berikut:</p>
@@ -56,9 +56,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/s
                                     <p>Kami juga menerima pesanan pembuatan barang baru sesuai kebutuhan Anda.</p>
                                 </li>
                             </ol>
-                            <p>Untuk penjelasan lengkapnya, Anda bisa melihat di <a href="../../../pages/services/" style="font-style: italic;">halaman services.</a></p>
+                            <p>Untuk penjelasan lengkapnya, Anda bisa melihat di <a href="../../pages/services/" style="font-style: italic;">halaman services.</a></p>
                         </div>
-    
+
                         <button class="accordion">Bagaimana Cara Memesan Di Bengkel Wahyu Putra?</button>
                         <div class="panel">
                             <p>Untuk melakukan pemesanan layanan di Bengkel Wahyu Putra, ikuti langkah-langkah berikut: </p>
@@ -92,7 +92,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/s
                                 </li>
                             </ol>
                         </div>
-    
+
                         <button class="accordion">Di Mana Saya Dapat Melihat Pesanan Yang Telah Dipesan?</button>
                         <div class="panel">
                             <p>Untuk melihat pesanan yang telah dibuat sebelumnya, ikuti langkah berikut:</p>
@@ -111,7 +111,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/s
                                 </li>
                             </ol>
                         </div>
-    
+
                         <button class="accordion">Apa Yang Dilakukan Setelah Memesan?</button>
                         <div class="panel">
                             <p>Setelah membuat pesanan, Anda harap menunggu surat penawaran dari pemilik yang nanti akan diterbitkan pada halaman <strong><i class="fas fa-envelope"></i> Surat Penawaran</strong></p>
@@ -130,7 +130,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/s
                                 </li>
                             </ol>
                         </div>
-                        
+
                         <button class="accordion">Bagaimana Cara Pengajuan Negosiasi Terhadap Surat Penawaran?</button>
                         <div class="panel">
                             <p>Untuk mengajukan negosiasi, caranya cukup mudah</p>
@@ -169,7 +169,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/s
         </section>
     </main>
 
-    <script src="../../../assets/js/script.js"></script>
+    <script src="../../assets/js/script.js"></script>
     <script>
         let acc = document.getElementsByClassName('accordion');
         let i;

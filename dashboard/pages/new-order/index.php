@@ -1,49 +1,49 @@
-<?php 
-    session_start();
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/koneksi.php";
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/session_user.php";
+<?php
+session_start();
+require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/koneksi.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/session_user.php";
 
-    $alert = '';
-    if(isset($_POST['submit_pesanan'])) {
-        require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/functions/functions.php";
-        $id_pelanggan = $_SESSION['data']['id_pelanggan'];
-        $layanan = $_POST['jenis_layanan'];
-        $desain_gambar = $_FILES['desain_gambar']['name'];
-        $nama_item = $_POST['nama_item'];
-        $material = $_POST['material'];
-        $jumlah_item = $_POST['jumlah_item'];
+$alert = '';
+if (isset($_POST['submit_pesanan'])) {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/functions/functions.php";
+    $id_pelanggan = $_SESSION['data']['id_pelanggan'];
+    $layanan = $_POST['jenis_layanan'];
+    $desain_gambar = $_FILES['desain_gambar']['name'];
+    $nama_item = $_POST['nama_item'];
+    $material = $_POST['material'];
+    $jumlah_item = $_POST['jumlah_item'];
 
-        $nama_jalan = $_POST['nama_jalan'];
-        $kecamatan = $_POST['kecamatan'];
-        $kabupaten_kota = $_POST['kabupaten_kota'];
-        $provinsi = $_POST['provinsi'];
-        $kode_pos = $_POST['kode_pos'];
-        $detail = $_POST['detail'];
-        
-        $query = 'SELECT no_pesanan FROM pemesanan WHERE id_pelanggan = ?';
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param('i', $id_pelanggan);
-        $stmt->execute();
-        $stmt->bind_result($no_pesanan);
-        $stmt->fetch();
-        $stmt->close();
-        
-        if(insertPemesanan($conn, $id_pelanggan, $nama_jalan, $kecamatan, $kabupaten_kota, $provinsi, $kode_pos, $detail, $layanan)) {
-            $no_pesanan = $conn->insert_id;
+    $nama_jalan = $_POST['nama_jalan'];
+    $kecamatan = $_POST['kecamatan'];
+    $kabupaten_kota = $_POST['kabupaten_kota'];
+    $provinsi = $_POST['provinsi'];
+    $kode_pos = $_POST['kode_pos'];
+    $detail = $_POST['detail'];
 
-            $split = explode('.', $_FILES['desain_gambar']['name']); //array
-            $ekstensi = $split[count($split)-1];
+    $query = 'SELECT no_pesanan FROM pemesanan WHERE id_pelanggan = ?';
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('i', $id_pelanggan);
+    $stmt->execute();
+    $stmt->bind_result($no_pesanan);
+    $stmt->fetch();
+    $stmt->close();
 
-            $desain_gambar = $no_pesanan . '.' . $ekstensi;
+    if (insertPemesanan($conn, $id_pelanggan, $nama_jalan, $kecamatan, $kabupaten_kota, $provinsi, $kode_pos, $detail, $layanan)) {
+        $no_pesanan = $conn->insert_id;
 
-            $from = $_FILES['desain_gambar']['tmp_name'];
-            $to = $_SERVER['DOCUMENT_ROOT'] . '/bengkel-wahyu-putra/uploads/desain/' . $desain_gambar;
+        $split = explode('.', $_FILES['desain_gambar']['name']); //array
+        $ekstensi = $split[count($split) - 1];
 
-            move_uploaded_file($from, $to);
+        $desain_gambar = $no_pesanan . '.' . $ekstensi;
 
-            if($no_pesanan) {
-                if(insertPemesananItem($conn, $no_pesanan, $nama_item, $desain_gambar, $material, $jumlah_item)) {
-                    $alert = '<script>
+        $from = $_FILES['desain_gambar']['tmp_name'];
+        $to = $_SERVER['DOCUMENT_ROOT'] . '/bengkel-wahyu-putra/uploads/desain/' . $desain_gambar;
+
+        move_uploaded_file($from, $to);
+
+        if ($no_pesanan) {
+            if (insertPemesananItem($conn, $no_pesanan, $nama_item, $desain_gambar, $material, $jumlah_item)) {
+                $alert = '<script>
                         Swal.fire({
                             title: "Berhasil!",
                             text: "Pesanan berhasil dibuat! Pesanan sedang menunggu penawaran. Terima kasih.",
@@ -52,66 +52,66 @@
                             window.location.href="../../";
                         });
                         </script>';
-                    // echo "<script>alert('Pesanan berhasil dibuat! Pesanan sedang menunggu penawaran. Terima kasih.'); location.href='../ ';</script>";
-                } else {
-                    $alert = '<script>
+                // echo "<script>alert('Pesanan berhasil dibuat! Pesanan sedang menunggu penawaran. Terima kasih.'); location.href='../ ';</script>";
+            } else {
+                $alert = '<script>
                         Swal.fire({
                             title: "Kesalahan!",
                             text: "Terjadi kesalahan saat menambahkan item pesanan. :\(",
                             icon: "error"
                         });
                         </script>';
-                    // echo "<script> alert('Terjadi kesalahan saat menambahkan item pesanan. :\(') </script>";
-                }
-            } else {
-                $alert = '<script>
+                // echo "<script> alert('Terjadi kesalahan saat menambahkan item pesanan. :\(') </script>";
+            }
+        } else {
+            $alert = '<script>
                         Swal.fire({
                             title: "Kesalahan!",
                             text: "Gagal mengambil Nomor Pesanan :\(",
                             icon: "error"
                         });
                         </script>';
-                // echo "<script>alert('Gagal mengambil Nomor Pesanan :\(');</script>";
-            }
-        } else {
-            $alert = '<script>
+            // echo "<script>alert('Gagal mengambil Nomor Pesanan :\(');</script>";
+        }
+    } else {
+        $alert = '<script>
                     Swal.fire({
                         title: "Kesalahan!",
                         text: "Terjadi kesalahan saat menambahkan pesanan :\(. Coba lagi nanti.",
                         icon: "error"
                     });
                     </script>';
-            // echo "<script>alert('Terjadi kesalahan saat menambahkan pesanan :\(. Coba lagi nanti.');</script>";
-        }
-
+        // echo "<script>alert('Terjadi kesalahan saat menambahkan pesanan :\(. Coba lagi nanti.');</script>";
     }
+}
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../assets/css/global.css">
-    <link rel="stylesheet" href="../../../assets/css/user.css">
-    <link rel="shortcut icon" href="../../../assets/img/logo-wp-circle.png">
+    <link rel="stylesheet" href="../../assets/css/global.css">
+    <link rel="stylesheet" href="../../assets/css/user.css">
+    <link rel="shortcut icon" href="../../assets/img/logo-wp-circle.png">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="../../../assets/fontawesome/css/all.css">
+    <link rel="stylesheet" href="../../assets/fontawesome/css/all.css">
 
     <!-- Sweetalert2 -->
-    <script src="../../../assets/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="../../assets/sweetalert2/sweetalert2.all.min.js"></script>
 
     <title>Dashboard - Bengkel Wahyu Putra</title>
 </head>
 
 <body>
     <!-- NAVBAR -->
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/global/nav.php"; ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/global/nav.php"; ?>
     <!-- NAVBAR END -->
-    
+
     <main class="buatPesanan">
-        <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/bengkel-wahyu-putra/includes/user/aside.php"; ?>
+        <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/includes/user/aside.php"; ?>
 
         <section class="utama">
             <h1>Buat Pesanan</h1>
@@ -201,7 +201,7 @@
         </section>
     </main>
 
-    <script src="../../../assets/js/script.js"></script>
+    <script src="../../assets/js/script.js"></script>
     <script>
         const form1 = document.getElementById('form1');
         const form2 = document.getElementById('form2');
@@ -211,7 +211,7 @@
         const heightForm = document.querySelector('.form-pesanan');
         const progressBar = document.querySelector('.progress-bar');
 
-        back.onclick = function(){
+        back.onclick = function() {
             form2.style.display = 'none';
             form1.style.display = 'block';
             heightForm.style.height = '480px';
@@ -225,22 +225,19 @@
         const jumlah_item = document.getElementById('jumlah_item');
         const validate = document.getElementById('validate_form');
 
-        next.addEventListener("click", function(){
-            if(nama_item.value === "" || desain.value === "" || material.value === "" || jumlah_item.value === ""){
+        next.addEventListener("click", function() {
+            if (nama_item.value === "" || desain.value === "" || material.value === "" || jumlah_item.value === "") {
                 event.preventDefault();
                 validate.innerHTML = "Data masih ada yang kosong. Harap diisi!";
                 heightForm.style.height = '500px';
-            }
-            else if (jumlah_item.value <= 0) {
+            } else if (jumlah_item.value <= 0) {
                 event.preventDefault();
                 validate.innerHTML = "Jumlah item minimal 1!";
                 heightForm.style.height = '500px';
-            } 
-            else if (jumlah_item.value > 10) {
+            } else if (jumlah_item.value > 10) {
                 event.preventDefault();
                 validate.innerHTML = "Jumlah item maksimal 10!";
-            }
-            else {
+            } else {
                 form1.style.display = 'none';
                 form2.style.display = 'block';
                 heightForm.style.height = '530px';
@@ -258,7 +255,7 @@
         const validate2 = document.getElementById('validate_form2');
 
         submit.addEventListener('click', function() {
-            if(nama_jalan.value === '' || kecamatan.value === '' || kabupaten_kota.value === '' || provinsi.value === '' || kode_pos.value === '') {
+            if (nama_jalan.value === '' || kecamatan.value === '' || kabupaten_kota.value === '' || provinsi.value === '' || kode_pos.value === '') {
                 event.preventDefault();
                 validate2.innerHTML = "Data masih ada yang kosong. Harap diisi!";
                 heightForm.style.height = '540px';
@@ -266,4 +263,5 @@
         })
     </script>
 </body>
+
 </html>
